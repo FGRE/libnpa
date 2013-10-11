@@ -145,9 +145,12 @@ void NpaFile::Flush()
         i.SetOffset(offset);
         offset += i.GetFileSize();
         std::fseek(pFile, hpos, SEEK_SET);
+
+        // Before it gets XOR'd...
+        uint32_t EntrySize = i.GetRawEntrySize();
         std::fwrite(XOR(i.GetRawEntry(), i.GetRawEntrySize(), (hpos - 4) % sizeof(Key)),
                     sizeof(char), i.GetRawEntrySize(), pFile);
-        hpos += i.GetRawEntrySize();
+        hpos += EntrySize;
     }
 
     std::rename(std::string(Name + ".tmp").c_str(), Name.c_str());

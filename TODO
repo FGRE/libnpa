@@ -4,3 +4,4 @@ build system
 fix unicode file names
 connect iterators with appended files
 use boost::filesystem in libnpa
+better error checking
