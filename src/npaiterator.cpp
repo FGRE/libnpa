@@ -24,8 +24,10 @@ NpaIterator& NpaIterator::operator++()
     Pos += GetRawEntrySize();
     delete[] FileData;
     FileData = nullptr;
-    if (Pos - File->Header >= File->HeaderSize)
+
+    if ((File && (Pos - File->Header >= File->HeaderSize)) || GetFileNameSize() == 0)
         Pos = nullptr;
+
     return *this;
 }
 

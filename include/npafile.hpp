@@ -17,7 +17,7 @@ class NpaFile
 {
     friend class NpaIterator;
 public:
-    NpaFile(std::string Name, OpenMode Mode);
+    NpaFile(std::string _Name, OpenMode Mode);
     ~NpaFile();
 
     void Close();

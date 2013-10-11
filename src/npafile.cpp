@@ -5,9 +5,9 @@
 
 /* PUBLIC */
 
-NpaFile::NpaFile(std::string Name, OpenMode Mode) :
+NpaFile::NpaFile(std::string _Name, OpenMode Mode) :
 Header(nullptr),
-Name(Name)
+Name(_Name)
 {
     switch (Mode)
     {
@@ -111,23 +111,29 @@ void NpaFile::Flush()
     std::vector<char> NewHeader; // NOTE: Same name as this->NewHeader
     uint32_t offset, hpos = 4;
     bool old = true;
+    NpaIterator its[2] = { Begin(), NpaIterator(nullptr, &this->NewHeader[0]) };
 
     // Take into consideration only files which were not removed
-    for (NpaIterator i = Begin(); i != End(); ++i)
+    for (int j = 0; j < 2; ++j)
     {
-        if (i.GetFileSize() == 0)
-            continue;
+        for (NpaIterator i = its[j]; i != End(); ++i)
+        {
+            if (i.GetFileSize() == 0)
+                continue;
 
-        uint32_t pos = NewHeader.size();
-        NewHeader.resize(NewHeader.size() + 4 * sizeof(uint32_t) + i.GetFileNameSize());
-        std::memcpy(&NewHeader[pos], i.Pos, NewHeader.size() - pos);
+            uint32_t pos = NewHeader.size();
+            NewHeader.resize(NewHeader.size() + 4 * sizeof(uint32_t) + i.GetFileNameSize());
+            std::memcpy(&NewHeader[pos], i.Pos, NewHeader.size() - pos);
+        }
     }
+    // Add terminator
+    NewHeader.resize(NewHeader.size() + 4, 0);
 
     fwrite(&EntryCount, sizeof(uint32_t), 1, pFile);
 
     // Write files to (sparse) achieve
     offset = NewHeader.size() + 4;
-    for (NpaIterator i(this, (char*)&NewHeader[0]); i != End(); ++i)
+    for (NpaIterator i(this, &NewHeader[0]); i != End(); ++i)
     {
         // Switch to this->NewData
         if (i.GetOffset() == 0)
