@@ -8,6 +8,7 @@ class NpaFile;
 
 class NpaIterator
 {
+    friend class NpaFile;
 public:
     NpaIterator(NpaFile* File, char* Pos);
     ~NpaIterator();
@@ -23,9 +24,14 @@ public:
 
     void WriteToDisk();
     void WriteToDisk(std::string Path);
+    void Remove();
 
 private:
     uint32_t GetFileNameSize();
+    void SetOffset(uint32_t offset);
+    uint32_t GetOffset();
+    char* GetRawEntry();
+    uint32_t GetRawEntrySize();
 
     char* FileData;
     char* Pos;

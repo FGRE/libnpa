@@ -70,6 +70,14 @@ char* NpaIterator::GetFileData()
     return FileData;
 }
 
+void NpaIterator::Remove()
+{
+    // Set file size to 0 (See: GetFileSize())
+    char offset = sizeof(uint32_t) + GetFileNameSize();
+    *(uint32_t*)(Pos + offset) = 0;
+    --File->EntryCount;
+}
+
 void NpaIterator::WriteToDisk()
 {
     WriteToDisk(std::string());
@@ -99,4 +107,26 @@ void NpaIterator::WriteToDisk(std::string Path)
 uint32_t NpaIterator::GetFileNameSize()
 {
     return *(uint32_t*)Pos;
+}
+
+void NpaIterator::SetOffset(uint32_t offset)
+{
+    char off = 2 * sizeof(uint32_t) + GetFileNameSize();
+    *(uint32_t*)(Pos + off) = offset;
+}
+
+uint32_t NpaIterator::GetOffset()
+{
+    char off = 2 * sizeof(uint32_t) + GetFileNameSize();
+    return *(uint32_t*)(Pos + off);
+}
+
+char* NpaIterator::GetRawEntry()
+{
+    return Pos;
+}
+
+uint32_t NpaIterator::GetRawEntrySize()
+{
+    return 4 * sizeof(uint32_t) + GetFileNameSize();
 }

@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <cstdint>
+#include <vector>
 
 class NpaFile
 {
@@ -19,12 +20,21 @@ public:
     NpaIterator Begin();
     NpaIterator End();
 
+    void AppendFile(std::string Name, const char* buff, uint32_t size);
+    void AppendFile(std::string Name);
+
 private:
+    void Flush();
     void ReadEncrypted(char* buff, uint32_t offset, uint32_t size);
+    char* XOR(char* buff, uint32_t size, uint32_t keyoff);
 
     char* Header;
+    std::vector<char> NewHeader;
+    std::vector<char> NewData;
     uint32_t HeaderSize;
+    uint32_t EntryCount;
     std::fstream File;
+    std::string Name;
 };
 
 #endif
