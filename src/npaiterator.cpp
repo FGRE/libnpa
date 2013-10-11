@@ -22,6 +22,8 @@ NpaIterator::~NpaIterator()
 NpaIterator& NpaIterator::operator++()
 {
     Pos += GetRawEntrySize();
+    delete[] FileData;
+    FileData = nullptr;
     if (Pos - File->Header >= File->HeaderSize)
         Pos = nullptr;
     return *this;
@@ -54,8 +56,7 @@ std::string NpaIterator::GetFileName()
 
 uint32_t NpaIterator::GetFileSize()
 {
-    char offset = sizeof(uint32_t) + GetFileNameSize();
-    return *(uint32_t*)(Pos + offset);
+    return *(uint32_t*)(Pos + sizeof(uint32_t) + GetFileNameSize());
 }
 
 char* NpaIterator::GetFileData()
@@ -63,17 +64,15 @@ char* NpaIterator::GetFileData()
     if (FileData)
         return FileData;
 
-    char offset = 2 * sizeof(uint32_t) + GetFileNameSize();
     FileData = new char[GetFileSize()];
-    File->ReadEncrypted(FileData, *(uint32_t*)(Pos + offset), GetFileSize());
+    File->ReadEncrypted(FileData, GetOffset(), GetFileSize());
     return FileData;
 }
 
 void NpaIterator::Remove()
 {
     // Set file size to 0 (See: GetFileSize())
-    char offset = sizeof(uint32_t) + GetFileNameSize();
-    *(uint32_t*)(Pos + offset) = 0;
+    *(uint32_t*)(Pos + sizeof(uint32_t) + GetFileNameSize()) = 0;
     --File->EntryCount;
 }
 
@@ -110,14 +109,12 @@ uint32_t NpaIterator::GetFileNameSize()
 
 void NpaIterator::SetOffset(uint32_t offset)
 {
-    char off = 2 * sizeof(uint32_t) + GetFileNameSize();
-    *(uint32_t*)(Pos + off) = offset;
+    *(uint32_t*)(Pos + 2 * sizeof(uint32_t) + GetFileNameSize()) = offset;
 }
 
 uint32_t NpaIterator::GetOffset()
 {
-    char off = 2 * sizeof(uint32_t) + GetFileNameSize();
-    return *(uint32_t*)(Pos + off);
+    return *(uint32_t*)(Pos + 2 * sizeof(uint32_t) + GetFileNameSize());
 }
 
 char* NpaIterator::GetRawEntry()
