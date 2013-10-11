@@ -21,8 +21,7 @@ NpaIterator::~NpaIterator()
 
 NpaIterator& NpaIterator::operator++()
 {
-    char offset = 4 * sizeof(uint32_t) + GetFileNameSize();
-    Pos += offset;
+    Pos += GetRawEntrySize();
     if (Pos - File->Header >= File->HeaderSize)
         Pos = nullptr;
     return *this;

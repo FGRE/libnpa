@@ -91,6 +91,9 @@ char* NpaFile::XOR(char* buff, uint32_t size, uint32_t keyoff)
 
 void NpaFile::Flush()
 {
+    if (this->NewHeader.empty())
+        return;
+
     std::FILE* pFile = std::fopen(std::string(Name + ".tmp").c_str(), "w");
     std::vector<char> NewHeader; // NOTE: Same name as this->NewHeader
     uint32_t offset, hpos = 4;
