@@ -7,14 +7,19 @@
 #include <cstdint>
 #include <vector>
 
+enum OpenMode
+{
+    NPA_READ   = 1,
+    NPA_CREATE = 2
+};
+
 class NpaFile
 {
     friend class NpaIterator;
 public:
-    NpaFile(std::string Name);
+    NpaFile(std::string Name, OpenMode Mode);
     ~NpaFile();
 
-    void Open(std::string Name);
     void Close();
 
     NpaIterator Begin();
@@ -24,6 +29,8 @@ public:
     void AppendFile(std::string Name);
 
 private:
+    void ReadHeader(std::string& Name);
+
     void Flush();
     void ReadEncrypted(char* buff, uint32_t offset, uint32_t size);
     char* XOR(char* buff, uint32_t size, uint32_t keyoff);

@@ -76,12 +76,12 @@ void NpaIterator::Remove()
     --File->EntryCount;
 }
 
-void NpaIterator::WriteToDisk()
+void NpaIterator::Save()
 {
-    WriteToDisk(std::string());
+    Save(std::string());
 }
 
-void NpaIterator::WriteToDisk(std::string Path)
+void NpaIterator::Save(std::string Path)
 {
     // Create directories
     std::string DPath = Path + GetFileName();

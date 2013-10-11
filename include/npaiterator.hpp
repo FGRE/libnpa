@@ -22,8 +22,8 @@ public:
     char* GetFileData();
     uint32_t GetFileSize();
 
-    void WriteToDisk();
-    void WriteToDisk(std::string Path);
+    void Save();
+    void Save(std::string Path);
     void Remove();
 
 private:

@@ -1,5 +1,6 @@
-WriteToDisk -> Save
 NpaFile -> NPAAchieve
 npaiterator.hpp -> NPAIterator.hpp
 build system
 fix unicode file names
+connect iterators with appended files
+use boost::filesystem in libnpa

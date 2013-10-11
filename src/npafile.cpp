@@ -1,14 +1,27 @@
 #include "npafile.hpp"
 
 #include <cstring>
+#include <cassert>
 
 /* PUBLIC */
 
-NpaFile::NpaFile(std::string Name) :
+NpaFile::NpaFile(std::string Name, OpenMode Mode) :
 Header(nullptr),
 Name(Name)
 {
-    Open(Name);
+    switch (Mode)
+    {
+        case NPA_READ:
+            ReadHeader(Name);
+            break;
+        case NPA_CREATE:
+            if (Name.back() == '/')
+                Name.erase(Name.end() - 1, Name.end());
+            Name += ".npa";
+            break;
+        default:
+            assert(false);
+    }
 }
 
 NpaFile::~NpaFile()
@@ -16,9 +29,9 @@ NpaFile::~NpaFile()
     Close();
 }
 
-void NpaFile::Open(std::string Name)
+void NpaFile::ReadHeader(std::string& Name)
 {
-    File.open(Name, std::ios::in | std::ios::out | std::ios::binary);
+    File.open(Name, std::ios::in | std::ios::binary);
     File.read((char*)&HeaderSize, sizeof(uint32_t));
     Header = new char[HeaderSize];
     ReadEncrypted(Header, sizeof(uint32_t), HeaderSize);
@@ -34,7 +47,7 @@ void NpaFile::Close()
 
 NpaIterator NpaFile::Begin()
 {
-    return NpaIterator(this, Header + sizeof(uint32_t));
+    return NpaIterator(this, Header ? Header + sizeof(uint32_t) : nullptr);
 }
 
 NpaIterator NpaFile::End()
