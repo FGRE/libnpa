@@ -3,10 +3,16 @@
 
 #include <string>
 
+enum OpenMode
+{
+    NSB_COMPILED    = 1,
+    NSB_PARSED      = 2
+};
+
 class NsbFile
 {
 public:
-	NsbFile(std::string Name);
+	NsbFile(std::string Name, OpenMode Mode);
 };
 
 #endif

@@ -7,6 +7,7 @@
 
 NpaFile::NpaFile(std::string _Name, OpenMode Mode) :
 Header(nullptr),
+EntryCount(0),
 Name(_Name)
 {
     switch (Mode)
@@ -35,6 +36,7 @@ void NpaFile::ReadHeader(std::string& Name)
     File.read((char*)&HeaderSize, sizeof(uint32_t));
     Header = new char[HeaderSize];
     ReadEncrypted(Header, sizeof(uint32_t), HeaderSize);
+    EntryCount = *(uint32_t*)Header;
 }
 
 void NpaFile::Close()
@@ -61,7 +63,7 @@ void NpaFile::AppendFile(std::string Name, const char* buff, uint32_t size)
 
     // Header
     uint32_t i = NewHeader.size(), nsz = Name.size(), null = 0, ndsz = NewData.size();
-    NewHeader.resize(NewHeader.size() + 4 * sizeof(uint32_t) + Name.size());
+    NewHeader.resize(NewHeader.size() + 4 * sizeof(uint32_t) + nsz);
     std::memcpy(&NewHeader[i], &nsz, sizeof(uint32_t)); // Filename size
     std::memcpy(&NewHeader[i + 1 * sizeof(uint32_t)], &Name[0], nsz); // Filename
     std::memcpy(&NewHeader[i + 1 * sizeof(uint32_t) + nsz], &size, sizeof(uint32_t)); // File size
@@ -83,6 +85,11 @@ void NpaFile::AppendFile(std::string Name)
     In.read(buff, size);
     AppendFile(Name, buff, size);
     delete[] buff;
+}
+
+uint32_t NpaFile::GetFileCount()
+{
+    return EntryCount;
 }
 
 /* PRIVATE */
@@ -126,17 +133,23 @@ void NpaFile::Flush()
                 continue;
 
             uint32_t pos = NewHeader.size();
-            NewHeader.resize(NewHeader.size() + 4 * sizeof(uint32_t) + i.GetFileNameSize());
-            std::memcpy(&NewHeader[pos], i.Pos, NewHeader.size() - pos);
+            NewHeader.resize(NewHeader.size() + i.GetRawEntrySize());
+            std::memcpy(&NewHeader[pos], i.GetRawEntry(), i.GetRawEntrySize());
         }
     }
     // Add terminator
     NewHeader.resize(NewHeader.size() + 4, 0);
 
-    fwrite(&EntryCount, sizeof(uint32_t), 1, pFile);
+    // Write header
+    uint32_t HeaderSize = NewHeader.size() - 4;
+    fwrite(&HeaderSize, sizeof(uint32_t), 1, pFile);
+    fwrite(XOR((char*)&EntryCount, 4, 0), sizeof(uint32_t), 1, pFile);
+    XOR((char*)&EntryCount, 4, 0);
+
+    // HeaderSize | EntryCount | NewHeader | NewData
+    offset = HeaderSize + 2 * sizeof(uint32_t);
 
     // Write files to (sparse) achieve
-    offset = NewHeader.size() + 4;
     for (NpaIterator i(this, &NewHeader[0]); i != End(); ++i)
     {
         // Switch to this->NewData
@@ -148,15 +161,15 @@ void NpaFile::Flush()
                     sizeof(char), i.GetFileSize(), pFile);
         i.SetOffset(offset);
         offset += i.GetFileSize();
-        std::fseek(pFile, hpos, SEEK_SET);
+        std::fseek(pFile, hpos + sizeof(uint32_t), SEEK_SET);
 
         // Before it gets XOR'd...
         uint32_t EntrySize = i.GetRawEntrySize();
-        std::fwrite(XOR(i.GetRawEntry(), i.GetRawEntrySize(), (hpos - 4) % sizeof(Key)),
+        std::fwrite(XOR(i.GetRawEntry(), i.GetRawEntrySize(), hpos % sizeof(Key)),
                     sizeof(char), EntrySize, pFile);
 
         // Decrypt so that operator++ works
-        XOR(i.GetRawEntry(), EntrySize, (hpos - 4) % sizeof(Key));
+        XOR(i.GetRawEntry(), EntrySize, hpos % sizeof(Key));
         hpos += EntrySize;
     }
 

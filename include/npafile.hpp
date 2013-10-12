@@ -26,6 +26,7 @@ public:
     void AppendFile(std::string Name, const char* buff, uint32_t size);
     void AppendFile(std::string Name);
 
+    uint32_t GetFileCount();
 private:
     void ReadHeader(std::string& Name);
 
