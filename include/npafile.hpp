@@ -20,8 +20,6 @@ public:
     NpaFile(std::string _Name, OpenMode Mode);
     ~NpaFile();
 
-    void Close();
-
     NpaIterator Begin();
     NpaIterator End();
 
@@ -31,6 +29,7 @@ public:
 private:
     void ReadHeader(std::string& Name);
 
+    void Close();
     void Flush();
     void ReadEncrypted(char* buff, uint32_t offset, uint32_t size);
     char* XOR(char* buff, uint32_t size, uint32_t keyoff);

@@ -80,6 +80,7 @@ void NpaFile::AppendFile(std::string Name)
     uint32_t size = In.tellg();
     char* buff = new char[size];
     In.seekg(0, In.beg);
+    In.read(buff, size);
     AppendFile(Name, buff, size);
     delete[] buff;
 }
@@ -112,6 +113,9 @@ void NpaFile::Flush()
     uint32_t offset, hpos = 4;
     bool old = true;
     NpaIterator its[2] = { Begin(), NpaIterator(nullptr, &this->NewHeader[0]) };
+
+    // Add terminator
+    this->NewHeader.resize(this->NewHeader.size() + 4, 0);
 
     // Take into consideration only files which were not removed
     for (int j = 0; j < 2; ++j)
@@ -149,9 +153,13 @@ void NpaFile::Flush()
         // Before it gets XOR'd...
         uint32_t EntrySize = i.GetRawEntrySize();
         std::fwrite(XOR(i.GetRawEntry(), i.GetRawEntrySize(), (hpos - 4) % sizeof(Key)),
-                    sizeof(char), i.GetRawEntrySize(), pFile);
+                    sizeof(char), EntrySize, pFile);
+
+        // Decrypt so that operator++ works
+        XOR(i.GetRawEntry(), EntrySize, (hpos - 4) % sizeof(Key));
         hpos += EntrySize;
     }
 
+    fclose(pFile);
     std::rename(std::string(Name + ".tmp").c_str(), Name.c_str());
 }
