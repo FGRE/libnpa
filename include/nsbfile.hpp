@@ -58,8 +58,9 @@ enum /* Magic */
     MAGIC_UNK33 = SWAP_UINT16(0x1B00),
     MAGIC_UNK34 = SWAP_UINT16(0x3000),
     MAGIC_UNK35 = SWAP_UINT16(0xC000),
-    MAGIC_UNK36 = SWAP_UINT16(0x9700),
-    MAGIC_UNK37 = SWAP_UINT16(0xD700), // Ending of .nsb
+    MAGIC_UNK36 = SWAP_UINT16(0x9700), // Function prologue (define function)
+    MAGIC_UNK37 = SWAP_UINT16(0xD700), // Function epilogue (end function)
+    MAGIC_UNK38 = SWAP_UINT16(0x0401),
 };
 
 struct Line
