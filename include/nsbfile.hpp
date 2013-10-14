@@ -24,10 +24,10 @@ enum /* Magic */
     // Magic-only
     MAGIC_UNK1  = SWAP_UINT16(0xC600),
     MAGIC_UNK2  = SWAP_UINT16(0xC700),
-    MAGIC_UNK3  = SWAP_UINT16(0xC800), // similar to UNK6 (label epilogue?)
+    MAGIC_UNK3  = SWAP_UINT16(0xC800), // label epilogue?
     MAGIC_UNK4  = SWAP_UINT16(0xC900),
     MAGIC_UNK5  = SWAP_UINT16(0x6800),
-    MAGIC_UNK6  = SWAP_UINT16(0x8E00), // Function call epilogue (return control to game?)
+    MAGIC_UNK6  = SWAP_UINT16(0x8E00), // Flush commands? (return control to game)
     MAGIC_UNK7  = SWAP_UINT16(0x5B00),
     MAGIC_UNK8  = SWAP_UINT16(0xC100),
     MAGIC_UNK9  = SWAP_UINT16(0xA500),
@@ -58,8 +58,8 @@ enum /* Magic */
     MAGIC_UNK33 = SWAP_UINT16(0x1B00),
     MAGIC_UNK34 = SWAP_UINT16(0x3000),
     MAGIC_UNK35 = SWAP_UINT16(0xC000),
-    MAGIC_UNK36 = SWAP_UINT16(0x9700), // Function prologue (define function)
-    MAGIC_UNK37 = SWAP_UINT16(0xD700), // Function epilogue (end function)
+    MAGIC_BEGIN = SWAP_UINT16(0x9700), // Function prologue (define function)
+    MAGIC_END   = SWAP_UINT16(0xD700), // Function epilogue (end function)
     MAGIC_UNK38 = SWAP_UINT16(0x0401),
     MAGIC_UNK39 = SWAP_UINT16(0x0501),
     MAGIC_UNK40 = SWAP_UINT16(0x7500),
@@ -92,7 +92,7 @@ enum /* Magic */
     MAGIC_UNK67 = SWAP_UINT16(0x1C00),
     MAGIC_UNK68 = SWAP_UINT16(0x1900),
     MAGIC_UNK69 = SWAP_UINT16(0x7200), // Achievement related (achi definition?)
-    MAGIC_UNK70 = SWAP_UINT16(0x7300),
+    MAGIC_UNK70 = SWAP_UINT16(0x7300), // Similar to 69
     MAGIC_UNK71 = SWAP_UINT16(0x1600),
     MAGIC_UNK72 = SWAP_UINT16(0x6200),
     MAGIC_UNK73 = SWAP_UINT16(0x7400),
