@@ -1,0 +1,89 @@
+AchievementOn(STRING achievement)
+Marks achievement as completed. See achievements.doc for possible values
+
+ColorOut(INT unk0, STRING color, INT unk1, STRING unk2, STRING unk3)
+Color outro. color is in format #rrggbb
+
+BgLoad(STRING buffer, INT unk0, STRING file)
+Loads file into background buffer. Full path is expected.
+
+FadeDelete(STRING buffer, INT unk0, STRING unk1, STRING unk2);
+Removes fade effect from buffer
+
+DeleteAllSt(INT unk0, STRING unk1);
+Removes all st (characters) from scene
+
+ZoomSG(STRING buffer, INT unk0, INT unk1, INT unk2, STRING unk3, STRING unk4, STRING unk5)
+Zoomes scene specified by background buffer.
+
+St(STRING buffer, INT unk0, INT unk1, INT unk2, STRING st)
+Loads specified st into buffer. File name only expected.
+
+FadeSt(STRING buffer, INT unk0, STRING unk1)
+Fades st from specified buffer.
+
+TypeBegin()
+Starts typing text from buffer to textbox
+
+TextBoxDelete()
+Removes textbox from scene
+
+CreateMovieSG(STRING buffer, INT unk0, INT unk1, INT unk2, STRING unk3, STRING unk4, STRING unk5, STRING file)
+Loads movie from file to buffer. Movies reside in dx/ directory. File name (without extension) only expected
+
+MovieWaitSG()
+Waits for currently playing movie to end
+
+SeExPlay(STRING buffer, STRING file, INT unk1, INT unk2, STRING unk3)
+Plays specified ambient music (se) file. File name (without extension) only expected.
+
+SePlay(STRING buffer, STRING file, INT unk1, INT unk2, STRING unk3)
+Seemingly identical to SeExPlay. (Maybe?) plays only once.
+
+AllShake(INT unk0, INT unk1, INT unk2, STRING unk3, STRING unk4)
+Shakes whole screen
+
+CreateBGMovieSG(STRING buffer, INT unk0, INT unk1, INT unk2, STRING unk3, STRING unk4, STRING unk5, STRING file)
+Similar to CreateMovieSG, except that movie is part of scene background
+
+SoundPlay(STRING file, INT unk0, INT unk1, STRING unk2)
+Plays specified background music (bgm) file. File name without extension expected.
+
+TipsOn(STRING tip)
+Briefly show a tip on top of screen.
+
+WaitPlayHalfSG(STRING buffer)
+Wait untill half of music specified by buffer is played.
+
+CreateColorEX(STRING buffer, INT unk0, STRING color)
+Writes color (#rrggbb) to specified (mask) buffer.
+
+DrawTransitionSG(STRING buffer, INT unk0, INT unk1, INT unk2, INT unk3, STRING unk4, STRING file, STRING unk5, STRING unk6)
+Draws buffer with mask loaded from file. File is name without extension expected.
+
+macrosys2_RECEIVE_NEW_MAIL()
+Receive mail: Plays music and shows on phone.
+
+macrosys2_DISP_RECEIVEBOX()
+Opens phone inbox: Plays music and shows on phone.
+
+macrosys2_DISP_RECEIVED_MAIL_DIRECT()
+Displays mail in inbox.
+
+macrosys2_SELECT_PhID();
+Selects current $LR_TARGET_PhID in phonebook.
+
+macrosys2_PHONE_ADRSUBMENU_CALL()
+Go to call submenu (after selecting in phonebook).
+
+macrosys2_PHONE_CALL_EXEC()
+Call current $LR_TARGET_PhID (plays music and shows visual).
+
+macrosys2_CANCEL_PHONE_CALL()
+Cancels phone call executed with macrosys2_PHONE_CALL_EXEC().
+
+macrosys2_CLOSE_PHONE_WINDOW()
+Removes phone.
+
+PosSt(STRING buffer, INT X, INT unk0)
+Offsets St specified by buffer X pixels to the right.

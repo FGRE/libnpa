@@ -1,0 +1,2 @@
+StopMusic(STRING which, INT unk0, INT unk1, STRING unk2)
+Stops specified music. @BGM* wildcard can be used to stop any background music.
