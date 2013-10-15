@@ -50,7 +50,7 @@ SoundPlay(STRING file, INT unk0, INT unk1, STRING unk2)
 Plays specified background music (bgm) file. File name without extension expected.
 
 TipsOn(STRING tip)
-Briefly show a tip on top of screen.
+Briefly show a tip on top of screen. See tips.doc for possible values
 
 WaitPlayHalfSG(STRING buffer)
 Wait untill half of music specified by buffer is played.
@@ -83,7 +83,19 @@ macrosys2_CANCEL_PHONE_CALL()
 Cancels phone call executed with macrosys2_PHONE_CALL_EXEC().
 
 macrosys2_CLOSE_PHONE_WINDOW()
-Removes phone.
+Removes phone from scene.
 
 PosSt(STRING buffer, INT X, INT unk0)
 Offsets St specified by buffer X pixels to the right.
+
+macrosys2_OPEN_PHONE_WINDOW()
+Shows phone on scene.
+
+macrosys2_SELECT_ADDRESSBOOK()
+Go to address book.
+
+macrosys2_PHONE_ADRSUBMENU_MAIL()
+Go to send mail submenu.
+
+macrosys2_SendMailEdit_NEXT()
+Writes mail specified by $LR_TARGET_MAILNO variable

@@ -16,7 +16,7 @@ enum /* Magic */
 {
     MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
     MAGIC_PARAM = SWAP_UINT16(0xD000), // STRING/INT
-    MAGIC_BEGIN = SWAP_UINT16(0x9400), // Begining of .nsb (special prologue?)
+    MAGIC_UNK0  = SWAP_UINT16(0x9400), // Begining of .nsb (special prologue?)
     MAGIC_IF    = SWAP_UINT16(0x9800), // label.if (maybe not if, but label, also below)
     MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label.if.end
     MAGIC_CALL  = SWAP_UINT16(0xCE00), // Script-defined function call
@@ -44,7 +44,7 @@ enum /* Magic */
     MAGIC_UNK19 = SWAP_UINT16(0x2500), // flushes buffer? (shows image/movie on screen?)
     MAGIC_UNK20 = SWAP_UINT16(0x3900), // wait??
     MAGIC_UNK21 = SWAP_UINT16(0x3A00), // wait (milisecond)??
-    MAGIC_UNK22 = SWAP_UINT16(0x9100),
+    MAGIC_UNK22 = SWAP_UINT16(0x9100), // nullify parameter?
     MAGIC_UNK23 = SWAP_UINT16(0xD200),
     MAGIC_MUSIC_STOP = SWAP_UINT16(0x4300),
     MAGIC_UNK25 = SWAP_UINT16(0x2800),

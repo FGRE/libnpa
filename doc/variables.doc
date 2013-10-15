@@ -19,3 +19,19 @@ $LR_TARGET_PhID
 Sets target to select in phonebook
 
 PhID_MAY
+PhID_DAR
+
+$SF_PhoneSD_Disp
+INT, 1 if date/time/battery/signal box is shown in upper left corner, 0 otherwise
+
+$LR_TARGET_MAILNO
+STRING, constant identifying which mail shall be written by macrosys2_SendMailEdit_NEXT()
+
+$SYSTEM_menu_lock
+INT, 1 if player may not go to menu
+
+$SYSTEM_backlog_lock
+INT, 1 if player may not use backlog
+
+$SYSTEM_save_lock
+INT, 1 if player may not save game
