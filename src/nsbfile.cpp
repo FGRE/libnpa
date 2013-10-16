@@ -114,7 +114,20 @@ static const boost::unordered_map<uint16_t, const char*> MagicStrings = boost::a
     (MAGIC_UNK98, "UNK98")
     (MAGIC_UNK99, "UNK99")
     (MAGIC_UNK100, "UNK100")
-    (MAGIC_UNK101, "UNK101");
+    (MAGIC_UNK101, "UNK101")
+    (MAGIC_UNK102, "UNK102")
+    (MAGIC_UNK103, "UNK103")
+    (MAGIC_UNK104, "UNK104")
+    (MAGIC_UNK105, "UNK105")
+    (MAGIC_UNK106, "UNK106")
+    (MAGIC_UNK107, "UNK107")
+    (MAGIC_UNK108, "UNK108")
+    (MAGIC_UNK109, "UNK109")
+    (MAGIC_UNK110, "UNK110")
+    (MAGIC_UNK111, "UNK111")
+    (MAGIC_UNK112, "UNK112")
+    (MAGIC_UNK113, "UNK113")
+    (MAGIC_UNK114, "UNK114");
 
 /* PUBLIC */
 
