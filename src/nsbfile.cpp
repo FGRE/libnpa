@@ -7,7 +7,7 @@
 
 static const boost::unordered_map<uint16_t, const char*> MagicStrings = boost::assign::map_list_of
     (MAGIC_TEXT, "TEXT")
-    (MAGIC_PARAM, "PARAM")
+    (MAGIC_PARAM, "SetParam")
     (MAGIC_UNK0, "UNK0")
     (MAGIC_IF, "IF")
     (MAGIC_ENDIF, "ENDIF")
@@ -23,8 +23,8 @@ static const boost::unordered_map<uint16_t, const char*> MagicStrings = boost::a
     (MAGIC_UNK8, "UNK8")
     (MAGIC_UNK9, "UNK9")
 
-    (MAGIC_UNK10, "UNK10")
-    (MAGIC_UNK11, "UNK11")
+    (MAGIC_SET, "Set")
+    (MAGIC_GET, "Get")
     (MAGIC_UNK12, "UNK12")
     (MAGIC_UNK13, "UNK13")
     (MAGIC_UNK14, "UNK14")
@@ -43,7 +43,7 @@ static const boost::unordered_map<uint16_t, const char*> MagicStrings = boost::a
     (MAGIC_UNK27, "UNK27")
     (MAGIC_UNK28, "UNK28")
     (MAGIC_UNK29, "UNK29")
-    (MAGIC_UNK30, "UNK30")
+    (MAGIC_LOAD_MOVIE, "LoadMovie")
     (MAGIC_UNK31, "UNK31")
     (MAGIC_UNK32, "UNK32")
     (MAGIC_UNK33, "UNK33")

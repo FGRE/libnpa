@@ -27,13 +27,13 @@ enum /* Magic */
     MAGIC_UNK3  = SWAP_UINT16(0xC800), // label epilogue?
     MAGIC_UNK4  = SWAP_UINT16(0xC900),
     MAGIC_UNK5  = SWAP_UINT16(0x6800),
-    MAGIC_UNK6  = SWAP_UINT16(0x8E00), // Flush commands? (return control to game)
+    MAGIC_UNK6  = SWAP_UINT16(0x8E00), // Flush commands? (return control to game) Cleanup params? (epilogue)
     MAGIC_UNK7  = SWAP_UINT16(0x5B00),
     MAGIC_UNK8  = SWAP_UINT16(0xC100),
     MAGIC_UNK9  = SWAP_UINT16(0xA500),
 
-    MAGIC_UNK10 = SWAP_UINT16(0xB000), // Set variable value? $GameName/$GameContinue
-    MAGIC_UNK11 = SWAP_UINT16(0xD100), // Special parameter (request for var?) $GameStart/$MOVIEDATA
+    MAGIC_SET   = SWAP_UINT16(0xB000), // Set variable value? $GameName/$GameContinue
+    MAGIC_GET   = SWAP_UINT16(0xD100), // Special parameter (request for var?) $GameStart/$MOVIEDATA
     MAGIC_UNK12 = SWAP_UINT16(0xD400),
     MAGIC_UNK13 = SWAP_UINT16(0x9500), // scene.sg00_01.nss/scene.sg00_01.nss_MAIN
     MAGIC_UNK14 = SWAP_UINT16(0xA300), // $MainGameName
@@ -52,7 +52,7 @@ enum /* Magic */
     MAGIC_UNK27 = SWAP_UINT16(0xE400),
     MAGIC_UNK28 = SWAP_UINT16(0x1400),
     MAGIC_UNK29 = SWAP_UINT16(0x2B00),
-    MAGIC_UNK30 = SWAP_UINT16(0x1200), // Load movie??
+    MAGIC_LOAD_MOVIE = SWAP_UINT16(0x1200), // Load movie??
     MAGIC_UNK31 = SWAP_UINT16(0x2C00),
     MAGIC_UNK32 = SWAP_UINT16(0x2D00),
     MAGIC_UNK33 = SWAP_UINT16(0x1B00),

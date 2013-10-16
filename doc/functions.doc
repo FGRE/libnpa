@@ -99,3 +99,12 @@ Go to send mail submenu.
 
 macrosys2_SendMailEdit_NEXT()
 Writes mail specified by $LR_TARGET_MAILNO variable
+
+CreateTitleBtn(STRING unk0, INT x, INT y, STRING file, STRING file_active)
+Creates Title screen button at position (x, y).
+Button image shall be loaded from file.
+If player mouseovers the button, image loaded from file_active shall be loaded.
+File names are SHIFT-JIS encoded and relative to directory specified by $title_folder variable.
+
+CreateTitle2Btn(STRING unk0, INT x, INT y, STRING file)
+Similar to CreateTitleBtn, except that button created by this function is a submenu of button created by CreateTitleBtn.
