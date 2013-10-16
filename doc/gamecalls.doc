@@ -19,3 +19,6 @@ NOTE: Files in nss/ have .nsb extension, perhaps these are compiled files on vir
 
 Concat()
 Concats two previously specified parameters into one.
+
+Callback(STRING key, STRING file)
+Executes script specified by file when key is pressed.
