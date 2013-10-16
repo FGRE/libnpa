@@ -6,7 +6,7 @@
 #include <boost/unordered_map.hpp>
 
 static const boost::unordered_map<uint16_t, const char*> MagicStrings = boost::assign::map_list_of
-    (MAGIC_TEXT, "TEXT")
+    (MAGIC_TEXT, "Text")
     (MAGIC_PARAM, "SetParam")
     (MAGIC_UNK0, "UNK0")
     (MAGIC_IF, "IF")
