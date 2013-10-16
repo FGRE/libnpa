@@ -16,3 +16,6 @@ Sets value as parameter for next function call.
 CallScript(STRING file)
 Calls specified nss script file. Full path expected.
 NOTE: Files in nss/ have .nsb extension, perhaps these are compiled files on virtual fs?
+
+Concat()
+Concats two previously specified parameters into one.

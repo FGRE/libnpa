@@ -30,7 +30,7 @@ enum /* Magic */
     MAGIC_UNK6  = SWAP_UINT16(0x8E00), // Flush commands? (return control to game) Cleanup params? (epilogue)
     MAGIC_UNK7  = SWAP_UINT16(0x5B00),
     MAGIC_UNK8  = SWAP_UINT16(0xC100),
-    MAGIC_UNK9  = SWAP_UINT16(0xA500),
+    MAGIC_CONCAT = SWAP_UINT16(0xA500), // Concats above two params into a param
 
     MAGIC_SET   = SWAP_UINT16(0xB000), // Set variable value? $GameName/$GameContinue
     MAGIC_GET   = SWAP_UINT16(0xD100), // Special parameter (request for var?) $GameStart/$MOVIEDATA
@@ -133,7 +133,7 @@ struct Line
 class NsbFile
 {
 public:
-	NsbFile(const std::string& Name, OpenMode Mode);
+    NsbFile(const std::string& Name, OpenMode Mode);
 
     static const char* StringifyMagic(uint16_t Magic);
     Line* GetNextLine();

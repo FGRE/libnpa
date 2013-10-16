@@ -21,7 +21,7 @@ static const boost::unordered_map<uint16_t, const char*> MagicStrings = boost::a
     (MAGIC_UNK6, "UNK6")
     (MAGIC_UNK7, "UNK7")
     (MAGIC_UNK8, "UNK8")
-    (MAGIC_UNK9, "UNK9")
+    (MAGIC_CONCAT, "Concat")
 
     (MAGIC_SET, "Set")
     (MAGIC_GET, "Get")
