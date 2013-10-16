@@ -39,7 +39,7 @@ enum /* Magic */
     MAGIC_UNK14 = SWAP_UINT16(0xA300), // $MainGameName
     MAGIC_UNK15 = SWAP_UINT16(0xD500), // scene.sg00_01.nss_MAIN
     MAGIC_UNK16 = SWAP_UINT16(0x2000),
-    MAGIC_UNK17 = SWAP_UINT16(0x2300),
+    MAGIC_UNK17 = SWAP_UINT16(0x2300), // Sets movie (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
     MAGIC_UNK18 = SWAP_UINT16(0x2400),
     MAGIC_UNK19 = SWAP_UINT16(0x2500), // flushes buffer? (shows image/movie on screen?)
     MAGIC_UNK20 = SWAP_UINT16(0x3900), // wait??
@@ -108,7 +108,7 @@ enum /* Magic */
     MAGIC_UNK83 = SWAP_UINT16(0x6500),
     MAGIC_UNK84 = SWAP_UINT16(0x8A00),
     MAGIC_UNK85 = SWAP_UINT16(0x9A00),
-    MAGIC_UNK86 = SWAP_UINT16(0xA200), // has path to nss/somefile.nsb as param
+    MAGIC_CALL_SCRIPT = SWAP_UINT16(0xA200), // has path to nss/somefile.nsb as param
     MAGIC_UNK87 = SWAP_UINT16(0x9B00),
     MAGIC_UNK88 = SWAP_UINT16(0xDD00),
     MAGIC_UNK89 = SWAP_UINT16(0xE000),
