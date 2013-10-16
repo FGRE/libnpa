@@ -17,7 +17,7 @@ enum /* Magic */
     MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
     MAGIC_PARAM = SWAP_UINT16(0xD000), // STRING/INT
     MAGIC_UNK0  = SWAP_UINT16(0x9400), // Begining of .nsb (special prologue?)
-    MAGIC_IF    = SWAP_UINT16(0x9800), // label.if (maybe not if, but label, also below)
+    MAGIC_IF    = SWAP_UINT16(0x9800), // label.if (not if, but label, also below)
     MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label.if.end
     MAGIC_CALL  = SWAP_UINT16(0xCE00), // Script-defined function call
 
@@ -67,7 +67,7 @@ enum /* Magic */
     MAGIC_UNK42 = SWAP_UINT16(0x6100),
     MAGIC_UNK43 = SWAP_UINT16(0xA800),
     MAGIC_UNK44 = SWAP_UINT16(0xA700),
-    MAGIC_UNK45 = SWAP_UINT16(0xAC00),
+    MAGIC_UNK45 = SWAP_UINT16(0xAC00), // Negate(!) previous parameter?
     MAGIC_UNK46 = SWAP_UINT16(0x9900),
     MAGIC_UNK47 = SWAP_UINT16(0x5E00),
     MAGIC_UNK48 = SWAP_UINT16(0x9D00),
@@ -122,6 +122,21 @@ enum /* Magic */
     MAGIC_UNK97 = SWAP_UINT16(0x6C00),
     MAGIC_UNK98 = SWAP_UINT16(0x3400),
     MAGIC_UNK99 = SWAP_UINT16(0x9C00),
+    MAGIC_UNK100 = SWAP_UINT16(0xF700),
+    MAGIC_UNK101 = SWAP_UINT16(0xF800),
+    MAGIC_UNK102 = SWAP_UINT16(0x5800),
+    MAGIC_UNK103 = SWAP_UINT16(0x4F00),
+    MAGIC_UNK104 = SWAP_UINT16(0x5100),
+    MAGIC_UNK105 = SWAP_UINT16(0x5F00),
+    MAGIC_UNK106 = SWAP_UINT16(0x4C00),
+    MAGIC_UNK107 = SWAP_UINT16(0x4A00),
+    MAGIC_UNK108 = SWAP_UINT16(0x5200),
+    MAGIC_UNK109 = SWAP_UINT16(0x4000),
+    MAGIC_UNK110 = SWAP_UINT16(0xBF00),
+    MAGIC_UNK111 = SWAP_UINT16(0x4B00),
+    MAGIC_UNK112 = SWAP_UINT16(0x3200),
+    MAGIC_UNK113 = SWAP_UINT16(0x4100),
+    MAGIC_UNK114 = SWAP_UINT16(0x5C00),
 };
 
 struct Line
@@ -135,6 +150,7 @@ class NsbFile
 public:
     NsbFile(const std::string& Name, OpenMode Mode);
 
+    static bool IsValidMagic(uint16_t Magic);
     static const char* StringifyMagic(uint16_t Magic);
     Line* GetNextLine();
     std::string GetName();

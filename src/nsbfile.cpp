@@ -112,7 +112,9 @@ static const boost::unordered_map<uint16_t, const char*> MagicStrings = boost::a
     (MAGIC_UNK96, "UNK96")
     (MAGIC_UNK97, "UNK97")
     (MAGIC_UNK98, "UNK98")
-    (MAGIC_UNK99, "UNK99");
+    (MAGIC_UNK99, "UNK99")
+    (MAGIC_UNK100, "UNK100")
+    (MAGIC_UNK101, "UNK101");
 
 /* PUBLIC */
 
@@ -131,6 +133,11 @@ Name(Name)
         default:
             assert(false);
     }
+}
+
+bool NsbFile::IsValidMagic(uint16_t Magic)
+{
+    return MagicStrings.find(Magic) != MagicStrings.end();
 }
 
 const char* NsbFile::StringifyMagic(uint16_t Magic)
