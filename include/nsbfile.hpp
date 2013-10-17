@@ -203,7 +203,7 @@ public:
     std::string GetName() const;
     uint32_t GetFunctionLine(const char* Name) const;
     void SetSourceIter(uint32_t NewIter);
-    uint32_t GetSourceIter() const;
+    uint32_t GetNextLineEntry() const;
 
 private:
     // TODO: Obsolete this func: move Source functionality to compiler

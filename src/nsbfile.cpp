@@ -227,7 +227,7 @@ void NsbFile::SetSourceIter(uint32_t NewIter)
     SourceIter = NewIter;
 }
 
-uint32_t NsbFile::GetSourceIter() const
+uint32_t NsbFile::GetNextLineEntry() const
 {
     return SourceIter;
 }
