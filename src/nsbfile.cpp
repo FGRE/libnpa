@@ -209,9 +209,27 @@ Line* NsbFile::GetNextLine()
     return SourceIter < Source.size() ? &Source[SourceIter++] : nullptr;
 }
 
-std::string NsbFile::GetName()
+std::string NsbFile::GetName() const
 {
     return Name;
+}
+
+uint32_t NsbFile::GetFunctionLine(const char* Name) const
+{
+    auto iter = Functions.find(Name);
+    if (iter != Functions.end())
+        return iter->second;
+    return 0;
+}
+
+void NsbFile::SetSourceIter(uint32_t NewIter)
+{
+    SourceIter = NewIter;
+}
+
+uint32_t NsbFile::GetSourceIter() const
+{
+    return SourceIter;
 }
 
 /* PRIVATE */
@@ -251,5 +269,9 @@ void NsbFile::ReadFromBinary()
             CurrLine->Params.push_back(String);
             delete[] String;
         }
+
+        // Map function
+        if (CurrLine->Magic == MAGIC_BEGIN)
+            Functions[CurrLine->Params[0].c_str() + strlen("function.")] = Entry;
     }
 }

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #define SWAP_UINT16(x) (((x) >> 8) | ((x) << 8))
 
@@ -199,7 +200,10 @@ public:
     static bool IsValidMagic(uint16_t Magic);
     static const char* StringifyMagic(uint16_t Magic);
     Line* GetNextLine();
-    std::string GetName();
+    std::string GetName() const;
+    uint32_t GetFunctionLine(const char* Name) const;
+    void SetSourceIter(uint32_t NewIter);
+    uint32_t GetSourceIter() const;
 
 private:
     // TODO: Obsolete this func: move Source functionality to compiler
@@ -208,6 +212,7 @@ private:
 
     uint32_t SourceIter;
     std::vector<Line> Source;
+    std::map<const char*, uint32_t> Functions;
     std::string Name;
 };
 
