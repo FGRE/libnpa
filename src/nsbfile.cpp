@@ -177,21 +177,11 @@ static const boost::unordered_map<uint16_t, const char*> MagicStrings = boost::a
 
 /* PUBLIC */
 
-NsbFile::NsbFile(const std::string& Name, OpenMode Mode) :
+NsbFile::NsbFile(const std::string& Name) :
 SourceIter(0),
 Name(Name)
 {
-    switch (Mode)
-    {
-        case NSB_COMPILED:
-            ReadFromBinary();
-            break;
-        case NSB_PARSED:
-            ReadFromSource();
-            break;
-        default:
-            assert(false);
-    }
+    Read();
 }
 
 bool NsbFile::IsValidMagic(uint16_t Magic)
@@ -234,11 +224,7 @@ uint32_t NsbFile::GetNextLineEntry() const
 
 /* PRIVATE */
 
-void NsbFile::ReadFromSource()
-{
-}
-
-void NsbFile::ReadFromBinary()
+void NsbFile::Read()
 {
     std::ifstream File(Name, std::ios::in | std::ios::binary);
     uint32_t Entry, Length;

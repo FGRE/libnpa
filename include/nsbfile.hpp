@@ -7,12 +7,6 @@
 
 #define SWAP_UINT16(x) (((x) >> 8) | ((x) << 8))
 
-enum OpenMode
-{
-    NSB_COMPILED    = 1,
-    NSB_PARSED      = 2
-};
-
 enum /* Magic */
 {
     MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
@@ -195,7 +189,7 @@ struct Line
 class NsbFile
 {
 public:
-    NsbFile(const std::string& Name, OpenMode Mode);
+    NsbFile(const std::string& Name);
 
     static bool IsValidMagic(uint16_t Magic);
     static const char* StringifyMagic(uint16_t Magic);
@@ -206,9 +200,7 @@ public:
     uint32_t GetNextLineEntry() const;
 
 private:
-    // TODO: Obsolete this func: move Source functionality to compiler
-    void ReadFromSource();
-    void ReadFromBinary();
+    void Read();
 
     uint32_t SourceIter;
     std::vector<Line> Source;
