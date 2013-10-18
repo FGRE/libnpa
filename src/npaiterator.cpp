@@ -2,8 +2,7 @@
 #include "npafile.hpp"
 
 #include <cstring>
-#include <unistd.h>
-#include <sys/stat.h>
+#include <boost/filesystem.hpp>
 
 /* PUBLIC */
 
@@ -91,9 +90,8 @@ void NpaIterator::Save(std::string Path)
     do
     {
         *delim = 0;
-        struct stat st = {0};
-        if (stat(DPath.c_str(), &st) == -1)
-            mkdir(DPath.c_str(), 0700);
+        if (!boost::filesystem::exists(boost::filesystem::path(DPath)))
+            boost::filesystem::create_directory(boost::filesystem::path(DPath));
         *delim = '/';
     } while ((delim = strchr(delim + 1, '/')));
 
