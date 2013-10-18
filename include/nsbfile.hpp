@@ -11,7 +11,7 @@ enum /* Magic */
 {
     MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
     MAGIC_PARAM = SWAP_UINT16(0xD000), // STRING/INT
-    MAGIC_UNK0  = SWAP_UINT16(0x9400), // Begining of .nsb (special prologue?)
+    MAGIC_UNK0  = SWAP_UINT16(0x9400), // Begin chapter
     MAGIC_IF    = SWAP_UINT16(0x9800), // label.if (not if, but label, also below)
     MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label.if.end
     MAGIC_CALL  = SWAP_UINT16(0xCE00), // Script-defined function call
@@ -29,10 +29,10 @@ enum /* Magic */
 
     MAGIC_SET   = SWAP_UINT16(0xB000), // Set variable value? $GameName/$GameContinue
     MAGIC_GET   = SWAP_UINT16(0xD100), // Special parameter (request for var?) $GameStart/$MOVIEDATA
-    MAGIC_UNK12 = SWAP_UINT16(0xD400),
-    MAGIC_UNK13 = SWAP_UINT16(0x9500), // scene.sg00_01.nss/scene.sg00_01.nss_MAIN
+    MAGIC_UNK12 = SWAP_UINT16(0xD400), // End chapter
+    MAGIC_UNK13 = SWAP_UINT16(0x9500), // Begin scene
     MAGIC_UNK14 = SWAP_UINT16(0xA300), // $MainGameName
-    MAGIC_UNK15 = SWAP_UINT16(0xD500), // scene.sg00_01.nss_MAIN
+    MAGIC_UNK15 = SWAP_UINT16(0xD500), // End scene
     MAGIC_UNK16 = SWAP_UINT16(0x2000),
     MAGIC_UNK17 = SWAP_UINT16(0x2300), // Sets movie (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
     MAGIC_UNK18 = SWAP_UINT16(0x2400),
@@ -58,7 +58,7 @@ enum /* Magic */
     MAGIC_UNK38 = SWAP_UINT16(0x0401),
     MAGIC_UNK39 = SWAP_UINT16(0x0501),
     MAGIC_UNK40 = SWAP_UINT16(0x7500),
-    MAGIC_UNK41 = SWAP_UINT16(0x0D00),
+    MAGIC_UNK41 = SWAP_UINT16(0x0D00), // LoadImage/Texture?
     MAGIC_UNK42 = SWAP_UINT16(0x6100),
     MAGIC_UNK43 = SWAP_UINT16(0xA800),
     MAGIC_UNK44 = SWAP_UINT16(0xA700),
