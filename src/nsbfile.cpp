@@ -3,9 +3,11 @@
 #include <cassert>
 #include <fstream>
 #include <boost/assign/list_of.hpp>
-#include <boost/unordered_map.hpp>
+#include <boost/bimap.hpp>
 
-static const boost::unordered_map<uint16_t, const char*> MagicStrings = boost::assign::map_list_of
+typedef boost::bimap<uint16_t, const char*> LookupTable;
+
+static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::value_type>
     (MAGIC_TEXT, "Text")
     (MAGIC_PARAM, "SetParam")
     (MAGIC_UNK0, "UNK0")
@@ -186,12 +188,17 @@ Name(Name)
 
 bool NsbFile::IsValidMagic(uint16_t Magic)
 {
-    return MagicStrings.find(Magic) != MagicStrings.end();
+    return MagicStrings.left.find(Magic) != MagicStrings.left.end();
 }
 
 const char* NsbFile::StringifyMagic(uint16_t Magic)
 {
-    return MagicStrings.at(Magic);
+    return MagicStrings.left.at(Magic);
+}
+
+uint16_t NsbFile::MagicifyString(const char* String)
+{
+    return MagicStrings.right.at(String);
 }
 
 Line* NsbFile::GetNextLine()

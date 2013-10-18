@@ -17,8 +17,8 @@ enum /* Magic */
     MAGIC_CALL  = SWAP_UINT16(0xCE00), // Script-defined function call
 
     // Magic-only
-    MAGIC_UNK1  = SWAP_UINT16(0xC600),
-    MAGIC_UNK2  = SWAP_UINT16(0xC700),
+    MAGIC_UNK1  = SWAP_UINT16(0xC600), // Logical condition
+    MAGIC_UNK2  = SWAP_UINT16(0xC700), // Logical condition
     MAGIC_UNK3  = SWAP_UINT16(0xC800), // label epilogue?
     MAGIC_UNK4  = SWAP_UINT16(0xC900),
     MAGIC_UNK5  = SWAP_UINT16(0x6800),
@@ -53,8 +53,8 @@ enum /* Magic */
     MAGIC_UNK33 = SWAP_UINT16(0x1B00),
     MAGIC_UNK34 = SWAP_UINT16(0x3000),
     MAGIC_UNK35 = SWAP_UINT16(0xC000),
-    MAGIC_BEGIN = SWAP_UINT16(0x9700), // Function prologue (define function)
-    MAGIC_END   = SWAP_UINT16(0xD700), // Function epilogue (end function)
+    MAGIC_BEGIN = SWAP_UINT16(0x9700), // Begin function
+    MAGIC_END   = SWAP_UINT16(0xD700), // End function
     MAGIC_UNK38 = SWAP_UINT16(0x0401),
     MAGIC_UNK39 = SWAP_UINT16(0x0501),
     MAGIC_UNK40 = SWAP_UINT16(0x7500),
@@ -193,6 +193,7 @@ public:
 
     static bool IsValidMagic(uint16_t Magic);
     static const char* StringifyMagic(uint16_t Magic);
+    static uint16_t MagicifyString(const char* String);
     Line* GetNextLine();
     std::string GetName() const;
     uint32_t GetFunctionLine(const char* Name) const;
