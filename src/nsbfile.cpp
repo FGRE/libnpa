@@ -193,12 +193,18 @@ bool NsbFile::IsValidMagic(uint16_t Magic)
 
 const char* NsbFile::StringifyMagic(uint16_t Magic)
 {
-    return MagicStrings.left.at(Magic);
+    auto iter = MagicStrings.left.find(Magic);
+    if (iter != MagicStrings.left.end())
+        return iter->second;
+    return nullptr;
 }
 
 uint16_t NsbFile::MagicifyString(const char* String)
 {
-    return MagicStrings.right.at(String);
+    auto iter = MagicStrings.right.find(String);
+    if (iter != MagicStrings.right.end())
+        return iter->second;
+    return 0;
 }
 
 Line* NsbFile::GetNextLine()
