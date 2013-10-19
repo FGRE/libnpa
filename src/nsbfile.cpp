@@ -5,7 +5,7 @@
 #include <boost/assign/list_of.hpp>
 #include <boost/bimap.hpp>
 
-typedef boost::bimap<uint16_t, const char*> LookupTable;
+typedef boost::bimap<uint16_t, std::string> LookupTable;
 
 static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::value_type>
     (MAGIC_TEXT, "Text")
@@ -195,7 +195,7 @@ const char* NsbFile::StringifyMagic(uint16_t Magic)
 {
     auto iter = MagicStrings.left.find(Magic);
     if (iter != MagicStrings.left.end())
-        return iter->second;
+        return iter->second.c_str();
     return nullptr;
 }
 

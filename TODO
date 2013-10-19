@@ -1,8 +1,7 @@
 NpaFile -> NPAAchieve
 npaiterator.hpp -> NPAIterator.hpp
 build system
-fix unicode file names
+fix unicode file names / unicode text
 connect iterators with appended files
-use boost::filesystem in libnpa
 better error checking
 fix ugly iterator terminators
