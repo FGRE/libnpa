@@ -21,6 +21,7 @@ public:
     std::string GetFileName();
     char* GetFileData();
     uint32_t GetFileSize();
+    uint32_t GetOffset();
 
     void Save();
     void Save(std::string Path);
@@ -29,7 +30,6 @@ public:
 private:
     uint32_t GetFileNameSize();
     void SetOffset(uint32_t offset);
-    uint32_t GetOffset();
     char* GetRawEntry();
     uint32_t GetRawEntrySize();
 
