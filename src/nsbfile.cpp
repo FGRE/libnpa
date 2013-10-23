@@ -273,7 +273,7 @@ void NsbFile::Read()
             char* String = new char[Length];
             File.read(String, Length);
             char *inbuff = String, *outbuff = ConvBuff;
-            size_t BuffSize = 1024 * 1024, inleft = Length;
+            size_t BuffSize = MEGABYTE, inleft = Length;
             assert(iconv(conv, &inbuff, &inleft, &outbuff, &BuffSize) != (size_t)-1);
             CurrLine->Params.push_back(std::string(ConvBuff, MEGABYTE - BuffSize));
             delete[] String;
