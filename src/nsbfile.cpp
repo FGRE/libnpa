@@ -284,5 +284,6 @@ void NsbFile::Read()
             Functions[CurrLine->Params[0].c_str() + strlen("function.")] = Entry;
     }
 
+    delete[] ConvBuff;
     iconv_close(conv);
 }
