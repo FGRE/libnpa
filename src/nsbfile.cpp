@@ -2,13 +2,14 @@
 
 #include <cassert>
 #include <fstream>
+#include <iconv.h>
 #include <boost/assign/list_of.hpp>
 #include <boost/bimap.hpp>
 
 typedef boost::bimap<uint16_t, std::string> LookupTable;
 
 static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::value_type>
-    (MAGIC_TEXT, "Text")
+    (MAGIC_TEXT, "ParseText")
     (MAGIC_PARAM, "SetParam")
     (MAGIC_UNK0, "UNK0")
     (MAGIC_IF, "IF")
@@ -237,12 +238,19 @@ uint32_t NsbFile::GetNextLineEntry() const
 
 /* PRIVATE */
 
+#define MEGABYTE 1024 * 1024
+
 void NsbFile::Read()
 {
     std::ifstream File(Name, std::ios::in | std::ios::binary);
     uint32_t Entry, Length;
     uint16_t NumParams;
     Line* CurrLine;
+    iconv_t conv = iconv_open("UTF-8", "SHIFT-JIS");
+    char* ConvBuff = new char[MEGABYTE];
+
+    // No text, no game
+    assert(conv != (iconv_t)-1);
 
     // Find # of lines
     File.seekg(-2 * sizeof(uint32_t), File.end);
@@ -262,10 +270,12 @@ void NsbFile::Read()
         for (uint16_t i = 0; i < NumParams; ++i)
         {
             File.read((char*)&Length, sizeof(uint32_t));
-            char* String = new char[Length + 1];
+            char* String = new char[Length];
             File.read(String, Length);
-            String[Length] = 0;
-            CurrLine->Params.push_back(String);
+            char *inbuff = String, *outbuff = ConvBuff;
+            size_t BuffSize = 1024 * 1024, inleft = Length;
+            assert(iconv(conv, &inbuff, &inleft, &outbuff, &BuffSize) != (size_t)-1);
+            CurrLine->Params.push_back(std::string(ConvBuff, MEGABYTE - BuffSize));
             delete[] String;
         }
 
@@ -273,4 +283,6 @@ void NsbFile::Read()
         if (CurrLine->Magic == MAGIC_BEGIN)
             Functions[CurrLine->Params[0].c_str() + strlen("function.")] = Entry;
     }
+
+    iconv_close(conv);
 }
