@@ -19,16 +19,15 @@ public:
     bool operator!=(const NpaIterator& Other);
 
     std::string GetFileName();
+    char* GetFileNameRaw();
     char* GetFileData();
     uint32_t GetFileSize();
     uint32_t GetOffset();
+    uint32_t GetFileNameSize();
 
-    void Save();
-    void Save(std::string Path);
     void Remove();
 
 private:
-    uint32_t GetFileNameSize();
     void SetOffset(uint32_t offset);
     char* GetRawEntry();
     uint32_t GetRawEntrySize();

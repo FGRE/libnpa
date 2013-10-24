@@ -2,7 +2,6 @@
 #include "npafile.hpp"
 
 #include <cstring>
-#include <boost/filesystem.hpp>
 
 /* PUBLIC */
 
@@ -55,6 +54,11 @@ std::string NpaIterator::GetFileName()
     return Ret;
 }
 
+char* NpaIterator::GetFileNameRaw()
+{
+    return Pos + sizeof(uint32_t);
+}
+
 uint32_t NpaIterator::GetFileSize()
 {
     return *(uint32_t*)(Pos + sizeof(uint32_t) + GetFileNameSize());
@@ -75,29 +79,6 @@ void NpaIterator::Remove()
     // Set file size to 0 (See: GetFileSize())
     *(uint32_t*)(Pos + sizeof(uint32_t) + GetFileNameSize()) = 0;
     --File->EntryCount;
-}
-
-void NpaIterator::Save()
-{
-    Save(std::string());
-}
-
-void NpaIterator::Save(std::string Path)
-{
-    // Create directories
-    std::string DPath = Path + GetFileName();
-    char* delim = strchr((char*)DPath.c_str(), '/');
-    do
-    {
-        *delim = 0;
-        if (!boost::filesystem::exists(boost::filesystem::path(DPath)))
-            boost::filesystem::create_directory(boost::filesystem::path(DPath));
-        *delim = '/';
-    } while ((delim = strchr(delim + 1, '/')));
-
-    // Create file
-    std::ofstream Out(GetFileName(), std::ios::binary | std::ios::out);
-    Out.write(GetFileData(), GetFileSize());
 }
 
 /* PRIVATE */
