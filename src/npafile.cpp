@@ -92,6 +92,11 @@ uint32_t NpaFile::GetFileCount()
     return EntryCount;
 }
 
+std::string NpaFile::GetFileName()
+{
+    return Name;
+}
+
 /* PRIVATE */
 
 static const uint8_t Key[] = { 0xBD, 0xAA, 0xBC, 0xB4, 0xAB, 0xB6, 0xBC, 0xB4 };
