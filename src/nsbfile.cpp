@@ -182,11 +182,33 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
 
 /* PUBLIC */
 
-NsbFile::NsbFile(const std::string& Name) :
+struct membuf : std::streambuf
+{
+    membuf(char* Data, uint32_t Size) { this->setg(Data, Data, Data + Size); }
+};
+
+
+NsbFile::NsbFile(const std::string& Name, char* Data, uint32_t Size) :
 SourceIter(0),
 Name(Name)
 {
-    Read();
+    std::istream* pStream;
+    membuf* pBuf;
+
+    if (Data && Size)
+    {
+        pBuf = new membuf(Data, Size);
+        pStream = new std::istream(pBuf);
+    }
+    else
+    {
+        pBuf = nullptr;
+        pStream = new std::ifstream(Name, std::ios::in | std::ios::binary);
+    }
+
+    Read(pStream);
+    delete pStream;
+    delete pBuf;
 }
 
 bool NsbFile::IsValidMagic(uint16_t Magic)
@@ -242,9 +264,8 @@ uint32_t NsbFile::GetNextLineEntry() const
 
 #define MEGABYTE 1024 * 1024
 
-void NsbFile::Read()
+void NsbFile::Read(std::istream* pStream)
 {
-    std::ifstream File(Name, std::ios::in | std::ios::binary);
     uint32_t Entry, Length;
     uint16_t NumParams;
     Line* CurrLine;
@@ -255,25 +276,25 @@ void NsbFile::Read()
     assert(conv != (iconv_t)-1);
 
     // Find # of lines
-    File.seekg(-2 * sizeof(uint32_t), File.end);
-    File.read((char*)&Entry, sizeof(uint32_t));
+    pStream->seekg(-2 * sizeof(uint32_t), pStream->end);
+    pStream->read((char*)&Entry, sizeof(uint32_t));
     Source.resize(Entry);
-    File.seekg(0, File.beg);
+    pStream->seekg(0, pStream->beg);
 
     // Read source code lines
-    while (File.read((char*)&Entry, sizeof(uint32_t)))
+    while (pStream->read((char*)&Entry, sizeof(uint32_t)))
     {
         CurrLine = &Source[Entry - 1];
-        File.read((char*)&CurrLine->Magic, sizeof(uint16_t));
-        File.read((char*)&NumParams, sizeof(uint16_t));
+        pStream->read((char*)&CurrLine->Magic, sizeof(uint16_t));
+        pStream->read((char*)&NumParams, sizeof(uint16_t));
         CurrLine->Params.reserve(NumParams);
 
         // Read parameters
         for (uint16_t i = 0; i < NumParams; ++i)
         {
-            File.read((char*)&Length, sizeof(uint32_t));
+            pStream->read((char*)&Length, sizeof(uint32_t));
             char* String = new char[Length];
-            File.read(String, Length);
+            pStream->read(String, Length);
             char *inbuff = String, *outbuff = ConvBuff;
             size_t BuffSize = MEGABYTE, inleft = Length;
             assert(iconv(conv, &inbuff, &inleft, &outbuff, &BuffSize) != (size_t)-1);

@@ -28,6 +28,7 @@ public:
 
     uint32_t GetFileCount();
     std::string GetFileName();
+
 private:
     void ReadHeader(std::string& Name);
 
