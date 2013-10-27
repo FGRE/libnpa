@@ -16,8 +16,8 @@ enum /* Magic */
     MAGIC_UNK1  = SWAP_UINT16(0xC600), // Logical condition
     MAGIC_UNK2  = SWAP_UINT16(0xC700), // Logical condition
     MAGIC_UNK3  = SWAP_UINT16(0xC800), // label epilogue?
-    MAGIC_UNK4  = SWAP_UINT16(0xC900),
-    MAGIC_UNK5  = SWAP_UINT16(0x6800),
+    MAGIC_UNK4  = SWAP_UINT16(0xC900), // Logical == ?
+    MAGIC_UNK5  = SWAP_UINT16(0x6800), // Empty variable/parameter?
     MAGIC_UNK6  = SWAP_UINT16(0x8E00), // Flush commands? (return control to game) Cleanup params? (epilogue)
     MAGIC_UNK7  = SWAP_UINT16(0x5B00),
     MAGIC_UNK8  = SWAP_UINT16(0xC100),

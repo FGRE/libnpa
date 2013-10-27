@@ -182,33 +182,10 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
 
 /* PUBLIC */
 
-struct membuf : std::streambuf
-{
-    membuf(char* Data, uint32_t Size) { this->setg(Data, Data, Data + Size); }
-};
-
-
 NsbFile::NsbFile(const std::string& Name, char* Data, uint32_t Size) :
-SourceIter(0),
-Name(Name)
+SourceIter(0)
 {
-    std::istream* pStream;
-    membuf* pBuf;
-
-    if (Data && Size)
-    {
-        pBuf = new membuf(Data, Size);
-        pStream = new std::istream(pBuf);
-    }
-    else
-    {
-        pBuf = nullptr;
-        pStream = new std::ifstream(Name, std::ios::in | std::ios::binary);
-    }
-
-    Read(pStream);
-    delete pStream;
-    delete pBuf;
+    Open(Name, Data, Size);
 }
 
 bool NsbFile::IsValidMagic(uint16_t Magic)
@@ -235,11 +212,6 @@ uint16_t NsbFile::MagicifyString(const char* String)
 Line* NsbFile::GetNextLine()
 {
     return SourceIter < Source.size() ? &Source[SourceIter++] : nullptr;
-}
-
-std::string NsbFile::GetName() const
-{
-    return Name;
 }
 
 uint32_t NsbFile::GetFunctionLine(const char* Name) const

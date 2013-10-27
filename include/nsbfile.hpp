@@ -1,7 +1,8 @@
 #ifndef NSB_FILE_HPP
 #define NSB_FILE_HPP
 
-#include <string>
+#include "scriptfile.hpp"
+
 #include <vector>
 #include <map>
 
@@ -11,7 +12,7 @@ struct Line
     std::vector<std::string> Params;
 };
 
-class NsbFile
+class NsbFile : public ScriptFile
 {
 public:
     NsbFile(const std::string& Name, char* Data = nullptr, uint32_t Size = 0);
@@ -20,7 +21,6 @@ public:
     static const char* StringifyMagic(uint16_t Magic);
     static uint16_t MagicifyString(const char* String);
     Line* GetNextLine();
-    std::string GetName() const;
     uint32_t GetFunctionLine(const char* Name) const;
     void SetSourceIter(uint32_t NewIter);
     uint32_t GetNextLineEntry() const;
