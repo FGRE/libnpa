@@ -275,15 +275,10 @@ void NsbFile::Read(std::istream* pStream)
     // No text, no game
     assert(conv != (iconv_t)-1);
 
-    // Find # of lines
-    pStream->seekg(-2 * sizeof(uint32_t), pStream->end);
-    pStream->read((char*)&Entry, sizeof(uint32_t));
-    Source.resize(Entry);
-    pStream->seekg(0, pStream->beg);
-
     // Read source code lines
     while (pStream->read((char*)&Entry, sizeof(uint32_t)))
     {
+        Source.resize(Source.size() + 1);
         CurrLine = &Source[Entry - 1];
         pStream->read((char*)&CurrLine->Magic, sizeof(uint16_t));
         pStream->read((char*)&NumParams, sizeof(uint16_t));
