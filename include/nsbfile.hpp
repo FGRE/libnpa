@@ -30,7 +30,7 @@ private:
 
     uint32_t SourceIter;
     std::vector<Line> Source;
-    std::map<const char*, uint32_t> Functions;
+    std::map<std::string, uint32_t> Functions;
     std::string Name;
 };
 
