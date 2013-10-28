@@ -270,7 +270,7 @@ void NsbFile::Read(std::istream* pStream)
         }
 
         // Map function
-        if (CurrLine->Magic == MAGIC_BEGIN)
+        if (CurrLine->Magic == uint16_t(MAGIC_BEGIN))
             Functions[CurrLine->Params[0].c_str() + strlen("function.")] = Entry;
     }
 
