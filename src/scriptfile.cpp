@@ -30,3 +30,8 @@ void ScriptFile::Open(const std::string& Name, char* Data, uint32_t Size)
     delete pStream;
     delete pBuf;
 }
+
+std::string ScriptFile::GetName() const
+{
+    return Name;
+}

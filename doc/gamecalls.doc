@@ -1,7 +1,7 @@
 StopMusic(STRING which, INT unk0, INT unk1, STRING unk2)
 Stops specified music. @BGM* wildcard can be used to stop any background music.
 
-LoadMovie(STRING handle, INT unk0, INT unk1, INT unk2, STRING unk3, STRING unk4, STRING file, STRING unk5)
+LoadMovie(STRING handle, INT DrawPriority, INT X, INT Y, STRING unk3, STRING unk4, STRING file, STRING unk5)
 Loads movie from specified file and binds it to handle. Full path expected.
 
 Set(VAR var)
