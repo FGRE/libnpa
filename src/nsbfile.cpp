@@ -185,7 +185,11 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK165, "UNK165")
     (MAGIC_UNK166, "UNK166")
     (MAGIC_UNK167, "UNK167")
-    (MAGIC_UNK168, "UNK168");
+    (MAGIC_UNK168, "UNK168")
+    (MAGIC_UNK169, "UNK169")
+    (MAGIC_UNK170, "UNK170")
+    (MAGIC_UNK171, "UNK171")
+    (MAGIC_UNK172, "UNK172");
 
 /* PUBLIC */
 
