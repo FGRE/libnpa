@@ -36,7 +36,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK16, "UNK16")
     (MAGIC_UNK17, "UNK17")
     (MAGIC_UNK18, "UNK18")
-    (MAGIC_UNK19, "UNK19")
+    (MAGIC_DISPLAY, "Display")
     (MAGIC_UNK20, "UNK20")
     (MAGIC_UNK21, "UNK21")
     (MAGIC_UNK22, "UNK22")
@@ -58,7 +58,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK38, "UNK38")
     (MAGIC_UNK39, "UNK39")
     (MAGIC_UNK40, "UNK40")
-    (MAGIC_UNK41, "UNK41")
+    (MAGIC_LOAD_TEXTURE, "LoadTexture")
     (MAGIC_UNK42, "UNK42")
     (MAGIC_UNK43, "UNK43")
     (MAGIC_UNK44, "UNK44")
@@ -189,8 +189,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
 
 /* PUBLIC */
 
-NsbFile::NsbFile(const std::string& Name, char* Data, uint32_t Size) :
-SourceIter(0)
+NsbFile::NsbFile(const std::string& Name, char* Data, uint32_t Size)
 {
     Open(Name, Data, Size);
 }
@@ -216,27 +215,12 @@ uint16_t NsbFile::MagicifyString(const char* String)
     return 0;
 }
 
-Line* NsbFile::GetNextLine()
-{
-    return SourceIter < Source.size() ? &Source[SourceIter++] : nullptr;
-}
-
 uint32_t NsbFile::GetFunctionLine(const char* Name) const
 {
     auto iter = Functions.find(Name);
     if (iter != Functions.end())
         return iter->second;
     return 0;
-}
-
-void NsbFile::SetSourceIter(uint32_t NewIter)
-{
-    SourceIter = NewIter;
-}
-
-uint32_t NsbFile::GetNextLineEntry() const
-{
-    return SourceIter;
 }
 
 /* PRIVATE */

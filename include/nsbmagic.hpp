@@ -32,7 +32,7 @@ enum /* Magic */
     MAGIC_UNK16 = SWAP_UINT16(0x2000),
     MAGIC_UNK17 = SWAP_UINT16(0x2300), // Sets movie (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
     MAGIC_UNK18 = SWAP_UINT16(0x2400),
-    MAGIC_UNK19 = SWAP_UINT16(0x2500), // flushes buffer? (shows image/movie on screen?)
+    MAGIC_DISPLAY = SWAP_UINT16(0x2500), // flushes buffer? (shows image/movie on screen?)
     MAGIC_UNK20 = SWAP_UINT16(0x3900), // wait??
     MAGIC_UNK21 = SWAP_UINT16(0x3A00), // wait (milisecond)??
     MAGIC_UNK22 = SWAP_UINT16(0x9100), // nullify parameter?
@@ -54,7 +54,7 @@ enum /* Magic */
     MAGIC_UNK38 = SWAP_UINT16(0x0401),
     MAGIC_UNK39 = SWAP_UINT16(0x0501),
     MAGIC_UNK40 = SWAP_UINT16(0x7500),
-    MAGIC_UNK41 = SWAP_UINT16(0x0D00), // LoadImage/Texture?
+    MAGIC_LOAD_TEXTURE = SWAP_UINT16(0x0D00), // LoadImage/Texture?
     MAGIC_UNK42 = SWAP_UINT16(0x6100),
     MAGIC_UNK43 = SWAP_UINT16(0xA800),
     MAGIC_UNK44 = SWAP_UINT16(0xA700),
