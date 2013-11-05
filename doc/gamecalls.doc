@@ -25,3 +25,5 @@ Concats two previously specified parameters into one.
 
 Callback(STRING key, STRING file)
 Executes script specified by file when key is pressed.
+
+SetDisplayState(STRING buffer, STRING state)

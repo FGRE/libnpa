@@ -30,8 +30,8 @@ enum /* Magic */
     MAGIC_UNK14 = SWAP_UINT16(0xA300), // $MainGameName
     MAGIC_UNK15 = SWAP_UINT16(0xD500), // End scene
     MAGIC_UNK16 = SWAP_UINT16(0x2000),
-    MAGIC_UNK17 = SWAP_UINT16(0x2300), // Sets movie (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
-    MAGIC_UNK18 = SWAP_UINT16(0x2400),
+    MAGIC_SET_DISPLAY_STATE = SWAP_UINT16(0x2300), // Sets movie (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
+    MAGIC_UNK18 = SWAP_UINT16(0x2400), // Deallocate/Destroy/Remove
     MAGIC_DISPLAY = SWAP_UINT16(0x2500), // flushes buffer? (shows image/movie on screen?)
     MAGIC_UNK20 = SWAP_UINT16(0x3900), // wait??
     MAGIC_UNK21 = SWAP_UINT16(0x3A00), // wait (milisecond)??
@@ -39,7 +39,7 @@ enum /* Magic */
     MAGIC_UNK23 = SWAP_UINT16(0xD200),
     MAGIC_MUSIC_STOP = SWAP_UINT16(0x4300),
     MAGIC_UNK25 = SWAP_UINT16(0x2800),
-    MAGIC_UNK26 = SWAP_UINT16(0xDE00),
+    MAGIC_UNK26 = SWAP_UINT16(0xDE00), // Construct array (STRING name, INT size) ??
     MAGIC_UNK27 = SWAP_UINT16(0xE400),
     MAGIC_UNK28 = SWAP_UINT16(0x1400),
     MAGIC_UNK29 = SWAP_UINT16(0x2B00),
