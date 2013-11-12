@@ -28,4 +28,4 @@ Executes script specified by file when key is pressed.
 
 SetDisplayState(STRING buffer, STRING state)
 
-StartAnimation(STRING handle, INT time_required, INT x, INT y, STRING temo, STRING wait)
+StartAnimation(STRING handle, INT time_required, INT x, INT y, STRING tempo, STRING wait)
