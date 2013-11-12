@@ -3,6 +3,7 @@
 
 #define SWAP_UINT16(x) (((x) >> 8) | ((x) << 8))
 
+// TODO: Sort by value
 enum /* Magic */
 {
     MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
@@ -29,7 +30,7 @@ enum /* Magic */
     MAGIC_UNK13 = SWAP_UINT16(0x9500), // Begin scene
     MAGIC_UNK14 = SWAP_UINT16(0xA300), // $MainGameName
     MAGIC_UNK15 = SWAP_UINT16(0xD500), // End scene
-    MAGIC_UNK16 = SWAP_UINT16(0x2000),
+    MAGIC_UNK16 = SWAP_UINT16(0x2000), // AnimationStart?
     MAGIC_SET_DISPLAY_STATE = SWAP_UINT16(0x2300), // Sets movie (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
     MAGIC_UNK18 = SWAP_UINT16(0x2400), // Deallocate/Destroy/Remove
     MAGIC_DISPLAY = SWAP_UINT16(0x2500), // flushes buffer? (shows image/movie on screen?)
@@ -42,7 +43,7 @@ enum /* Magic */
     MAGIC_UNK26 = SWAP_UINT16(0xDE00), // Construct array (STRING name, INT size) ??
     MAGIC_UNK27 = SWAP_UINT16(0xE400),
     MAGIC_UNK28 = SWAP_UINT16(0x1400),
-    MAGIC_UNK29 = SWAP_UINT16(0x2B00),
+    MAGIC_UNK29 = SWAP_UINT16(0x2B00), // Local to global?
     MAGIC_LOAD_MOVIE = SWAP_UINT16(0x1200), // Load movie??
     MAGIC_UNK31 = SWAP_UINT16(0x2C00),
     MAGIC_UNK32 = SWAP_UINT16(0x2D00),
