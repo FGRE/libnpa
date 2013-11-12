@@ -30,7 +30,7 @@ enum /* Magic */
     MAGIC_UNK13 = SWAP_UINT16(0x9500), // Begin scene
     MAGIC_UNK14 = SWAP_UINT16(0xA300), // $MainGameName
     MAGIC_UNK15 = SWAP_UINT16(0xD500), // End scene
-    MAGIC_UNK16 = SWAP_UINT16(0x2000), // AnimationStart?
+    MAGIC_START_ANIMATION = SWAP_UINT16(0x2000), // AnimationStart?
     MAGIC_SET_DISPLAY_STATE = SWAP_UINT16(0x2300), // Sets movie (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
     MAGIC_UNK18 = SWAP_UINT16(0x2400), // Deallocate/Destroy/Remove
     MAGIC_DISPLAY = SWAP_UINT16(0x2500), // flushes buffer? (shows image/movie on screen?)
