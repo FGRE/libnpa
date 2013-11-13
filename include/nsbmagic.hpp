@@ -31,12 +31,12 @@ enum /* Magic */
     MAGIC_UNK14 = SWAP_UINT16(0xA300), // $MainGameName
     MAGIC_UNK15 = SWAP_UINT16(0xD500), // End scene
     MAGIC_START_ANIMATION = SWAP_UINT16(0x2000), // AnimationStart?
-    MAGIC_SET_DISPLAY_STATE = SWAP_UINT16(0x2300), // Sets movie (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
-    MAGIC_UNK18 = SWAP_UINT16(0x2400), // Deallocate/Destroy/Remove
+    MAGIC_SET_DISPLAY_STATE = SWAP_UINT16(0x2300), // TODO: rename to SetState() Sets movie/audio (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
+    MAGIC_DESTROY = SWAP_UINT16(0x2400), // Deallocate/Destroy/Remove
     MAGIC_DISPLAY = SWAP_UINT16(0x2500), // flushes buffer? (shows image/movie on screen?)
-    MAGIC_SLEEP = SWAP_UINT16(0x3900), // wait??
-    MAGIC_UNK21 = SWAP_UINT16(0x3A00), // wait (milisecond)??
-    MAGIC_UNK22 = SWAP_UINT16(0x9100), // nullify parameter?
+    MAGIC_UNK20 = SWAP_UINT16(0x3900), // wait?? - Deprecated/broken!
+    MAGIC_SLEEP_MS = SWAP_UINT16(0x3A00), // wait (milisecond)??
+    MAGIC_SET_NULL_PARAM = SWAP_UINT16(0x9100), // nullify parameter?
     MAGIC_UNK23 = SWAP_UINT16(0xD200),
     MAGIC_SET_AUDIO_STATE = SWAP_UINT16(0x4300), // SetAudioState(STRING handle, INT num_seconds, INT volume, STRING tempo);
     MAGIC_UNK25 = SWAP_UINT16(0x2800),
