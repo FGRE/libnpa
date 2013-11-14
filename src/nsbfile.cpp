@@ -93,7 +93,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK73, "UNK73")
     (MAGIC_SET_FONT_ATTRIBUTES, "SetFontAttributes")
     (MAGIC_UNK75, "UNK75")
-    (MAGIC_UNK76, "UNK76")
+    (MAGIC_CREATE_COLOR, "CreateColor")
     (MAGIC_UNK77, "UNK77")
     (MAGIC_UNK78, "UNK78")
     (MAGIC_UNK79, "UNK79")
