@@ -40,7 +40,7 @@ enum /* Magic */
     MAGIC_UNK23 = SWAP_UINT16(0xD200),
     MAGIC_SET_AUDIO_STATE = SWAP_UINT16(0x4300), // SetAudioState(STRING handle, INT num_seconds, INT volume, STRING tempo);
     MAGIC_UNK25 = SWAP_UINT16(0x2800),
-    MAGIC_UNK26 = SWAP_UINT16(0xDE00), // Construct array (STRING name, INT size) ??
+    MAGIC_UNK26 = SWAP_UINT16(0xDE00), // Retrieve from array (STRING array, INT index) ??
     MAGIC_UNK27 = SWAP_UINT16(0xE400),
     MAGIC_UNK28 = SWAP_UINT16(0x1400),
     MAGIC_UNK29 = SWAP_UINT16(0x2B00), // Local to global?
@@ -83,8 +83,8 @@ enum /* Magic */
     MAGIC_UNK66 = SWAP_UINT16(0x7A00),
     MAGIC_UNK67 = SWAP_UINT16(0x1C00),
     MAGIC_UNK68 = SWAP_UINT16(0x1900),
-    MAGIC_UNK69 = SWAP_UINT16(0x7200), // Achievement related (achi definition?)
-    MAGIC_UNK70 = SWAP_UINT16(0x7300), // Similar to 69
+    MAGIC_UNK69 = SWAP_UINT16(0x7200), // create array? variable # of args...see: st, achievements...
+    MAGIC_UNK70 = SWAP_UINT16(0x7300), // called right after 69, same params
     MAGIC_UNK71 = SWAP_UINT16(0x1600),
     MAGIC_UNK72 = SWAP_UINT16(0x6200),
     MAGIC_UNK73 = SWAP_UINT16(0x7400),
@@ -166,7 +166,7 @@ enum /* Magic */
     MAGIC_UNK149 = SWAP_UINT16(0xB900),
     MAGIC_UNK150 = SWAP_UINT16(0xAB00),
     MAGIC_UNK151 = SWAP_UINT16(0x0E00),
-    MAGIC_UNK152 = SWAP_UINT16(0x0600),
+    MAGIC_UNK152 = SWAP_UINT16(0x0600), // LoadSt($nut, $立画優先度, $StPlaceX, $StPlaceY, 128, $St画像, false);
     MAGIC_UNK153 = SWAP_UINT16(0x0F00),
     MAGIC_UNK154 = SWAP_UINT16(0x3100),
     MAGIC_LOAD_AUDIO = SWAP_UINT16(0x1100), // LoadAudio(STRING handle, STRING type, STRING file); type is SE/BGM/VOICE
