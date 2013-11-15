@@ -84,7 +84,7 @@ enum /* Magic */
     MAGIC_UNK67 = SWAP_UINT16(0x1C00),
     MAGIC_UNK68 = SWAP_UINT16(0x1900),
     MAGIC_UNK69 = SWAP_UINT16(0x7200), // create array? variable # of args...see: st, achievements...
-    MAGIC_UNK70 = SWAP_UINT16(0x7300), // called right after 69, same params
+    MAGIC_UNK70 = SWAP_UINT16(0x7300), // called right after 69, bind identifiers?
     MAGIC_UNK71 = SWAP_UINT16(0x1600),
     MAGIC_UNK72 = SWAP_UINT16(0x6200),
     MAGIC_UNK73 = SWAP_UINT16(0x7400),
