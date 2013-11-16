@@ -42,7 +42,7 @@ enum /* Magic */
     MAGIC_UNK25 = SWAP_UINT16(0x2800),
     MAGIC_ARRAY_READ = SWAP_UINT16(0xDE00), // Dereference pointer (STRING array, INT depth) ??
     MAGIC_UNK27 = SWAP_UINT16(0xE400),
-    MAGIC_UNK28 = SWAP_UINT16(0x1400),
+    MAGIC_CREATE_BOX = SWAP_UINT16(0x1400), // Limits area to which something can be drawn
     MAGIC_UNK29 = SWAP_UINT16(0x2B00), // Local to global?
     MAGIC_LOAD_MOVIE = SWAP_UINT16(0x1200), // Load movie??
     MAGIC_UNK31 = SWAP_UINT16(0x2C00),

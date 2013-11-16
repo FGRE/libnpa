@@ -45,7 +45,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK25, "UNK25")
     (MAGIC_ARRAY_READ, "ArrayRead")
     (MAGIC_UNK27, "UNK27")
-    (MAGIC_UNK28, "UNK28")
+    (MAGIC_CREATE_BOX, "CreateBox")
     (MAGIC_UNK29, "UNK29")
     (MAGIC_LOAD_MOVIE, "LoadMovie")
     (MAGIC_UNK31, "UNK31")
