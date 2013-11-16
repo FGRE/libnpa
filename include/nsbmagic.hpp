@@ -9,8 +9,8 @@ enum /* Magic */
     MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
     MAGIC_PARAM = SWAP_UINT16(0xD000), // STRING/INT
     MAGIC_UNK0  = SWAP_UINT16(0x9400), // Begin chapter
-    MAGIC_IF    = SWAP_UINT16(0x9800), // label.if (not if, but label, also below)
-    MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label.if.end
+    MAGIC_IF    = SWAP_UINT16(0x9800), // if() statement?
+    MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label definition?
     MAGIC_CALL  = SWAP_UINT16(0xCE00), // Script-defined function call
 
     // Magic-only
@@ -40,7 +40,7 @@ enum /* Magic */
     MAGIC_UNK23 = SWAP_UINT16(0xD200),
     MAGIC_SET_AUDIO_STATE = SWAP_UINT16(0x4300), // SetAudioState(STRING handle, INT num_seconds, INT volume, STRING tempo);
     MAGIC_UNK25 = SWAP_UINT16(0x2800),
-    MAGIC_UNK26 = SWAP_UINT16(0xDE00), // Retrieve from array (STRING array, INT index) ??
+    MAGIC_ARRAY_READ = SWAP_UINT16(0xDE00), // Dereference pointer (STRING array, INT depth) ??
     MAGIC_UNK27 = SWAP_UINT16(0xE400),
     MAGIC_UNK28 = SWAP_UINT16(0x1400),
     MAGIC_UNK29 = SWAP_UINT16(0x2B00), // Local to global?
@@ -54,7 +54,7 @@ enum /* Magic */
     MAGIC_END   = SWAP_UINT16(0xD700), // End function
     MAGIC_UNK38 = SWAP_UINT16(0x0401),
     MAGIC_UNK39 = SWAP_UINT16(0x0501),
-    MAGIC_UNK40 = SWAP_UINT16(0x7500),
+    MAGIC_UNK40 = SWAP_UINT16(0x7500), // Retrieve from array at index?
     MAGIC_LOAD_TEXTURE = SWAP_UINT16(0x0D00), // LoadImage/Texture?
     MAGIC_UNK42 = SWAP_UINT16(0x6100),
     MAGIC_UNK43 = SWAP_UINT16(0xA800),
@@ -70,7 +70,7 @@ enum /* Magic */
     MAGIC_UNK53 = SWAP_UINT16(0xFC00),
     MAGIC_UNK54 = SWAP_UINT16(0xBE00),
     MAGIC_UNK55 = SWAP_UINT16(0xC400),
-    MAGIC_UNK56 = SWAP_UINT16(0x3800),
+    MAGIC_UNK56 = SWAP_UINT16(0x3800), // increment?
     MAGIC_UNK57 = SWAP_UINT16(0xC300),
     MAGIC_UNK58 = SWAP_UINT16(0xA600),
     MAGIC_UNK59 = SWAP_UINT16(0xEB00), // FM_From_DAR0203 (.ogg)
@@ -79,15 +79,15 @@ enum /* Magic */
     MAGIC_UNK62 = SWAP_UINT16(0xFB00),
     MAGIC_UNK63 = SWAP_UINT16(0xB200),
     MAGIC_UNK64 = SWAP_UINT16(0xC500),
-    MAGIC_UNK65 = SWAP_UINT16(0xDF00),
+    MAGIC_UNK65 = SWAP_UINT16(0xDF00), // jump to loop begin/check condition?
     MAGIC_UNK66 = SWAP_UINT16(0x7A00),
     MAGIC_UNK67 = SWAP_UINT16(0x1C00),
     MAGIC_UNK68 = SWAP_UINT16(0x1900),
-    MAGIC_UNK69 = SWAP_UINT16(0x7200), // create array? variable # of args...see: st, achievements...
-    MAGIC_UNK70 = SWAP_UINT16(0x7300), // called right after 69, bind identifiers?
+    MAGIC_CREATE_ARRAY = SWAP_UINT16(0x7200), // create array? variable # of args...see: st, achievements...
+    MAGIC_BIND_IDENTIFIER = SWAP_UINT16(0x7300), // called right after 69, bind identifiers?
     MAGIC_UNK71 = SWAP_UINT16(0x1600),
     MAGIC_UNK72 = SWAP_UINT16(0x6200),
-    MAGIC_UNK73 = SWAP_UINT16(0x7400),
+    MAGIC_UNK73 = SWAP_UINT16(0x7400), // get array size?
     MAGIC_SET_FONT_ATTRIBUTES = SWAP_UINT16(0x4E00), // SetFontAttributes(STRING font, INT size, STRING color1, STRING color2, INT unk, STRING unk)
     MAGIC_UNK75 = SWAP_UINT16(0x1300),
     MAGIC_CREATE_COLOR = SWAP_UINT16(0x0A00), // CreateColor(STRING handle, INT priority, INT unk, INT unk, INT width, INT height, STRING color);
@@ -175,7 +175,7 @@ enum /* Magic */
     MAGIC_UNK158 = SWAP_UINT16(0x4400), // Audio related (STRING handle, INT unk, STRING direction, STRING unk)
     MAGIC_SET_AUDIO_LOOP = SWAP_UINT16(0x4600), // SetAudioLoop(STRING handle, BOOL loop)
     MAGIC_UNK160 = SWAP_UINT16(0x3700),
-    MAGIC_UNK161 = SWAP_UINT16(0x7000),
+    MAGIC_UNK161 = SWAP_UINT16(0x7000), // LoadScript?
     MAGIC_UNK162 = SWAP_UINT16(0x6400),
     MAGIC_SET_TEXTBOX_ATTRIBUTES = SWAP_UINT16(0xE01), // SetTextboxAttributes(STRING handle, INT unk, STRING font, INT unk, STRING color1, STRING color2, INT unk, STRING unk)
     MAGIC_UNK164 = SWAP_UINT16(0x1D00),
