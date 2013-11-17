@@ -36,7 +36,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_START_ANIMATION, "StartAnimation")
     (MAGIC_SET_DISPLAY_STATE, "SetDisplayState")
     (MAGIC_DESTROY, "Destroy")
-    (MAGIC_DISPLAY, "Display")
+    (MAGIC_SET_OPACITY, "SetOpacity")
     (MAGIC_UNK20, "UNK20")
     (MAGIC_SLEEP_MS, "SleepMs")
     (MAGIC_SET_NULL_PARAM, "SetNullParam")
