@@ -3,9 +3,11 @@
 
 #include <cassert>
 #include <fstream>
-#include <iconv.h>
 #include <boost/assign/list_of.hpp>
 #include <boost/bimap.hpp>
+#include <boost/locale.hpp>
+using namespace boost::locale;
+using namespace boost::locale::conv;
 
 typedef boost::bimap<uint16_t, std::string> LookupTable;
 
@@ -229,18 +231,12 @@ uint32_t NsbFile::GetFunctionLine(const char* Name) const
 
 /* PRIVATE */
 
-#define MEGABYTE 1024 * 1024
-
 void NsbFile::Read(std::istream* pStream)
 {
     uint32_t Entry, Length;
     uint16_t NumParams;
     Line* CurrLine;
-    iconv_t conv = iconv_open("UTF-8", "SHIFT-JIS");
-    char* ConvBuff = new char[MEGABYTE];
-
-    // No text, no game
-    assert(conv != (iconv_t)-1);
+    std::locale loc = generator().generate("ja_JP.SHIFT-JIS");
 
     // Read source code lines
     while (pStream->read((char*)&Entry, sizeof(uint32_t)))
@@ -257,10 +253,7 @@ void NsbFile::Read(std::istream* pStream)
             pStream->read((char*)&Length, sizeof(uint32_t));
             char* String = new char[Length];
             pStream->read(String, Length);
-            char *inbuff = String, *outbuff = ConvBuff;
-            size_t BuffSize = MEGABYTE, inleft = Length;
-            assert(iconv(conv, &inbuff, &inleft, &outbuff, &BuffSize) != (size_t)-1);
-            CurrLine->Params.push_back(std::string(ConvBuff, MEGABYTE - BuffSize));
+            CurrLine->Params.push_back(to_utf<char>(String, String + Length, loc));
             delete[] String;
         }
 
@@ -268,7 +261,4 @@ void NsbFile::Read(std::istream* pStream)
         if (CurrLine->Magic == uint16_t(MAGIC_BEGIN))
             Functions[CurrLine->Params[0].c_str() + strlen("function.")] = Entry;
     }
-
-    delete[] ConvBuff;
-    iconv_close(conv);
 }
