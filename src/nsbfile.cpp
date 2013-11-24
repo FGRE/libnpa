@@ -14,7 +14,7 @@ typedef boost::bimap<uint16_t, std::string> LookupTable;
 static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::value_type>
     (MAGIC_TEXT, "ParseText")
     (MAGIC_PARAM, "SetParam")
-    (MAGIC_UNK0, "UNK0")
+    (MAGIC_CHAPTER_BEGIN, "ChapterBegin")
     (MAGIC_IF, "IF")
     (MAGIC_ENDIF, "ENDIF")
     (MAGIC_CALL, "CALL")
@@ -31,7 +31,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
 
     (MAGIC_SET, "Set")
     (MAGIC_GET, "Get")
-    (MAGIC_UNK12, "UNK12")
+    (MAGIC_CHAPTER_END, "ChapterEnd")
     (MAGIC_UNK13, "UNK13")
     (MAGIC_UNK14, "UNK14")
     (MAGIC_UNK15, "UNK15")

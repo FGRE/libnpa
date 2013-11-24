@@ -8,7 +8,7 @@ enum /* Magic */
 {
     MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
     MAGIC_PARAM = SWAP_UINT16(0xD000), // STRING/INT
-    MAGIC_UNK0  = SWAP_UINT16(0x9400), // Begin chapter
+    MAGIC_CHAPTER_BEGIN  = SWAP_UINT16(0x9400), // Begin chapter
     MAGIC_IF    = SWAP_UINT16(0x9800), // if() statement?
     MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label definition?
     MAGIC_CALL  = SWAP_UINT16(0xCE00), // Script-defined function call
@@ -26,7 +26,7 @@ enum /* Magic */
 
     MAGIC_SET   = SWAP_UINT16(0xB000), // Set variable value? $GameName/$GameContinue
     MAGIC_GET   = SWAP_UINT16(0xD100), // Special parameter (request for var?) $GameStart/$MOVIEDATA
-    MAGIC_UNK12 = SWAP_UINT16(0xD400), // End chapter
+    MAGIC_CHAPTER_END = SWAP_UINT16(0xD400), // End chapter
     MAGIC_UNK13 = SWAP_UINT16(0x9500), // Begin scene
     MAGIC_UNK14 = SWAP_UINT16(0xA300), // $MainGameName
     MAGIC_UNK15 = SWAP_UINT16(0xD500), // End scene
