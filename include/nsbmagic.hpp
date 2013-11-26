@@ -6,6 +6,8 @@
 // TODO: Sort by value
 enum /* Magic */
 {
+    MAGIC_FN_UNK = 0, // Fuwanovel eof extension?
+
     MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
     MAGIC_PARAM = SWAP_UINT16(0xD000), // STRING/INT
     MAGIC_CHAPTER_BEGIN  = SWAP_UINT16(0x9400), // Begin chapter

@@ -12,6 +12,8 @@ using namespace boost::locale::conv;
 typedef boost::bimap<uint16_t, std::string> LookupTable;
 
 static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::value_type>
+    (MAGIC_FN_UNK, "FUWANOVEL")
+
     (MAGIC_TEXT, "ParseText")
     (MAGIC_PARAM, "SetParam")
     (MAGIC_CHAPTER_BEGIN, "ChapterBegin")
