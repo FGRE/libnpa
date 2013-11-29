@@ -9,7 +9,7 @@ enum /* Magic */
     MAGIC_FN_UNK = 0, // Fuwanovel eof extension?
 
     MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
-    MAGIC_PARAM = SWAP_UINT16(0xD000), // STRING/INT
+    MAGIC_PARAM = SWAP_UINT16(0xD000), // STRING/INT/FLOAT
     MAGIC_CHAPTER_BEGIN  = SWAP_UINT16(0x9400), // Begin chapter
     MAGIC_IF    = SWAP_UINT16(0x9800), // if() statement?
     MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label definition?
@@ -39,16 +39,16 @@ enum /* Magic */
     MAGIC_UNK20 = SWAP_UINT16(0x3900), // wait?? - Deprecated/broken!
     MAGIC_SLEEP_MS = SWAP_UINT16(0x3A00), // wait (milisecond)??
     MAGIC_SET_NULL_PARAM = SWAP_UINT16(0x9100), // nullify parameter?
-    MAGIC_UNK23 = SWAP_UINT16(0xD200),
+    MAGIC_UNK23 = SWAP_UINT16(0xD200), // set value of null param : looks like its not a null, but a placeholder
     MAGIC_SET_AUDIO_STATE = SWAP_UINT16(0x4300), // SetAudioState(STRING handle, INT num_seconds, INT volume, STRING tempo);
-    MAGIC_UNK25 = SWAP_UINT16(0x2800),
+    MAGIC_UNK25 = SWAP_UINT16(0x2800), // Shake()
     MAGIC_ARRAY_READ = SWAP_UINT16(0xDE00), // Dereference pointer (STRING array, INT depth) ??
     MAGIC_UNK27 = SWAP_UINT16(0xE400),
     MAGIC_CREATE_BOX = SWAP_UINT16(0x1400), // Limits area to which something can be drawn
     MAGIC_UNK29 = SWAP_UINT16(0x2B00), // Local to global?
     MAGIC_LOAD_MOVIE = SWAP_UINT16(0x1200), // Load movie??
     MAGIC_UNK31 = SWAP_UINT16(0x2C00),
-    MAGIC_UNK32 = SWAP_UINT16(0x2D00),
+    MAGIC_APPLY_BLUR = SWAP_UINT16(0x2D00), // BlurTexture(handle, hardness)
     MAGIC_UNK33 = SWAP_UINT16(0x1B00),
     MAGIC_UNK34 = SWAP_UINT16(0x3000),
     MAGIC_UNK35 = SWAP_UINT16(0xC000), // string operator == ? != ?
@@ -66,7 +66,7 @@ enum /* Magic */
     MAGIC_GET_MOVIE_TIME = SWAP_UINT16(0x5E00), // GetMovieDuration/TimeLeft??
     MAGIC_UNK48 = SWAP_UINT16(0x9D00),
     MAGIC_UNK49 = SWAP_UINT16(0xC200),
-    MAGIC_UNK50 = SWAP_UINT16(0x0B00),
+    MAGIC_UNK50 = SWAP_UINT16(0x0B00), // create shade (some kind of dark/blur effect?)
     MAGIC_UNK51 = SWAP_UINT16(0x0700),
     MAGIC_UNK52 = SWAP_UINT16(0x2F00),
     MAGIC_UNK53 = SWAP_UINT16(0xFC00),
@@ -99,7 +99,7 @@ enum /* Magic */
     MAGIC_UNK80 = SWAP_UINT16(0x1C01),
     MAGIC_UNK81 = SWAP_UINT16(0xA900),
     MAGIC_UNK82 = SWAP_UINT16(0x6E00),
-    MAGIC_UNK83 = SWAP_UINT16(0x6500),
+    MAGIC_FORMAT = SWAP_UINT16(0x6500), // %s%0d
     MAGIC_UNK84 = SWAP_UINT16(0x8A00),
     MAGIC_UNK85 = SWAP_UINT16(0x9A00),
     MAGIC_CALL_SCRIPT = SWAP_UINT16(0xA200), // has path to nss/somefile.nsb as param
