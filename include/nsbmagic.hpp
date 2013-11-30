@@ -10,7 +10,7 @@ enum /* Magic */
 
     MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
     MAGIC_PARAM = SWAP_UINT16(0xD000), // STRING/INT/FLOAT
-    MAGIC_CHAPTER_BEGIN  = SWAP_UINT16(0x9400), // Begin chapter
+    MAGIC_CHAPTER_BEGIN = SWAP_UINT16(0x9400), // Begin chapter
     MAGIC_IF    = SWAP_UINT16(0x9800), // if() statement?
     MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label definition?
     MAGIC_CALL  = SWAP_UINT16(0xCE00), // Script-defined function call
@@ -29,9 +29,9 @@ enum /* Magic */
     MAGIC_SET   = SWAP_UINT16(0xB000), // Set variable value? $GameName/$GameContinue
     MAGIC_GET   = SWAP_UINT16(0xD100), // Special parameter (request for var?) $GameStart/$MOVIEDATA
     MAGIC_CHAPTER_END = SWAP_UINT16(0xD400), // End chapter
-    MAGIC_UNK13 = SWAP_UINT16(0x9500), // Begin scene
+    MAGIC_SCENE_BEGIN = SWAP_UINT16(0x9500), // Begin scene
     MAGIC_UNK14 = SWAP_UINT16(0xA300), // $MainGameName
-    MAGIC_UNK15 = SWAP_UINT16(0xD500), // End scene
+    MAGIC_SCENE_END = SWAP_UINT16(0xD500), // End scene
     MAGIC_START_ANIMATION = SWAP_UINT16(0x2000), // AnimationStart?
     MAGIC_SET_DISPLAY_STATE = SWAP_UINT16(0x2300), // TODO: rename to SetState() Sets movie/audio (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
     MAGIC_DESTROY = SWAP_UINT16(0x2400), // Deallocate/Destroy/Remove
@@ -49,8 +49,8 @@ enum /* Magic */
     MAGIC_LOAD_MOVIE = SWAP_UINT16(0x1200), // Load movie??
     MAGIC_UNK31 = SWAP_UINT16(0x2C00),
     MAGIC_APPLY_BLUR = SWAP_UINT16(0x2D00), // BlurTexture(handle, hardness)
-    MAGIC_UNK33 = SWAP_UINT16(0x1B00),
-    MAGIC_UNK34 = SWAP_UINT16(0x3000),
+    MAGIC_CREATE_TEXTURE = SWAP_UINT16(0x1B00), // Create empty (render)texture for "linking"? UNK33(handle, width, height, #FF00FF);
+    MAGIC_DRAW_TO_TEXTURE = SWAP_UINT16(0x3000), // Bind texture to UNK33 texture UNK34(handle, x, y, file);
     MAGIC_UNK35 = SWAP_UINT16(0xC000), // string operator == ? != ?
     MAGIC_BEGIN = SWAP_UINT16(0x9700), // Begin function
     MAGIC_END   = SWAP_UINT16(0xD700), // End function
@@ -66,7 +66,7 @@ enum /* Magic */
     MAGIC_GET_MOVIE_TIME = SWAP_UINT16(0x5E00), // GetMovieDuration/TimeLeft??
     MAGIC_UNK48 = SWAP_UINT16(0x9D00),
     MAGIC_UNK49 = SWAP_UINT16(0xC200),
-    MAGIC_UNK50 = SWAP_UINT16(0x0B00), // create shade (some kind of dark/blur effect?)
+    MAGIC_UNK50 = SWAP_UINT16(0x0B00), // copy BGBUF1 to new texture?
     MAGIC_UNK51 = SWAP_UINT16(0x0700),
     MAGIC_UNK52 = SWAP_UINT16(0x2F00),
     MAGIC_UNK53 = SWAP_UINT16(0xFC00),
@@ -88,7 +88,7 @@ enum /* Magic */
     MAGIC_CREATE_ARRAY = SWAP_UINT16(0x7200), // create array? variable # of args...see: st, achievements...
     MAGIC_BIND_IDENTIFIER = SWAP_UINT16(0x7300), // called right after 69, bind identifiers?
     MAGIC_UNK71 = SWAP_UINT16(0x1600),
-    MAGIC_UNK72 = SWAP_UINT16(0x6200),
+    MAGIC_UNK72 = SWAP_UINT16(0x6200), // get texture height?
     MAGIC_UNK73 = SWAP_UINT16(0x7400), // get array size?
     MAGIC_SET_FONT_ATTRIBUTES = SWAP_UINT16(0x4E00), // SetFontAttributes(STRING font, INT size, STRING color1, STRING color2, INT unk, STRING unk)
     MAGIC_UNK75 = SWAP_UINT16(0x1300),
