@@ -38,8 +38,8 @@ enum /* Magic */
     MAGIC_SET_OPACITY = SWAP_UINT16(0x2500), // fade effect
     MAGIC_UNK20 = SWAP_UINT16(0x3900), // wait?? - Deprecated/broken!
     MAGIC_SLEEP_MS = SWAP_UINT16(0x3A00), // wait (milisecond)??
-    MAGIC_SET_NULL_PARAM = SWAP_UINT16(0x9100), // nullify parameter?
-    MAGIC_UNK23 = SWAP_UINT16(0xD200), // set value of null param : looks like its not a null, but a placeholder
+    MAGIC_PLACEHOLDER_PARAM = SWAP_UINT16(0x9100), // nullify parameter?
+    MAGIC_SET_PLACEHOLDER = SWAP_UINT16(0xD200), // set value of null param : looks like its not a null, but a placeholder
     MAGIC_SET_AUDIO_STATE = SWAP_UINT16(0x4300), // SetAudioState(STRING handle, INT num_seconds, INT volume, STRING tempo);
     MAGIC_UNK25 = SWAP_UINT16(0x2800), // Shake()
     MAGIC_ARRAY_READ = SWAP_UINT16(0xDE00), // Dereference pointer (STRING array, INT depth) ??
@@ -118,7 +118,7 @@ enum /* Magic */
     MAGIC_UNK99 = SWAP_UINT16(0x9C00),
     MAGIC_UNK100 = SWAP_UINT16(0xF700),
     MAGIC_UNK101 = SWAP_UINT16(0xF800),
-    MAGIC_CALLBACK = SWAP_UINT16(0x5800),
+    MAGIC_CALLBACK = SWAP_UINT16(0x5800), // Call script when button is pressed
     MAGIC_UNK103 = SWAP_UINT16(0x4F00),
     MAGIC_UNK104 = SWAP_UINT16(0x5100),
     MAGIC_UNK105 = SWAP_UINT16(0x5F00),
