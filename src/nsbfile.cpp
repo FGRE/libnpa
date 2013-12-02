@@ -12,10 +12,10 @@ using namespace boost::locale::conv;
 typedef boost::bimap<uint16_t, std::string> LookupTable;
 
 static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::value_type>
-    (MAGIC_FN_UNK, "FUWANOVEL")
+    (MAGIC_FWN_UNK, "FUWANOVEL")
 
-    (MAGIC_TEXT, "ParseText")
-    (MAGIC_PARAM, "SetParam")
+    (MAGIC_PARSE_TEXT, "ParseText")
+    (MAGIC_SET_PARAM, "SetParam")
     (MAGIC_CHAPTER_BEGIN, "ChapterBegin")
     (MAGIC_IF, "IF")
     (MAGIC_ENDIF, "ENDIF")
@@ -123,7 +123,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK99, "UNK99")
     (MAGIC_UNK100, "UNK100")
     (MAGIC_UNK101, "UNK101")
-    (MAGIC_CALLBACK, "Callback")
+    (MAGIC_REGISTER_CALLBACK, "RegisterCallback")
     (MAGIC_UNK103, "UNK103")
     (MAGIC_UNK104, "UNK104")
     (MAGIC_UNK105, "UNK105")

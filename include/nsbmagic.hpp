@@ -1,19 +1,19 @@
 #ifndef NSB_MAGIC_HPP
 #define NSB_MAGIC_HPP
 
-#define SWAP_UINT16(x) (((x) >> 8) | ((x) << 8))
+#define SWAP_UINT16(x) ((uint16_t)(((x) >> 8) | ((x) << 8)))
 
 // TODO: Sort by value
-enum /* Magic */
+enum /* Magic */ : uint16_t
 {
-    MAGIC_FN_UNK = 0, // Fuwanovel eof extension?
+    MAGIC_FWN_UNK = 0, // Fuwanovel eof extension?
 
-    MAGIC_TEXT  = SWAP_UINT16(0xD800), // XML formatted text/voice
-    MAGIC_PARAM = SWAP_UINT16(0xD000), // STRING/INT/FLOAT
+    MAGIC_PARSE_TEXT = SWAP_UINT16(0xD800), // XML formatted text/voice
+    MAGIC_SET_PARAM = SWAP_UINT16(0xD000), // STRING/INT/FLOAT
     MAGIC_CHAPTER_BEGIN = SWAP_UINT16(0x9400), // Begin chapter
-    MAGIC_IF    = SWAP_UINT16(0x9800), // if() statement?
+    MAGIC_IF = SWAP_UINT16(0x9800), // if() statement?
     MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label definition?
-    MAGIC_CALL  = SWAP_UINT16(0xCE00), // Script-defined function call
+    MAGIC_CALL = SWAP_UINT16(0xCE00), // Script-defined function call
 
     // Magic-only
     MAGIC_UNK1  = SWAP_UINT16(0xC600), // Logical condition
@@ -102,7 +102,7 @@ enum /* Magic */
     MAGIC_FORMAT = SWAP_UINT16(0x6500), // %s%0d
     MAGIC_UNK84 = SWAP_UINT16(0x8A00),
     MAGIC_UNK85 = SWAP_UINT16(0x9A00),
-    MAGIC_CALL_SCRIPT = SWAP_UINT16(0xA200), // has path to nss/somefile.nsb as param
+    MAGIC_CALL_SCRIPT = SWAP_UINT16(0xA200), // seems incorrect: has path to nss/somefile.nsb as param
     MAGIC_UNK87 = SWAP_UINT16(0x9B00),
     MAGIC_UNK88 = SWAP_UINT16(0xDD00),
     MAGIC_UNK89 = SWAP_UINT16(0xE000),
@@ -118,7 +118,7 @@ enum /* Magic */
     MAGIC_UNK99 = SWAP_UINT16(0x9C00),
     MAGIC_UNK100 = SWAP_UINT16(0xF700),
     MAGIC_UNK101 = SWAP_UINT16(0xF800),
-    MAGIC_CALLBACK = SWAP_UINT16(0x5800), // Call script when button is pressed
+    MAGIC_REGISTER_CALLBACK = SWAP_UINT16(0x5800), // Call script when button is pressed
     MAGIC_UNK103 = SWAP_UINT16(0x4F00),
     MAGIC_UNK104 = SWAP_UINT16(0x5100),
     MAGIC_UNK105 = SWAP_UINT16(0x5F00),
