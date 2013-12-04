@@ -16,7 +16,7 @@ void MapFile::Read(std::istream* pStream)
     while (pStream->read((char*)&Offset, sizeof(uint32_t)))
     {
         pStream->read((char*)&Size, sizeof(uint16_t));
-        Value.resize(Size);
+        Label.resize(Size);
         pStream->read(&Label[0], Size);
         Source.push_back({Offset, Label});
     }
