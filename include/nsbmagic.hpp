@@ -14,18 +14,15 @@ enum /* Magic */ : uint16_t
     MAGIC_IF = SWAP_UINT16(0x9800), // if() statement?
     MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label definition?
     MAGIC_CALL = SWAP_UINT16(0xCE00), // Script-defined function call
-
-    // Magic-only
     MAGIC_UNK1  = SWAP_UINT16(0xC600), // Logical condition
     MAGIC_UNK2  = SWAP_UINT16(0xC700), // Logical condition
-    MAGIC_UNK3  = SWAP_UINT16(0xC800), // label epilogue?
-    MAGIC_UNK4  = SWAP_UINT16(0xC900), // Logical == ?
-    MAGIC_UNK5  = SWAP_UINT16(0x6800), // Empty variable/parameter?
+    MAGIC_UNK3  = SWAP_UINT16(0xC800), // label epilogue/where .map file maps labels
+    MAGIC_UNK4  = SWAP_UINT16(0xC900), //
+    MAGIC_UNK5  = SWAP_UINT16(0x6800), // Get current script name?
     MAGIC_CLEAR_PARAMS  = SWAP_UINT16(0x8E00), // Flush commands? (return control to game) Cleanup params? (epilogue)
-    MAGIC_UNK7  = SWAP_UINT16(0x5B00),
-    MAGIC_UNK8  = SWAP_UINT16(0xC100),
+    MAGIC_UNK7  = SWAP_UINT16(0x5B00), // return control to game
+    MAGIC_UNK8  = SWAP_UINT16(0xC100), // Logical != ?
     MAGIC_CONCAT = SWAP_UINT16(0xA500), // Concats above two params into a param
-
     MAGIC_SET   = SWAP_UINT16(0xB000), // Set variable value? $GameName/$GameContinue
     MAGIC_GET   = SWAP_UINT16(0xD100), // Special parameter (request for var?) $GameStart/$MOVIEDATA
     MAGIC_CHAPTER_END = SWAP_UINT16(0xD400), // End chapter

@@ -5,8 +5,8 @@
 
 struct MapLine
 {
-    uint32_t Magic;
-    std::string Value;
+    uint32_t Offset;
+    std::string Label;
 };
 
 class MapFile : public ScriptFile<MapLine>

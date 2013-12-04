@@ -35,3 +35,9 @@ INT, 1 if player may not use backlog
 
 $SYSTEM_save_lock
 INT, 1 if player may not save game
+
+$GameContiune
+INT, 1 if game game should continue
+
+$GameName
+STRING, script which should be executed if $GameContinue is 1
