@@ -18,9 +18,8 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_SET_PARAM, "SetParam")
     (MAGIC_CHAPTER_BEGIN, "ChapterBegin")
     (MAGIC_IF, "IF")
-    (MAGIC_ENDIF, "ENDIF")
-    (MAGIC_CALL, "CALL")
-
+    (MAGIC_LABEL, "Label")
+    (MAGIC_CALL, "Call")
     (MAGIC_UNK1, "UNK1")
     (MAGIC_UNK2, "UNK2")
     (MAGIC_UNK3, "UNK3")
@@ -30,7 +29,6 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK7, "UNK7")
     (MAGIC_UNK8, "UNK8")
     (MAGIC_CONCAT, "Concat")
-
     (MAGIC_SET, "Set")
     (MAGIC_GET, "Get")
     (MAGIC_CHAPTER_END, "ChapterEnd")
@@ -57,8 +55,8 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_CREATE_TEXTURE, "CreateTexture")
     (MAGIC_DRAW_TO_TEXTURE, "DrawToTexture")
     (MAGIC_UNK35, "UNK35")
-    (MAGIC_BEGIN, "FuncBegin")
-    (MAGIC_END,   "FuncEnd")
+    (MAGIC_FUNCTION_BEGIN, "FunctionBegin")
+    (MAGIC_FUNCTION_END, "FunctionEnd")
     (MAGIC_UNK38, "UNK38")
     (MAGIC_UNK39, "UNK39")
     (MAGIC_UNK40, "UNK40")
@@ -116,7 +114,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK92, "UNK92")
     (MAGIC_UNK93, "UNK93")
     (MAGIC_UNK94, "UNK94")
-    (MAGIC_UNK95, "UNK95")
+    (MAGIC_CREATE_THREAD, "CreateThread")
     (MAGIC_ZOOM, "Zoom")
     (MAGIC_UNK97, "UNK97")
     (MAGIC_UNK98, "UNK98")
@@ -260,7 +258,7 @@ void NsbFile::Read(std::istream* pStream)
         }
 
         // Map function
-        if (CurrLine->Magic == uint16_t(MAGIC_BEGIN))
+        if (CurrLine->Magic == uint16_t(MAGIC_FUNCTION_BEGIN))
             Functions[CurrLine->Params[0].c_str() + strlen("function.")] = Entry;
     }
 }

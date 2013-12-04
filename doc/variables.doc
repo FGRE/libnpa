@@ -41,3 +41,6 @@ INT, 1 if game game should continue
 
 $GameName
 STRING, script which should be executed if $GameContinue is 1
+
+$PreGameName
+STRING, script which was previously executed
