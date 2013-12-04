@@ -33,7 +33,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK14 = SWAP_UINT16(0xA300), // $MainGameName
     MAGIC_SCENE_END = SWAP_UINT16(0xD500), // End scene
     MAGIC_START_ANIMATION = SWAP_UINT16(0x2000), // AnimationStart?
-    MAGIC_SET_DISPLAY_STATE = SWAP_UINT16(0x2300), // TODO: rename to SetState() Sets movie/audio (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state
+    MAGIC_SET_STATE = SWAP_UINT16(0x2300), // Sets movie/audio (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state, Start state for process (script thread)
     MAGIC_DESTROY = SWAP_UINT16(0x2400), // Deallocate/Destroy/Remove
     MAGIC_SET_OPACITY = SWAP_UINT16(0x2500), // fade effect
     MAGIC_UNK20 = SWAP_UINT16(0x3900), // wait?? - Deprecated/broken!
@@ -111,7 +111,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK92 = SWAP_UINT16(0x5500),
     MAGIC_UNK93 = SWAP_UINT16(0x6B00),
     MAGIC_UNK94 = SWAP_UINT16(0x0001),
-    MAGIC_UNK95 = SWAP_UINT16(0x0900),
+    MAGIC_UNK95 = SWAP_UINT16(0x0900), // creates script thread? CreateProcess(handle, function)
     MAGIC_ZOOM = SWAP_UINT16(0x2600), // Zoom(handle, time, x, y, tempo, wait);
     MAGIC_UNK97 = SWAP_UINT16(0x6C00),
     MAGIC_UNK98 = SWAP_UINT16(0x3400),
