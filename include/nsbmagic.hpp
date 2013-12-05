@@ -37,7 +37,7 @@ enum /* Magic */ : uint16_t
     MAGIC_SLEEP_MS = SWAP_UINT16(0x3A00),
     MAGIC_PLACEHOLDER_PARAM = SWAP_UINT16(0x9100), // nullify parameter?
     MAGIC_SET_PLACEHOLDER = SWAP_UINT16(0xD200), // set value of null param : looks like its not a null, but a placeholder
-    MAGIC_SET_AUDIO_STATE = SWAP_UINT16(0x4300), // SetAudioState(STRING handle, INT num_seconds, INT volume, STRING tempo);
+    MAGIC_SET_AUDIO_STATE = SWAP_UINT16(0x4300), // Music fade effect? SetAudioState(STRING handle, INT num_seconds, INT volume, STRING tempo);
     MAGIC_UNK25 = SWAP_UINT16(0x2800), // Shake()
     MAGIC_ARRAY_READ = SWAP_UINT16(0xDE00), // Dereference pointer (STRING array, INT depth) ??
     MAGIC_UNK27 = SWAP_UINT16(0xE400),
@@ -169,8 +169,8 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK153 = SWAP_UINT16(0x0F00),
     MAGIC_UNK154 = SWAP_UINT16(0x3100),
     MAGIC_LOAD_AUDIO = SWAP_UINT16(0x1100), // LoadAudio(STRING handle, STRING type, STRING file); type is SE/BGM/VOICE
-    MAGIC_SET_AUDIO_RANGE = SWAP_UINT16(0x4700), // SetAudioPlayRange(STRING handle, INT start_ms, INT end_ms);
-    MAGIC_UNK157 = SWAP_UINT16(0x4500), // Audio related (STRING handle, INT unk, INT speed, STRING unk)
+    MAGIC_SET_AUDIO_RANGE = SWAP_UINT16(0x4700), // PlayRange? Maybe this is where it gets loaded to memory
+    MAGIC_UNK157 = SWAP_UINT16(0x4500), // Audio related (set speed) (STRING handle, INT unk, INT speed, STRING unk)
     MAGIC_UNK158 = SWAP_UINT16(0x4400), // Audio related (STRING handle, INT unk, STRING direction, STRING unk)
     MAGIC_SET_AUDIO_LOOP = SWAP_UINT16(0x4600),
     MAGIC_UNK160 = SWAP_UINT16(0x3700),
