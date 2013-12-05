@@ -20,7 +20,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK4 = SWAP_UINT16(0xC900), //
     MAGIC_UNK5 = SWAP_UINT16(0x6800), // Get current script name?
     MAGIC_CLEAR_PARAMS = SWAP_UINT16(0x8E00),
-    MAGIC_UNK7 = SWAP_UINT16(0x5B00), // return control to game
+    MAGIC_UNK7 = SWAP_UINT16(0x5B00), // return control to game/start scene
     MAGIC_UNK8 = SWAP_UINT16(0xC100), // Logical != ?
     MAGIC_CONCAT = SWAP_UINT16(0xA500),
     MAGIC_SET = SWAP_UINT16(0xB000),
@@ -89,7 +89,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK73 = SWAP_UINT16(0x7400), // get array size?
     MAGIC_SET_FONT_ATTRIBUTES = SWAP_UINT16(0x4E00), // SetFontAttributes(STRING font, INT size, STRING color1, STRING color2, INT unk, STRING unk)
     MAGIC_UNK75 = SWAP_UINT16(0x1300),
-    MAGIC_CREATE_COLOR = SWAP_UINT16(0x0A00), // CreateColor(STRING handle, INT priority, INT unk, INT unk, INT width, INT height, STRING color);
+    MAGIC_CREATE_COLOR = SWAP_UINT16(0x0A00),
     MAGIC_UNK77 = SWAP_UINT16(0x0800),
     MAGIC_UNK78 = SWAP_UINT16(0x1800),
     MAGIC_UNK79 = SWAP_UINT16(0x3500),
