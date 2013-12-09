@@ -12,7 +12,7 @@ enum /* Magic */ : uint16_t
     MAGIC_SET_PARAM = SWAP_UINT16(0xD000), // STRING/INT/FLOAT
     MAGIC_CHAPTER_BEGIN = SWAP_UINT16(0x9400),
     MAGIC_IF = SWAP_UINT16(0x9800), // if() statement?
-    MAGIC_LABEL = SWAP_UINT16(0xCF00), // label definition?
+    MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label definition?
     MAGIC_CALL = SWAP_UINT16(0xCE00),
     MAGIC_UNK1 = SWAP_UINT16(0xC600), // Logical condition
     MAGIC_UNK2 = SWAP_UINT16(0xC700), // Logical condition
@@ -58,7 +58,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK42 = SWAP_UINT16(0x6100), // get texture width?
     MAGIC_UNK43 = SWAP_UINT16(0xA800), // operator / (division)
     MAGIC_UNK44 = SWAP_UINT16(0xA700),
-    MAGIC_UNK45 = SWAP_UINT16(0xAC00), // Negate(!) previous parameter?
+    MAGIC_LOGICAL_NOT = SWAP_UINT16(0xAC00), // Negate(!) previous parameter?
     MAGIC_UNK46 = SWAP_UINT16(0x9900), // Label definitions (end of while loop, see: MAGIC_LABEL)
     MAGIC_GET_MOVIE_TIME = SWAP_UINT16(0x5E00), // GetMovieDuration/TimeLeft?? TODO: Works on music as well
     MAGIC_UNK48 = SWAP_UINT16(0x9D00),
