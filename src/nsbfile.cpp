@@ -27,7 +27,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK5, "UNK5")
     (MAGIC_CLEAR_PARAMS, "ClearParams")
     (MAGIC_UNK7, "UNK7")
-    (MAGIC_UNK8, "UNK8")
+    (MAGIC_LOGICAL_EQUAL, "LogicalEqual")
     (MAGIC_CONCAT, "Concat")
     (MAGIC_SET, "Set")
     (MAGIC_GET, "Get")

@@ -21,7 +21,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK5 = SWAP_UINT16(0x6800), // Get current script name?
     MAGIC_CLEAR_PARAMS = SWAP_UINT16(0x8E00),
     MAGIC_UNK7 = SWAP_UINT16(0x5B00), // return control to game/start scene
-    MAGIC_UNK8 = SWAP_UINT16(0xC100), // Logical != ?
+    MAGIC_LOGICAL_EQUAL = SWAP_UINT16(0xC100), // Logical != ?
     MAGIC_CONCAT = SWAP_UINT16(0xA500),
     MAGIC_SET = SWAP_UINT16(0xB000),
     MAGIC_GET = SWAP_UINT16(0xD100),
