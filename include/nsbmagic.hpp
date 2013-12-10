@@ -36,7 +36,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK20 = SWAP_UINT16(0x3900), // wait?? - Deprecated/broken!
     MAGIC_SLEEP_MS = SWAP_UINT16(0x3A00),
     MAGIC_PLACEHOLDER_PARAM = SWAP_UINT16(0x9100), // nullify parameter?
-    MAGIC_SET_PLACEHOLDER = SWAP_UINT16(0xD200), // set value of null param : looks like its not a null, but a placeholder
+    MAGIC_NEGATIVE = SWAP_UINT16(0xD200),
     MAGIC_SET_AUDIO_STATE = SWAP_UINT16(0x4300), // Music fade effect? SetAudioState(STRING handle, INT num_seconds, INT volume, STRING tempo);
     MAGIC_UNK25 = SWAP_UINT16(0x2800), // Shake()
     MAGIC_ARRAY_READ = SWAP_UINT16(0xDE00), // Dereference pointer (STRING array, INT depth) ??
