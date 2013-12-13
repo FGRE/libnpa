@@ -42,7 +42,7 @@ enum /* Magic */ : uint16_t
     MAGIC_ARRAY_READ = SWAP_UINT16(0xDE00), // Dereference pointer (STRING array, INT depth) ??
     MAGIC_UNK27 = SWAP_UINT16(0xE400), // phone related
     MAGIC_CREATE_BOX = SWAP_UINT16(0x1400),
-    MAGIC_UNK29 = SWAP_UINT16(0x2B00), // Local to global?
+    MAGIC_UNK29 = SWAP_UINT16(0x2B00), // Local to global? SetAlias in Chaos;Head
     MAGIC_LOAD_MOVIE = SWAP_UINT16(0x1200),
     MAGIC_UNK31 = SWAP_UINT16(0x2C00), // UNK31(handle, x, y)
     MAGIC_APPLY_BLUR = SWAP_UINT16(0x2D00),
@@ -158,7 +158,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK142 = SWAP_UINT16(0xEC00), // see UNK127
     MAGIC_UNK143 = SWAP_UINT16(0xF900),
     MAGIC_UNK144 = SWAP_UINT16(0x0A01),
-    MAGIC_UNK145 = SWAP_UINT16(0xFE00),
+    MAGIC_UNK145 = SWAP_UINT16(0xFE00), // time leap
     MAGIC_UNK146 = SWAP_UINT16(0xAE00),
     MAGIC_UNK147 = SWAP_UINT16(0x1401),
     MAGIC_UNK148 = SWAP_UINT16(0x1501),
