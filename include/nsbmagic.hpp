@@ -22,7 +22,7 @@ enum /* Magic */ : uint16_t
     MAGIC_CLEAR_PARAMS = SWAP_UINT16(0x8E00),
     MAGIC_UNK7 = SWAP_UINT16(0x5B00), // return control to game/start scene
     MAGIC_LOGICAL_NOT_EQUAL = SWAP_UINT16(0xC100),
-    MAGIC_CONCAT = SWAP_UINT16(0xA500),
+    MAGIC_ADD = SWAP_UINT16(0xA500),
     MAGIC_SET = SWAP_UINT16(0xB000),
     MAGIC_GET = SWAP_UINT16(0xD100),
     MAGIC_CHAPTER_END = SWAP_UINT16(0xD400),
@@ -43,7 +43,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK27 = SWAP_UINT16(0xE400), // phone related
     MAGIC_CREATE_BOX = SWAP_UINT16(0x1400),
     MAGIC_UNK29 = SWAP_UINT16(0x2B00), // Local to global? SetAlias in Chaos;Head
-    MAGIC_LOAD_MOVIE = SWAP_UINT16(0x1200),
+    MAGIC_LOAD_MOVIE = SWAP_UINT16(0x1200), // set center
     MAGIC_UNK31 = SWAP_UINT16(0x2C00), // UNK31(handle, x, y)
     MAGIC_APPLY_BLUR = SWAP_UINT16(0x2D00),
     MAGIC_CREATE_TEXTURE = SWAP_UINT16(0x1B00),
@@ -71,7 +71,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK55 = SWAP_UINT16(0xC400), // operator < ? <= ? > ? >= ?
     MAGIC_APPLY_MASK = SWAP_UINT16(0x3800),
     MAGIC_UNK57 = SWAP_UINT16(0xC300), // increment?
-    MAGIC_UNK58 = SWAP_UINT16(0xA600),
+    MAGIC_SUBSTRACT = SWAP_UINT16(0xA600), // likely operator-
     MAGIC_UNK59 = SWAP_UINT16(0xEB00), // FM_From_DAR0203 (.ogg)
     MAGIC_UNK60 = SWAP_UINT16(0xEA00),
     MAGIC_UNK61 = SWAP_UINT16(0xB100),
@@ -169,7 +169,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK153 = SWAP_UINT16(0x0F00),
     MAGIC_UNK154 = SWAP_UINT16(0x3100),
     MAGIC_LOAD_AUDIO = SWAP_UINT16(0x1100), // LoadAudio(STRING handle, STRING type, STRING file); type is SE/BGM/VOICE
-    MAGIC_SET_AUDIO_RANGE = SWAP_UINT16(0x4700), // PlayRange? Maybe this is where it gets loaded to memory
+    MAGIC_SET_AUDIO_RANGE = SWAP_UINT16(0x4700), // PlayRange? SetLoopPoint in Chaos;Head
     MAGIC_UNK157 = SWAP_UINT16(0x4500), // Audio related (set speed) (STRING handle, INT unk, INT speed, STRING unk)
     MAGIC_UNK158 = SWAP_UINT16(0x4400), // Audio related (STRING handle, INT unk, STRING direction, STRING unk)
     MAGIC_SET_AUDIO_LOOP = SWAP_UINT16(0x4600),
