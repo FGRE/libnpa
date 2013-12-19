@@ -6,22 +6,20 @@
 /* PUBLIC */
 
 NpaIterator::NpaIterator(NpaFile* File, char* Pos) :
-FileData(nullptr),
 Pos(Pos),
 File(File)
 {
 }
 
-NpaIterator::~NpaIterator()
+NpaIterator::NpaIterator() :
+Pos(nullptr),
+File(nullptr)
 {
-    delete[] FileData;
 }
 
 NpaIterator& NpaIterator::operator++()
 {
     Pos += GetRawEntrySize();
-    delete[] FileData;
-    FileData = nullptr;
 
     if ((File && (Pos - File->Header >= File->HeaderSize)) || GetFileNameSize() == 0)
         Pos = nullptr;
@@ -66,11 +64,16 @@ uint32_t NpaIterator::GetFileSize()
 
 char* NpaIterator::GetFileData()
 {
-    if (FileData)
-        return FileData;
+    return GetFileData(0, GetFileSize());
+}
 
-    FileData = new char[GetFileSize()];
-    File->ReadEncrypted(FileData, GetOffset(), GetFileSize());
+char* NpaIterator::GetFileData(uint32_t Offset, uint32_t Size)
+{
+    char* FileData;
+    if (Offset + Size > GetFileSize())
+        Size = GetFileSize() - Offset;
+    FileData = new char[Size];
+    File->ReadEncrypted(FileData, GetOffset() + Offset, Size);
     return FileData;
 }
 
