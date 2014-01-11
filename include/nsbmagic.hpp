@@ -11,8 +11,8 @@ enum /* Magic */ : uint16_t
     MAGIC_PARSE_TEXT = SWAP_UINT16(0xD800),
     MAGIC_SET_PARAM = SWAP_UINT16(0xD000), // STRING/INT/FLOAT
     MAGIC_CHAPTER_BEGIN = SWAP_UINT16(0x9400),
-    MAGIC_IF = SWAP_UINT16(0x9800), // if() statement?
-    MAGIC_ENDIF = SWAP_UINT16(0xCF00), // label definition?
+    MAGIC_IF = SWAP_UINT16(0x9800),
+    MAGIC_LABEL = SWAP_UINT16(0xCF00),
     MAGIC_CALL = SWAP_UINT16(0xCE00),
     MAGIC_UNK1 = SWAP_UINT16(0xC600), // Logical condition
     MAGIC_UNK2 = SWAP_UINT16(0xC700), // Logical condition
@@ -58,8 +58,8 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK42 = SWAP_UINT16(0x6100), // get texture width?
     MAGIC_UNK43 = SWAP_UINT16(0xA800), // operator / (division)
     MAGIC_UNK44 = SWAP_UINT16(0xA700),
-    MAGIC_LOGICAL_NOT = SWAP_UINT16(0xAC00), // Negate(!) previous parameter?
-    MAGIC_UNK46 = SWAP_UINT16(0x9900), // Label definitions (end of while loop, see: MAGIC_LABEL)
+    MAGIC_LOGICAL_NOT = SWAP_UINT16(0xAC00),
+    MAGIC_WHILE = SWAP_UINT16(0x9900),
     MAGIC_GET_MOVIE_TIME = SWAP_UINT16(0x5E00), // GetMovieDuration/TimeLeft?? TODO: Works on music as well
     MAGIC_UNK48 = SWAP_UINT16(0x9D00),
     MAGIC_UNK49 = SWAP_UINT16(0xC200),
@@ -71,7 +71,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK55 = SWAP_UINT16(0xC400), // operator < ? <= ? > ? >= ?
     MAGIC_APPLY_MASK = SWAP_UINT16(0x3800),
     MAGIC_UNK57 = SWAP_UINT16(0xC300), // increment?
-    MAGIC_SUBSTRACT = SWAP_UINT16(0xA600), // likely operator-
+    MAGIC_SUBSTRACT = SWAP_UINT16(0xA600),
     MAGIC_UNK59 = SWAP_UINT16(0xEB00), // FM_From_DAR0203 (.ogg)
     MAGIC_UNK60 = SWAP_UINT16(0xEA00),
     MAGIC_UNK61 = SWAP_UINT16(0xB100),
@@ -127,7 +127,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK111 = SWAP_UINT16(0x4B00),
     MAGIC_UNK112 = SWAP_UINT16(0x3200),
     MAGIC_UNK113 = SWAP_UINT16(0x4100),
-    MAGIC_UNK114 = SWAP_UINT16(0x5C00),
+    MAGIC_UNK114 = SWAP_UINT16(0x5C00), // Open www browser? UNK114(OPEN:link), 2 optional params
     MAGIC_UNK115 = SWAP_UINT16(0x1801),
     MAGIC_UNK116 = SWAP_UINT16(0xAA00),
     MAGIC_UNK117 = SWAP_UINT16(0xE800),

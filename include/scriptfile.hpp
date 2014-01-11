@@ -21,6 +21,7 @@ public:
     void SetSourceIter(uint32_t NewIter);
     uint32_t GetNextLineEntry() const;
     L* GetNextLine();
+    L* GetPrevLine();
 
 protected:
     void Open(const std::string& Name, char* Data = nullptr, uint32_t Size = 0);
@@ -85,6 +86,12 @@ template <class L>
 L* ScriptFile<L>::GetNextLine()
 {
     return SourceIter < Source.size() ? &Source[SourceIter++] : nullptr;
+}
+
+template <class L>
+L* ScriptFile<L>::GetPrevLine()
+{
+    return SourceIter >= 0 ? &Source[SourceIter--] : nullptr;
 }
 
 #endif
