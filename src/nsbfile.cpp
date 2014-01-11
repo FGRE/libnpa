@@ -50,7 +50,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_CREATE_BOX, "CreateBox")
     (MAGIC_UNK29, "UNK29")
     (MAGIC_LOAD_MOVIE, "LoadMovie")
-    (MAGIC_UNK31, "UNK31")
+    (MAGIC_CENTER, "Center")
     (MAGIC_APPLY_BLUR, "ApplyBlur")
     (MAGIC_CREATE_TEXTURE, "CreateTexture")
     (MAGIC_DRAW_TO_TEXTURE, "DrawToTexture")
