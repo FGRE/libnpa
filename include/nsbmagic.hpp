@@ -164,7 +164,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK148 = SWAP_UINT16(0x1501),
     MAGIC_UNK149 = SWAP_UINT16(0xB900),
     MAGIC_UNK150 = SWAP_UINT16(0xAB00),
-    MAGIC_UNK151 = SWAP_UINT16(0x0E00), // LoadTextureClip(handle, priority, x1, y1, x2, y2, h (unk), v (unk), file)
+    MAGIC_LOAD_TEXTURE_CLIP = SWAP_UINT16(0x0E00), // LoadTextureClip(handle, priority, xpos, ypos, x1, y1, x2, y2, file)
     MAGIC_UNK152 = SWAP_UINT16(0x0600), // LoadSt($nut, $立画優先度, $StPlaceX, $StPlaceY, 128, $St画像, false);
     MAGIC_UNK153 = SWAP_UINT16(0x0F00),
     MAGIC_UNK154 = SWAP_UINT16(0x3100),
