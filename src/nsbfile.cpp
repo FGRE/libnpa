@@ -33,7 +33,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_GET, "Get")
     (MAGIC_CHAPTER_END, "ChapterEnd")
     (MAGIC_SCENE_BEGIN, "SceneBegin")
-    (MAGIC_UNK14, "UNK14")
+    (MAGIC_CALL_SCENE, "CallScene")
     (MAGIC_SCENE_END, "SceneEnd")
     (MAGIC_START_ANIMATION, "StartAnimation")
     (MAGIC_SET_STATE, "SetState")
