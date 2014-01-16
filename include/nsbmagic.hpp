@@ -110,7 +110,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK94 = SWAP_UINT16(0x0001),
     MAGIC_CREATE_THREAD = SWAP_UINT16(0x0900), // creates script thread? CreateThread(handle, priority, unk, unk, function)
     MAGIC_ZOOM = SWAP_UINT16(0x2600),
-    MAGIC_UNK97 = SWAP_UINT16(0x6C00),
+    MAGIC_TIME = SWAP_UINT16(0x6C00),
     MAGIC_UNK98 = SWAP_UINT16(0x3400),
     MAGIC_UNK99 = SWAP_UINT16(0x9C00),
     MAGIC_UNK100 = SWAP_UINT16(0xF700),
