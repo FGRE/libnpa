@@ -16,8 +16,8 @@ enum /* Magic */ : uint16_t
     MAGIC_CALL = SWAP_UINT16(0xCE00),
     MAGIC_UNK1 = SWAP_UINT16(0xC600), // Logical condition
     MAGIC_UNK2 = SWAP_UINT16(0xC700), // Logical condition
-    MAGIC_UNK3 = SWAP_UINT16(0xC800), // label epilogue/where .map file maps labels
-    MAGIC_UNK4 = SWAP_UINT16(0xC900), //
+    MAGIC_UNK3 = SWAP_UINT16(0xC800), // Opening brace({)? label epilogue/where .map file maps labels
+    MAGIC_UNK4 = SWAP_UINT16(0xC900), // Closing brace(})?
     MAGIC_UNK5 = SWAP_UINT16(0x6800), // Get current script name?
     MAGIC_CLEAR_PARAMS = SWAP_UINT16(0x8E00),
     MAGIC_UNK7 = SWAP_UINT16(0x5B00), // return control to game/start scene
@@ -99,7 +99,7 @@ enum /* Magic */ : uint16_t
     MAGIC_FORMAT = SWAP_UINT16(0x6500),
     MAGIC_UNK84 = SWAP_UINT16(0x8A00),
     MAGIC_UNK85 = SWAP_UINT16(0x9A00),
-    MAGIC_CALL_SCRIPT = SWAP_UINT16(0xA200), // seems incorrect: has path to nss/somefile.nsb as param
+    MAGIC_CALL_CHAPTER = SWAP_UINT16(0xA200),
     MAGIC_UNK87 = SWAP_UINT16(0x9B00),
     MAGIC_UNK88 = SWAP_UINT16(0xDD00),
     MAGIC_UNK89 = SWAP_UINT16(0xE000),
