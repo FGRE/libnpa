@@ -55,7 +55,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK39 = SWAP_UINT16(0x0501), // phone/message related
     MAGIC_UNK40 = SWAP_UINT16(0x7500), // Retrieve from array at index?
     MAGIC_LOAD_TEXTURE = SWAP_UINT16(0x0D00),
-    MAGIC_UNK42 = SWAP_UINT16(0x6100), // get texture width?
+    MAGIC_TEXTURE_WIDTH = SWAP_UINT16(0x6100),
     MAGIC_UNK43 = SWAP_UINT16(0xA800), // operator / (division)
     MAGIC_UNK44 = SWAP_UINT16(0xA700),
     MAGIC_LOGICAL_NOT = SWAP_UINT16(0xAC00),
@@ -82,10 +82,10 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK66 = SWAP_UINT16(0x7A00),
     MAGIC_UNK67 = SWAP_UINT16(0x1C00),
     MAGIC_UNK68 = SWAP_UINT16(0x1900),
-    MAGIC_CREATE_ARRAY = SWAP_UINT16(0x7200), // create array? variable # of args...see: st, achievements...
-    MAGIC_BIND_IDENTIFIER = SWAP_UINT16(0x7300), // called right after 69, bind identifiers?
+    MAGIC_CREATE_ARRAY = SWAP_UINT16(0x7200),
+    MAGIC_BIND_IDENTIFIER = SWAP_UINT16(0x7300),
     MAGIC_UNK71 = SWAP_UINT16(0x1600),
-    MAGIC_UNK72 = SWAP_UINT16(0x6200), // get texture height?
+    MAGIC_TEXTURE_HEIGHT = SWAP_UINT16(0x6200),
     MAGIC_ARRAY_SIZE = SWAP_UINT16(0x7400),
     MAGIC_SET_FONT_ATTRIBUTES = SWAP_UINT16(0x4E00), // SetFontAttributes(STRING font, INT size, STRING color1, STRING color2, INT unk, STRING unk)
     MAGIC_UNK75 = SWAP_UINT16(0x1300),
