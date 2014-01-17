@@ -243,20 +243,26 @@ uint16_t NsbFile::MagicifyString(const char* String)
     return 0;
 }
 
-uint32_t NsbFile::GetFunctionLine(const char* Name) const
+uint32_t NsbFile::GetSymbol(const std::string& Name, SymbolType Type)
 {
-    auto iter = Functions.find(Name);
-    if (iter != Functions.end())
-        return iter->second;
-    return 0;
-}
-
-uint32_t NsbFile::GetChapterLine(const char* Name) const
-{
-    auto iter = Chapters.find(Name);
-    if (iter != Chapters.end())
-        return iter->second;
-    return 0;
+    std::map<std::string, uint32_t>::iterator iter;
+    switch (Type)
+    {
+        case SYMBOL_CHAPTER:
+            iter = Chapters.find(Name);
+            if (iter != Chapters.end())
+                return iter->second;
+        case SYMBOL_FUNCTION:
+            iter = Functions.find(Name);
+            if (iter != Functions.end())
+                return iter->second;
+        case SYMBOL_SCENE:
+            iter = Scenes.find(Name);
+            if (iter != Scenes.end())
+                return iter->second;
+        default:
+            return 0;
+    }
 }
 
 /* PRIVATE */
@@ -293,5 +299,8 @@ void NsbFile::Read(std::istream* pStream)
         // Map chapter
         else if (CurrLine->Magic == MAGIC_CHAPTER_BEGIN)
             Chapters[CurrLine->Params[0].c_str() + strlen("chapter.")] = Entry;
+        // Map scene
+        else if (CurrLine->Magic == MAGIC_SCENE_BEGIN)
+            Scenes[CurrLine->Params[0].c_str() + strlen("scene.")] = Entry;
     }
 }
