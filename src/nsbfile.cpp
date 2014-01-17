@@ -24,7 +24,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK2, "UNK2")
     (MAGIC_UNK3, "UNK3")
     (MAGIC_UNK4, "UNK4")
-    (MAGIC_UNK5, "UNK5")
+    (MAGIC_GET_SCRIPT_NAME, "GetScriptName")
     (MAGIC_CLEAR_PARAMS, "ClearParams")
     (MAGIC_UNK7, "UNK7")
     (MAGIC_LOGICAL_NOT_EQUAL, "LogicalNotEqual")

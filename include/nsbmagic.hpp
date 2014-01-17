@@ -18,7 +18,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK2 = SWAP_UINT16(0xC700),
     MAGIC_UNK3 = SWAP_UINT16(0xC800), // Opening brace({)? label epilogue/where .map file maps labels
     MAGIC_UNK4 = SWAP_UINT16(0xC900), // Closing brace(})?
-    MAGIC_UNK5 = SWAP_UINT16(0x6800),
+    MAGIC_GET_SCRIPT_NAME = SWAP_UINT16(0x6800),
     MAGIC_CLEAR_PARAMS = SWAP_UINT16(0x8E00),
     MAGIC_UNK7 = SWAP_UINT16(0x5B00), // return control to game/start scene
     MAGIC_LOGICAL_NOT_EQUAL = SWAP_UINT16(0xC100),
