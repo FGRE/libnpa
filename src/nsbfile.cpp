@@ -251,6 +251,14 @@ uint32_t NsbFile::GetFunctionLine(const char* Name) const
     return 0;
 }
 
+uint32_t NsbFile::GetChapterLine(const char* Name) const
+{
+    auto iter = Chapters.find(Name);
+    if (iter != Chapters.end())
+        return iter->second;
+    return 0;
+}
+
 /* PRIVATE */
 
 void NsbFile::Read(std::istream* pStream)
@@ -280,7 +288,10 @@ void NsbFile::Read(std::istream* pStream)
         }
 
         // Map function
-        if (CurrLine->Magic == uint16_t(MAGIC_FUNCTION_BEGIN))
+        if (CurrLine->Magic == MAGIC_FUNCTION_BEGIN)
             Functions[CurrLine->Params[0].c_str() + strlen("function.")] = Entry;
+        // Map chapter
+        else if (CurrLine->Magic == MAGIC_CHAPTER_BEGIN)
+            Chapters[CurrLine->Params[0].c_str() + strlen("chapter.")] = Entry;
     }
 }

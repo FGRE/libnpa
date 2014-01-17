@@ -20,11 +20,13 @@ public:
     static const char* StringifyMagic(uint16_t Magic);
     static uint16_t MagicifyString(const char* String);
     uint32_t GetFunctionLine(const char* Name) const;
+    uint32_t GetChapterLine(const char* Name) const;
 
 private:
     void Read(std::istream* pStream);
 
     std::map<std::string, uint32_t> Functions;
+    std::map<std::string, uint32_t> Chapters;
     std::string Name;
 };
 
