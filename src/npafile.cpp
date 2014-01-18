@@ -33,6 +33,8 @@ NpaFile::~NpaFile()
 void NpaFile::ReadHeader(std::string& Name)
 {
     File.open(Name, std::ios::in | std::ios::binary);
+    if (!File)
+        return;
     File.read((char*)&HeaderSize, sizeof(uint32_t));
     Header = new char[HeaderSize];
     ReadEncrypted(Header, sizeof(uint32_t), HeaderSize);
