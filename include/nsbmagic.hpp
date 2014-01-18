@@ -78,7 +78,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK62 = SWAP_UINT16(0xFB00),
     MAGIC_UNK63 = SWAP_UINT16(0xB200),
     MAGIC_LOGICAL_LESS = SWAP_UINT16(0xC500),
-    MAGIC_UNK65 = SWAP_UINT16(0xDF00), // jump to loop begin/check condition?
+    MAGIC_LOOP_JUMP = SWAP_UINT16(0xDF00), // jump to loop begin/check condition?
     MAGIC_UNK66 = SWAP_UINT16(0x7A00),
     MAGIC_UNK67 = SWAP_UINT16(0x1C00),
     MAGIC_UNK68 = SWAP_UINT16(0x1900),
