@@ -10,4 +10,5 @@ add_definitions(-std=c++11)
 aux_source_directory(${PROJECT_SOURCE_DIR}/src/ LIBNPA_SRC)
 
 add_library(npa SHARED ${LIBNPA_SRC})
+target_link_libraries(npa ${Boost_LIBRARIES})
 set_target_properties(npa PROPERTIES LINKER_LANGUAGE CXX)
