@@ -261,7 +261,7 @@ uint32_t NsbFile::GetSymbol(const std::string& Name, SymbolType Type)
             if (iter != Scenes.end())
                 return iter->second;
         default:
-            return 0;
+            return NSB_INVALIDE_LINE;
     }
 }
 
@@ -277,8 +277,9 @@ void NsbFile::Read(std::istream* pStream)
     // Read source code lines
     while (pStream->read((char*)&Entry, sizeof(uint32_t)))
     {
+        Entry -= 1; // Start counting at zero
         Source.resize(Source.size() + 1);
-        CurrLine = &Source[Entry - 1];
+        CurrLine = &Source[Entry];
         pStream->read((char*)&CurrLine->Magic, sizeof(uint16_t));
         pStream->read((char*)&NumParams, sizeof(uint16_t));
         CurrLine->Params.reserve(NumParams);
