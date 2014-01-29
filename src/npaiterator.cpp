@@ -48,7 +48,7 @@ std::string NpaIterator::GetFileName()
 {
     std::string Ret;
     Ret.resize(GetFileNameSize());
-    std::memcpy(&Ret[0], Pos + sizeof(uint32_t), Ret.size());
+    std::memcpy(&Ret[0], GetFileNameRaw(), Ret.size());
     return Ret;
 }
 
