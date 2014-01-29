@@ -59,7 +59,7 @@ char* NpaIterator::GetFileNameRaw()
 
 uint32_t NpaIterator::GetFileSize()
 {
-    return *(uint32_t*)(Pos + sizeof(uint32_t) + GetFileNameSize());
+    return Pos ? *(uint32_t*)(Pos + sizeof(uint32_t) + GetFileNameSize()) : 0;
 }
 
 char* NpaIterator::GetFileData()
