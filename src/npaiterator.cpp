@@ -69,10 +69,7 @@ char* NpaIterator::GetFileData()
 
 char* NpaIterator::GetFileData(uint32_t Offset, uint32_t Size)
 {
-    char* FileData;
-    if (Offset + Size > GetFileSize())
-        Size = GetFileSize() - Offset;
-    FileData = new char[Size];
+    char* FileData = new char[Size];
     File->ReadEncrypted(FileData, GetOffset() + Offset, Size);
     return FileData;
 }
