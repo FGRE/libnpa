@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <vector>
 #include <fstream>
+#define NSB_INVALIDE_LINE ~(uint32_t)0
 
 struct membuf : std::streambuf
 {
@@ -91,7 +92,7 @@ L* ScriptFile<L>::GetNextLine()
 template <class L>
 L* ScriptFile<L>::GetPrevLine()
 {
-    return SourceIter >= 0 ? &Source[SourceIter--] : nullptr;
+    return SourceIter != NSB_INVALIDE_LINE ? &Source[SourceIter--] : nullptr;
 }
 
 #endif
