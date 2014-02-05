@@ -54,7 +54,7 @@ std::string NpaIterator::GetFileName()
 
 char* NpaIterator::GetFileNameRaw()
 {
-    return Pos + sizeof(uint32_t);
+    return Pos ? Pos + sizeof(uint32_t) : nullptr;
 }
 
 uint32_t NpaIterator::GetFileSize()
@@ -85,7 +85,7 @@ void NpaIterator::Remove()
 
 uint32_t NpaIterator::GetFileNameSize()
 {
-    return *(uint32_t*)Pos;
+    return Pos ? *(uint32_t*)Pos : 0;
 }
 
 void NpaIterator::SetOffset(uint32_t offset)
