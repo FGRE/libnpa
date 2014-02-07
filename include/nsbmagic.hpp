@@ -3,7 +3,7 @@
 
 #define SWAP_UINT16(x) ((uint16_t)(((x) >> 8) | ((x) << 8)))
 
-// TODO: Sort by value
+// TODO: Verify names (For example, in Chaos;Head)
 enum /* Magic */ : uint16_t
 {
     MAGIC_FWN_UNK = 0, // Fuwanovel eof extension?
@@ -29,21 +29,21 @@ enum /* Magic */ : uint16_t
     MAGIC_SCENE_BEGIN = SWAP_UINT16(0x9500),
     MAGIC_CALL_SCENE = SWAP_UINT16(0xA300),
     MAGIC_SCENE_END = SWAP_UINT16(0xD500),
-    MAGIC_START_ANIMATION = SWAP_UINT16(0x2000),
-    MAGIC_SET_STATE = SWAP_UINT16(0x2300), // Sets movie/audio (Play, Start, Pause, Resume)/BGBUF (AddRender, Passive) state, Start state for process (script thread)
-    MAGIC_DESTROY = SWAP_UINT16(0x2400),
-    MAGIC_SET_OPACITY = SWAP_UINT16(0x2500),
-    MAGIC_UNK20 = SWAP_UINT16(0x3900), // wait?? - Deprecated/broken!
-    MAGIC_SLEEP_MS = SWAP_UINT16(0x3A00),
+    MAGIC_MOVE = SWAP_UINT16(0x2000), // Chaos;Head
+    MAGIC_REQUEST = SWAP_UINT16(0x2300), // Chaos;Head
+    MAGIC_DELETE = SWAP_UINT16(0x2400), // Chaos;Head
+    MAGIC_FADE = SWAP_UINT16(0x2500), // Chaos;Head
+    MAGIC_UNK20 = SWAP_UINT16(0x3900),
+    MAGIC_WAIT = SWAP_UINT16(0x3A00), // Chaos;Head
     MAGIC_PLACEHOLDER_PARAM = SWAP_UINT16(0x9100), // nullify parameter?
     MAGIC_NEGATIVE = SWAP_UINT16(0xD200),
-    MAGIC_SET_AUDIO_STATE = SWAP_UINT16(0x4300), // Music fade effect? SetAudioState(STRING handle, INT num_seconds, INT volume, STRING tempo);
+    MAGIC_SET_VOLUME = SWAP_UINT16(0x4300),
     MAGIC_SHAKE = SWAP_UINT16(0x2800),
     MAGIC_ARRAY_READ = SWAP_UINT16(0xDE00),
     MAGIC_UNK27 = SWAP_UINT16(0xE400), // phone related
-    MAGIC_CREATE_BOX = SWAP_UINT16(0x1400),
-    MAGIC_UNK29 = SWAP_UINT16(0x2B00), // Local to global? SetAlias in Chaos;Head
-    MAGIC_LOAD_MOVIE = SWAP_UINT16(0x1200),
+    MAGIC_CREATE_WINDOW = SWAP_UINT16(0x1400), // Chaos;Head
+    MAGIC_SET_ALIAS = SWAP_UINT16(0x2B00), // Chaos;Head (Local to global?)
+    MAGIC_CREATE_MOVIE = SWAP_UINT16(0x1200), // Chaos;Head
     MAGIC_CENTER = SWAP_UINT16(0x2C00),
     MAGIC_APPLY_BLUR = SWAP_UINT16(0x2D00),
     MAGIC_CREATE_TEXTURE = SWAP_UINT16(0x1B00),
@@ -172,7 +172,7 @@ enum /* Magic */ : uint16_t
     MAGIC_SET_AUDIO_RANGE = SWAP_UINT16(0x4700), // PlayRange? SetLoopPoint in Chaos;Head
     MAGIC_UNK157 = SWAP_UINT16(0x4500), // Audio related (set speed) (STRING handle, INT unk, INT speed, STRING unk)
     MAGIC_UNK158 = SWAP_UINT16(0x4400), // Audio related (STRING handle, INT unk, STRING direction, STRING unk)
-    MAGIC_SET_AUDIO_LOOP = SWAP_UINT16(0x4600),
+    MAGIC_SET_LOOP = SWAP_UINT16(0x4600), // Chaos;Head
     MAGIC_UNK160 = SWAP_UINT16(0x3700),
     MAGIC_UNK161 = SWAP_UINT16(0x7000), // LoadScript?
     MAGIC_UNK162 = SWAP_UINT16(0x6400),
