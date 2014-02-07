@@ -114,7 +114,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK92, "UNK92")
     (MAGIC_UNK93, "UNK93")
     (MAGIC_UNK94, "UNK94")
-    (MAGIC_CREATE_THREAD, "CreateThread")
+    (MAGIC_CREATE_PROCESS, "CreateProcess")
     (MAGIC_ZOOM, "Zoom")
     (MAGIC_TIME, "Time")
     (MAGIC_UNK98, "UNK98")
