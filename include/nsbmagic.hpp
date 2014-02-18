@@ -37,7 +37,7 @@ enum /* Magic */ : uint16_t
     MAGIC_WAIT = SWAP_UINT16(0x3A00), // Chaos;Head
     MAGIC_PLACEHOLDER_PARAM = SWAP_UINT16(0x9100), // nullify parameter?
     MAGIC_NEGATIVE = SWAP_UINT16(0xD200),
-    MAGIC_SET_VOLUME = SWAP_UINT16(0x4300),
+    MAGIC_SET_VOLUME = SWAP_UINT16(0x4300), // Chaos;Head
     MAGIC_SHAKE = SWAP_UINT16(0x2800),
     MAGIC_ARRAY_READ = SWAP_UINT16(0xDE00),
     MAGIC_UNK27 = SWAP_UINT16(0xE400), // phone related
@@ -168,8 +168,8 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK152 = SWAP_UINT16(0x0600), // LoadSt($nut, $立画優先度, $StPlaceX, $StPlaceY, 128, $St画像, false);
     MAGIC_UNK153 = SWAP_UINT16(0x0F00),
     MAGIC_UNK154 = SWAP_UINT16(0x3100),
-    MAGIC_LOAD_AUDIO = SWAP_UINT16(0x1100), // LoadAudio(STRING handle, STRING type, STRING file); type is SE/BGM/VOICE
-    MAGIC_SET_AUDIO_RANGE = SWAP_UINT16(0x4700), // PlayRange? SetLoopPoint in Chaos;Head
+    MAGIC_CREATE_SOUND = SWAP_UINT16(0x1100), // Chaos;Head
+    MAGIC_SET_LOOP_POINT = SWAP_UINT16(0x4700), // Chaos;Head
     MAGIC_UNK157 = SWAP_UINT16(0x4500), // Audio related (set speed) (STRING handle, INT unk, INT speed, STRING unk)
     MAGIC_UNK158 = SWAP_UINT16(0x4400), // Audio related (STRING handle, INT unk, STRING direction, STRING unk)
     MAGIC_SET_LOOP = SWAP_UINT16(0x4600), // Chaos;Head
