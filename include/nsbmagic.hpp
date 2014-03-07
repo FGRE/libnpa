@@ -15,7 +15,7 @@ enum /* Magic */ : uint16_t
     MAGIC_LABEL = SWAP_UINT16(0xCF00), // goto
     MAGIC_CALL = SWAP_UINT16(0xCE00),
     MAGIC_UNK1 = SWAP_UINT16(0xC600), // Logical condition
-    MAGIC_UNK2 = SWAP_UINT16(0xC700),
+    MAGIC_UNK2 = SWAP_UINT16(0xC700), // or ||
     MAGIC_SCOPE_BEGIN = SWAP_UINT16(0xC800), // Opening brace({)? label epilogue/where .map file maps labels
     MAGIC_SCOPE_END = SWAP_UINT16(0xC900), // Closing brace(})?
     MAGIC_GET_SCRIPT_NAME = SWAP_UINT16(0x6800),
@@ -66,7 +66,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK50 = SWAP_UINT16(0x0B00), // copy BGBUF1 to new texture? (See: function.PrintBG)
     MAGIC_UNK51 = SWAP_UINT16(0x0700), // called after handle is MAGIC_DESTROYed UNK51(handle (bgbuf), unk, 0, 0, false);
     MAGIC_UNK52 = SWAP_UINT16(0x2F00), // called after unk51 UNK52(handle (from unk50), handle (bgbuf));
-    MAGIC_UNK53 = SWAP_UINT16(0xFC00), // AllowPhoneCall(PhID_MAY, PhID_CRS, PhID_DAR, PhID_NONE);
+    MAGIC_ALLOW_PHONE_CALL = SWAP_UINT16(0xFC00),
     MAGIC_INCREMENT = SWAP_UINT16(0xBE00),
     MAGIC_LOGICAL_LESS = SWAP_UINT16(0xC400),
     MAGIC_DRAW_TRANSITION = SWAP_UINT16(0x3800), // Chaos;Head
