@@ -68,7 +68,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_WHILE, "While")
     (MAGIC_GET_MOVIE_TIME, "GetMovieTime")
     (MAGIC_UNK48, "UNK48")
-    (MAGIC_UNK49, "UNK49")
+    (MAGIC_LOGICAL_LESS_EQUAL, "LogicalLessEqual")
     (MAGIC_UNK50, "UNK50")
     (MAGIC_UNK51, "UNK51")
     (MAGIC_UNK52, "UNK52")

@@ -62,7 +62,7 @@ enum /* Magic */ : uint16_t
     MAGIC_WHILE = SWAP_UINT16(0x9900),
     MAGIC_GET_MOVIE_TIME = SWAP_UINT16(0x5E00), // GetMovieDuration/TimeLeft?? TODO: Works on music as well
     MAGIC_UNK48 = SWAP_UINT16(0x9D00),
-    MAGIC_UNK49 = SWAP_UINT16(0xC200),
+    MAGIC_LOGICAL_LESS_EQUAL = SWAP_UINT16(0xC200),
     MAGIC_UNK50 = SWAP_UINT16(0x0B00), // copy BGBUF1 to new texture? (See: function.PrintBG)
     MAGIC_UNK51 = SWAP_UINT16(0x0700), // called after handle is MAGIC_DESTROYed UNK51(handle (bgbuf), unk, 0, 0, false);
     MAGIC_UNK52 = SWAP_UINT16(0x2F00), // called after unk51 UNK52(handle (from unk50), handle (bgbuf));
