@@ -14,8 +14,8 @@ enum /* Magic */ : uint16_t
     MAGIC_IF = SWAP_UINT16(0x9800),
     MAGIC_LABEL = SWAP_UINT16(0xCF00), // goto
     MAGIC_CALL = SWAP_UINT16(0xCE00),
-    MAGIC_UNK1 = SWAP_UINT16(0xC600), // Logical condition
-    MAGIC_UNK2 = SWAP_UINT16(0xC700), // or ||
+    MAGIC_LOGICAL_AND = SWAP_UINT16(0xC600),
+    MAGIC_LOGICAL_OR = SWAP_UINT16(0xC700),
     MAGIC_SCOPE_BEGIN = SWAP_UINT16(0xC800), // Opening brace({)? label epilogue/where .map file maps labels
     MAGIC_SCOPE_END = SWAP_UINT16(0xC900), // Closing brace(})?
     MAGIC_GET_SCRIPT_NAME = SWAP_UINT16(0x6800),
