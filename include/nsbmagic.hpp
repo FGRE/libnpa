@@ -1,6 +1,7 @@
 #ifndef NSB_MAGIC_HPP
 #define NSB_MAGIC_HPP
 
+#include <cstdint>
 #define SWAP_UINT16(x) ((uint16_t)(((x) >> 8) | ((x) << 8)))
 
 // TODO: Verify names (For example, in Chaos;Head)
@@ -210,5 +211,12 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK194 = SWAP_UINT16(0x3B00),
     MAGIC_UNKMAX = 195
 };
+
+namespace Nsb
+{
+    bool IsValidMagic(uint16_t Magic);
+    const char* StringifyMagic(uint16_t Magic);
+    uint16_t MagicifyString(const char* String);
+}
 
 #endif

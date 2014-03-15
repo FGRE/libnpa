@@ -1,13 +1,6 @@
-#include "nsbfile.hpp"
 #include "nsbmagic.hpp"
-
-#include <cassert>
-#include <fstream>
 #include <boost/assign/list_of.hpp>
 #include <boost/bimap.hpp>
-#include <boost/locale.hpp>
-using namespace boost::locale;
-using namespace boost::locale::conv;
 
 typedef boost::bimap<uint16_t, std::string> LookupTable;
 
@@ -215,93 +208,26 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK193, "UNK193")
     (MAGIC_UNK194, "UNK194");
 
-/* PUBLIC */
-
-NsbFile::NsbFile(const std::string& Name, char* Data, uint32_t Size)
+namespace Nsb
 {
-    Open(Name, Data, Size);
-}
-
-bool NsbFile::IsValidMagic(uint16_t Magic)
-{
-    return MagicStrings.left.find(Magic) != MagicStrings.left.end();
-}
-
-const char* NsbFile::StringifyMagic(uint16_t Magic)
-{
-    auto iter = MagicStrings.left.find(Magic);
-    if (iter != MagicStrings.left.end())
-        return iter->second.c_str();
-    return nullptr;
-}
-
-uint16_t NsbFile::MagicifyString(const char* String)
-{
-    auto iter = MagicStrings.right.find(String);
-    if (iter != MagicStrings.right.end())
-        return iter->second;
-    return 0;
-}
-
-uint32_t NsbFile::GetSymbol(const std::string& Name, SymbolType Type)
-{
-    std::map<std::string, uint32_t>::iterator iter;
-    switch (Type)
+    bool IsValidMagic(uint16_t Magic)
     {
-        case SYMBOL_CHAPTER:
-            iter = Chapters.find(Name);
-            if (iter != Chapters.end())
-                return iter->second;
-        case SYMBOL_FUNCTION:
-            iter = Functions.find(Name);
-            if (iter != Functions.end())
-                return iter->second;
-        case SYMBOL_SCENE:
-            iter = Scenes.find(Name);
-            if (iter != Scenes.end())
-                return iter->second;
-        default:
-            return NSB_INVALIDE_LINE;
+        return MagicStrings.left.find(Magic) != MagicStrings.left.end();
     }
-}
 
-/* PRIVATE */
-
-void NsbFile::Read(std::istream* pStream)
-{
-    uint32_t Entry, Length;
-    uint16_t NumParams;
-    Line* CurrLine;
-    std::locale loc = generator().generate("ja_JP.SHIFT-JIS");
-
-    // Read source code lines
-    while (pStream->read((char*)&Entry, sizeof(uint32_t)))
+    const char* StringifyMagic(uint16_t Magic)
     {
-        Entry -= 1; // Start counting at zero
-        Source.resize(Source.size() + 1);
-        CurrLine = &Source[Entry];
-        pStream->read((char*)&CurrLine->Magic, sizeof(uint16_t));
-        pStream->read((char*)&NumParams, sizeof(uint16_t));
-        CurrLine->Params.reserve(NumParams);
+        auto iter = MagicStrings.left.find(Magic);
+        if (iter != MagicStrings.left.end())
+            return iter->second.c_str();
+        return nullptr;
+    }
 
-        // Read parameters
-        for (uint16_t i = 0; i < NumParams; ++i)
-        {
-            pStream->read((char*)&Length, sizeof(uint32_t));
-            char* String = new char[Length];
-            pStream->read(String, Length);
-            CurrLine->Params.push_back(to_utf<char>(String, String + Length, loc));
-            delete[] String;
-        }
-
-        // Map function
-        if (CurrLine->Magic == MAGIC_FUNCTION_BEGIN)
-            Functions[CurrLine->Params[0].c_str() + strlen("function.")] = Entry;
-        // Map chapter
-        else if (CurrLine->Magic == MAGIC_CHAPTER_BEGIN)
-            Chapters[CurrLine->Params[0].c_str() + strlen("chapter.")] = Entry;
-        // Map scene
-        else if (CurrLine->Magic == MAGIC_SCENE_BEGIN)
-            Scenes[CurrLine->Params[0].c_str() + strlen("scene.")] = Entry;
+    uint16_t MagicifyString(const char* String)
+    {
+        auto iter = MagicStrings.right.find(String);
+        if (iter != MagicStrings.right.end())
+            return iter->second;
+        return 0;
     }
 }
