@@ -22,7 +22,7 @@ public:
     void SetSourceIter(uint32_t NewIter) { SourceIter = NewIter; }
     uint32_t GetNextLineEntry() const { return SourceIter; }
     Line* GetNextLine() { return SourceIter < Source.size() ? &Source[SourceIter++] : nullptr; }
-    Line* GetPrevLine() { return SourceIter != NSB_INVALIDE_LINE ? &Source[SourceIter--] : nullptr; }
+    Line* GetPrevLine() { SourceIter -= 2; return GetNextLine(); }
     uint32_t GetSymbol(const std::string& Symbol);
     const std::string& GetName() const { return Name; }
 
