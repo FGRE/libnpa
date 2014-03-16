@@ -11,7 +11,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_SET_PARAM, "SetParam")
     (MAGIC_CHAPTER_BEGIN, "ChapterBegin")
     (MAGIC_IF, "If")
-    (MAGIC_LABEL, "Label")
+    (MAGIC_JUMP, "Jump")
     (MAGIC_CALL, "Call")
     (MAGIC_LOGICAL_AND, "LogicalAnd")
     (MAGIC_LOGICAL_OR, "LogicalOr")
