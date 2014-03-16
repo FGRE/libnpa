@@ -13,7 +13,9 @@ Name(Name)
     Open(NsbData, NsbSize, MapData, MapSize);
 }
 
-ScriptFile::ScriptFile(std::string Name)
+ScriptFile::ScriptFile(std::string Name) :
+SourceIter(0),
+Name(Name)
 {
     std::ifstream NsbFile(Name, std::ios::binary);
     NsbFile.seekg(0, std::ios::end);
@@ -22,7 +24,8 @@ ScriptFile::ScriptFile(std::string Name)
     NsbFile.seekg(0, std::ios::beg);
     NsbFile.read(NsbData, NsbSize);
 
-    std::ifstream MapFile(Name, std::ios::binary);
+    std::string MapName = std::string(Name, 0, Name.size() - 3) + "map";
+    std::ifstream MapFile(MapName, std::ios::binary);
     MapFile.seekg(0, std::ios::end);
     uint32_t MapSize = MapFile.tellg();
     char* MapData = new char[MapSize];
