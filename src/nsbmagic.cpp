@@ -52,7 +52,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_FUNCTION_END, "FunctionEnd")
     (MAGIC_UNK38, "UNK38")
     (MAGIC_UNK39, "UNK39")
-    (MAGIC_UNK40, "UNK40")
+    (MAGIC_STRING_TO_VARIABLE, "StringToVariable")
     (MAGIC_CREATE_TEXTURE, "CreateTexture")
     (MAGIC_TEXTURE_WIDTH, "TextureWidth")
     (MAGIC_DIVIDE, "Divide")

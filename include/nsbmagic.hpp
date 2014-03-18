@@ -54,7 +54,7 @@ enum /* Magic */ : uint16_t
     MAGIC_FUNCTION_END = SWAP_UINT16(0xD700),
     MAGIC_UNK38 = SWAP_UINT16(0x0401), // phone/message related
     MAGIC_UNK39 = SWAP_UINT16(0x0501), // phone/message related
-    MAGIC_UNK40 = SWAP_UINT16(0x7500), // Retrieve from array at index?
+    MAGIC_STRING_TO_VARIABLE = SWAP_UINT16(0x7500),
     MAGIC_CREATE_TEXTURE = SWAP_UINT16(0x0D00), // Chaos;Head
     MAGIC_TEXTURE_WIDTH = SWAP_UINT16(0x6100),
     MAGIC_DIVIDE = SWAP_UINT16(0xA800),
