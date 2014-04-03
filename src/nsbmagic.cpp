@@ -186,7 +186,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK171, "UNK171")
     (MAGIC_UNK172, "UNK172")
     (MAGIC_READ_FILE, "ReadFile")
-    (MAGIC_UNK174, "UNK174")
+    (MAGIC_SOUND_AMPLITUDE, "SoundAmplitude")
     (MAGIC_WRITE_FILE, "WriteFile")
     (MAGIC_UNK176, "UNK176")
     (MAGIC_MESSAGE_BOX, "MessageBox")
