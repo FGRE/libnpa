@@ -7,14 +7,12 @@ using namespace boost::locale;
 using namespace boost::locale::conv;
 
 ScriptFile::ScriptFile(std::string Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize) :
-SourceIter(0),
 Name(Name)
 {
     Open(NsbData, NsbSize, MapData, MapSize);
 }
 
 ScriptFile::ScriptFile(std::string Name) :
-SourceIter(0),
 Name(Name)
 {
     std::ifstream NsbFile(Name, std::ios::binary);
