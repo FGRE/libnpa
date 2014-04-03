@@ -19,12 +19,9 @@ public:
     ScriptFile(std::string Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize);
     ScriptFile(std::string Name);
 
-    void SetSourceIter(uint32_t NewIter) { SourceIter = NewIter; }
-    uint32_t GetNextLineEntry() const { return SourceIter; }
-    Line* GetNextLine() { return SourceIter < Source.size() ? &Source[SourceIter++] : nullptr; }
-    Line* GetPrevLine() { SourceIter -= 2; return GetNextLine(); }
     uint32_t GetSymbol(const std::string& Symbol);
     const std::string& GetName() const { return Name; }
+    Line* GetLine(uint32_t Entry) { return Entry < Source.size() ? &Source[Entry] : nullptr; }
 
 private:
     void Open(char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize);
@@ -32,7 +29,6 @@ private:
 
     std::map<std::string, uint32_t> Symbols;
     std::vector<Line> Source;
-    uint32_t SourceIter;
     const std::string Name;
 };
 
