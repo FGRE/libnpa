@@ -43,7 +43,7 @@ enum /* Magic */ : uint16_t
     MAGIC_ARRAY_READ = SWAP_UINT16(0xDE00), // Intrinsic
     MAGIC_UNK27 = SWAP_UINT16(0xE400), // phone related
     MAGIC_CREATE_WINDOW = SWAP_UINT16(0x1400), // Chaos;Head
-    MAGIC_SET_ALIAS = SWAP_UINT16(0x2B00), // Chaos;Head (Local to global?)
+    MAGIC_SET_ALIAS = SWAP_UINT16(0x2B00), // Chaos;Head
     MAGIC_CREATE_MOVIE = SWAP_UINT16(0x1200), // Chaos;Head
     MAGIC_SET_VERTEX = SWAP_UINT16(0x2C00), // Chaos;Head
     MAGIC_APPLY_BLUR = SWAP_UINT16(0x2D00),
