@@ -101,7 +101,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_CALL_CHAPTER, "CallChapter")
     (MAGIC_CASE_BEGIN, "CaseBegin")
     (MAGIC_CASE_END, "CaseEnd")
-    (MAGIC_UNK89, "UNK89")
+    (MAGIC_SELECT_END, "SelectEnd")
     (MAGIC_UNK90, "UNK90")
     (MAGIC_UNK91, "UNK91")
     (MAGIC_UNK92, "UNK92")
