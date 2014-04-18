@@ -1,10 +1,8 @@
 #include "scriptfile.hpp"
+#include "npafile.hpp"
 
 #include <cstring>
 #include <fstream>
-#include <boost/locale.hpp>
-using namespace boost::locale;
-using namespace boost::locale::conv;
 
 ScriptFile::ScriptFile(std::string Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize) :
 Name(Name)
@@ -42,7 +40,6 @@ void ScriptFile::Open(char* NsbData, uint32_t NsbSize, char* MapData, uint32_t M
     uint16_t NumParams;
     Line* CurrLine;
     char* Iter;
-    std::locale loc = generator().generate("ja_JP.SHIFT-JIS");
 
     // Read source code lines
     Iter = NsbData;
@@ -62,7 +59,7 @@ void ScriptFile::Open(char* NsbData, uint32_t NsbSize, char* MapData, uint32_t M
             Read(&Iter, &Length, sizeof(uint32_t));
             char* String = new char[Length];
             Read(&Iter, String, Length);
-            CurrLine->Params.push_back(to_utf<char>(String, String + Length, loc));
+            CurrLine->Params.push_back(NpaFile::ToUtf8(String));
             delete[] String;
         }
     }

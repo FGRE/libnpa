@@ -15,12 +15,16 @@ char* INpaFile::ReadFile(const std::string& Filename, uint32_t& Size)
     auto iter = Registry.find(Filename);
     if (iter == Registry.end())
         return nullptr;
+    return ReadFile(iter);
+}
 
+char* INpaFile::ReadFile(NpaIterator iter)
+{
     std::ifstream File(Name, std::ios::binary);
     if (!File)
         return nullptr;
 
-    Size = iter->second.Size;
+    uint32_t Size = iter->second.Size;
     char* pData = new char[Size];
     File.seekg(iter->second.Offset, File.beg);
     File.read(pData, Size);
