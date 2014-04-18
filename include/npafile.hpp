@@ -1,49 +1,26 @@
 #ifndef NPA_FILE_HPP
 #define NPA_FILE_HPP
 
-#include "npaiterator.hpp"
-
-#include <fstream>
-#include <cstdint>
-#include <vector>
-
-enum OpenMode
-{
-    NPA_READ   = 1,
-    NPA_CREATE = 2
-};
+#include <string>
+#include <boost/locale.hpp>
 
 class NpaFile
 {
-    friend class NpaIterator;
 public:
-    NpaFile(std::string _Name, OpenMode Mode);
-    ~NpaFile();
+    NpaFile(const std::string& Name);
+    virtual ~NpaFile() = 0;
 
-    NpaIterator Begin();
-    NpaIterator End();
+    static void SetLocale(const char* LocaleStr);
+protected:
+    void Decrypt(char* pBuff, uint32_t Size);
+    char* Encrypt(char* pBuff, uint32_t Size);
 
-    void AppendFile(std::string Name, const char* buff, uint32_t size);
-    void AppendFile(std::string Name);
+    std::string ToUtf8(const std::string& String);
+    std::string FromUtf8(const std::string& String);
 
-    uint32_t GetFileCount();
-    std::string GetFileName();
-
-private:
-    void ReadHeader(std::string& Name);
-
-    void Close();
-    void Flush();
-    void ReadEncrypted(char* buff, uint32_t offset, uint32_t size);
-    char* XOR(char* buff, uint32_t size, uint32_t keyoff);
-
-    char* Header;
-    std::vector<char> NewHeader;
-    std::vector<char> NewData;
-    uint32_t HeaderSize;
-    uint32_t EntryCount;
-    std::fstream File;
     std::string Name;
+private:
+    static std::locale Locale;
 };
 
 #endif
