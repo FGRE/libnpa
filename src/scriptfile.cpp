@@ -59,7 +59,7 @@ void ScriptFile::Open(char* NsbData, uint32_t NsbSize, char* MapData, uint32_t M
             Read(&Iter, &Length, sizeof(uint32_t));
             char* String = new char[Length];
             Read(&Iter, String, Length);
-            CurrLine->Params.push_back(NpaFile::ToUtf8(String));
+            CurrLine->Params.push_back(NpaFile::ToUtf8(std::string(String, Length)));
             delete[] String;
         }
     }
