@@ -15,7 +15,10 @@ char* INpaFile::ReadFile(const std::string& Filename, uint32_t& Size)
     auto iter = Registry.find(Filename);
     if (iter == Registry.end())
         return nullptr;
-    return ReadFile(iter);
+
+    char* pData = ReadFile(iter);
+    Size = iter->second.Size;
+    return pData;
 }
 
 char* INpaFile::ReadFile(NpaIterator iter)
