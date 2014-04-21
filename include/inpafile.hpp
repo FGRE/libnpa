@@ -5,11 +5,7 @@
 #include <map>
 
 // GStreamer requires g_malloc instead of ::operator new because it deallocates memory with g_free
-void* DefaultAlloc(uint64_t Size)
-{
-    char* pMem = new char[Size];
-    return pMem;
-}
+void* DefaultAlloc(uint64_t Size);
 
 class INpaFile : NpaFile
 {

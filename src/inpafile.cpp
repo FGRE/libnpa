@@ -1,6 +1,11 @@
 #include "inpafile.hpp"
 #include <fstream>
 
+void* DefaultAlloc(uint64_t Size)
+{
+    return new char[Size];
+}
+
 INpaFile::INpaFile(const std::string& Filename) : NpaFile(Filename)
 {
     ReadHeader();
