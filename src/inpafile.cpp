@@ -10,10 +10,18 @@ INpaFile::~INpaFile()
 {
 }
 
+char* INpaFile::ReadFileOffset(const std::string& Filename, uint32_t Size, uint32_t Offset)
+{
+    auto iter = FindFile(Filename);
+    if (iter == End())
+        return nullptr;
+    return ReadFile(iter, Offset);
+}
+
 char* INpaFile::ReadFile(const std::string& Filename, uint32_t& Size)
 {
-    auto iter = Registry.find(Filename);
-    if (iter == Registry.end())
+    auto iter = FindFile(Filename);
+    if (iter == End())
         return nullptr;
 
     char* pData = ReadFile(iter);
@@ -21,17 +29,21 @@ char* INpaFile::ReadFile(const std::string& Filename, uint32_t& Size)
     return pData;
 }
 
-char* INpaFile::ReadFile(NpaIterator iter)
+char* INpaFile::ReadFile(NpaIterator iter, uint32_t Offset)
+{
+    return ReadData(iter->second.Offset, Offset, iter->second.Size);
+}
+
+char* INpaFile::ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size)
 {
     std::ifstream File(Name, std::ios::binary);
     if (!File)
         return nullptr;
 
-    uint32_t Size = iter->second.Size;
     char* pData = new char[Size];
-    File.seekg(iter->second.Offset, File.beg);
+    File.seekg(GlobalOffset + LocalOffset, File.beg);
     File.read(pData, Size);
-    Decrypt(pData, Size);
+    Decrypt(pData, Size, LocalOffset);
     return pData;
 }
 

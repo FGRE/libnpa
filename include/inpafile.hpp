@@ -18,12 +18,15 @@ public:
     INpaFile(const std::string& Filename);
     ~INpaFile();
 
+    char* ReadFileOffset(const std::string& Filename, uint32_t Size, uint32_t Offset);
     char* ReadFile(const std::string& Filename, uint32_t& Size);
-    char* ReadFile(NpaIterator iter);
+    char* ReadFile(NpaIterator iter, uint32_t Offset = 0);
     NpaIterator Begin() { return Registry.begin(); }
     NpaIterator End() { return Registry.end(); }
+    NpaIterator FindFile(const std::string& Filename) { return Registry.find(Filename); }
 private:
     void ReadHeader();
+    char* ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size);
 
     std::map<std::string, Entry> Registry;
 };

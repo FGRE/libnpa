@@ -15,11 +15,11 @@ void NpaFile::SetLocale(const char* LocaleStr)
     Locale = boost::locale::generator().generate(LocaleStr);
 }
 
-void NpaFile::Decrypt(char* pBuff, uint32_t Size)
+void NpaFile::Decrypt(char* pBuff, uint32_t Size, uint32_t Offset)
 {
-    static const uint8_t Key[] = { 0xBD, 0xAA, 0xBC, 0xB4, 0xAB, 0xB6, 0xBC, 0xB4 };
+    static const uint8_t Key[8] = { 0xBD, 0xAA, 0xBC, 0xB4, 0xAB, 0xB6, 0xBC, 0xB4 };
     for (uint32_t i = 0; i < Size; ++i)
-        pBuff[i] ^= Key[i % 8];
+        pBuff[i] ^= Key[(i + Offset) % 8];
 }
 
 char* NpaFile::Encrypt(char* pBuff, uint32_t Size)
