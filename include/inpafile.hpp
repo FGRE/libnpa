@@ -18,7 +18,6 @@ public:
     INpaFile(const std::string& Filename);
     ~INpaFile();
 
-    char* ReadFileOffset(const std::string& Filename, uint32_t Size, uint32_t Offset);
     char* ReadFile(const std::string& Filename, uint32_t& Size);
     char* ReadFile(NpaIterator iter, uint32_t Offset = 0);
     NpaIterator Begin() { return Registry.begin(); }

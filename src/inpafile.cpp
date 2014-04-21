@@ -10,14 +10,6 @@ INpaFile::~INpaFile()
 {
 }
 
-char* INpaFile::ReadFileOffset(const std::string& Filename, uint32_t Size, uint32_t Offset)
-{
-    auto iter = FindFile(Filename);
-    if (iter == End())
-        return nullptr;
-    return ReadFile(iter, Offset);
-}
-
 char* INpaFile::ReadFile(const std::string& Filename, uint32_t& Size)
 {
     auto iter = FindFile(Filename);
