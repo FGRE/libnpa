@@ -1,8 +1,0 @@
-NpaFile -> NPAAchieve
-INpaAchieve, ONpaAchieve
-npaiterator.hpp -> NPAIterator.hpp (all names)
-build system
-fix unicode file names / unicode text
-connect iterators with appended files
-better error checking
-fix ugly iterator terminators
