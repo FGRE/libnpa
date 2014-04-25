@@ -31,12 +31,12 @@ char* INpaFile::ReadFile(NpaIterator iter)
     return ReadFile(iter, 0, iter->second.Size);
 }
 
-char* INpaFile::ReadFile(NpaIterator iter, uint32_t Offset, uint32_t Size, void *(*Alloc)(uint64_t))
+char* INpaFile::ReadFile(NpaIterator iter, uint32_t Offset, uint32_t Size, void *(*Alloc)(size_t))
 {
     return ReadData(iter->second.Offset, Offset, Size, Alloc);
 }
 
-char* INpaFile::ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(uint64_t))
+char* INpaFile::ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t))
 {
     std::ifstream File(Name, std::ios::binary);
     if (!File)
