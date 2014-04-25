@@ -1,7 +1,7 @@
 #include "inpafile.hpp"
 #include <fstream>
 
-void* DefaultAlloc(uint64_t Size)
+void* DefaultAlloc(size_t Size)
 {
     return new char[Size];
 }
