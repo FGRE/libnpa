@@ -29,7 +29,9 @@ src/scriptfile.cpp)
 target_link_libraries(npa ${Boost_LIBRARIES})
 
 # install headers and library
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include/libnpa)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+    DESTINATION include/libnpa
+    FILES_MATCHING PATTERN "*.hpp")
 install(TARGETS npa DESTINATION lib)
 
 # create packages
