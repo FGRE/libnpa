@@ -18,3 +18,7 @@ target_link_libraries(npa ${Boost_LIBRARIES})
 # install headers and library
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include/libnpa)
 install(TARGETS npa DESTINATION lib)
+
+# create packages
+set(CPACK_GENERATOR "TBZ2")
+include(CPack)
