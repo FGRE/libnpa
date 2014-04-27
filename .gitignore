@@ -8,6 +8,7 @@ _CPack_Packages
 install_manifest.txt
 *.tar.bz2
 include/npaversion.hpp
+!cmake/Modules/*.cmake
 
 # libraries
 *.a

@@ -1,10 +1,21 @@
 cmake_minimum_required(VERSION 2.8)
 
+# add modules
+set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
+
 # set version
 set(LIBNPA_VERSION_MAJOR "0")
 set(LIBNPA_VERSION_MINOR "3")
 set(LIBNPA_VERSION_PATCH "1")
 set(LIBNPA_VERSION "${LIBNPA_VERSION_MAJOR}.${LIBNPA_VERSION_MINOR}.${LIBNPA_VERSION_PATCH}")
+
+# append git revision if available
+include(get-git-revision)
+get_git_revision(LIBNPA_VERSION_GIT)
+if(NOT "${LIBNPA_VERSION_GIT}" STREQUAL "")
+    set(LIBNPA_VERSION "${LIBNPA_VERSION}-${LIBNPA_VERSION_GIT}")
+endif()
+
 message(STATUS "Configuring libnpa version " ${LIBNPA_VERSION})
 
 # project name and language
@@ -21,11 +32,12 @@ find_package(Boost REQUIRED COMPONENTS locale)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 add_library(npa SHARED
-src/inpafile.cpp
-src/npafile.cpp
-src/nsbmagic.cpp
-src/onpafile.cpp
-src/scriptfile.cpp)
+    src/inpafile.cpp
+    src/npafile.cpp
+    src/nsbmagic.cpp
+    src/onpafile.cpp
+    src/scriptfile.cpp
+)
 target_link_libraries(npa ${Boost_LIBRARIES})
 
 # install headers and library
