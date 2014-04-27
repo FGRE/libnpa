@@ -4,6 +4,10 @@ compiler:
   - gcc
   - clang
 
+env:
+  # this is our secret upload key $SECRET_TOKEN:
+  secure: "kLYp8/RWqON7LsaSYhhmWL8K7qRcLHBKXzSv7QZGAURoffnx0SxyDKuS1ldTMSPRaV8QyVc/ilrMcgtL10t1MeeCcFIqfc4UHxauXIN0kba6M47/7i6WjBzj5l4jaaERecPXLa/6BeBsv3eAr++ysqffSnI2WPPOgjZegFH7FMw="
+
 notifications:
   email:
     on_success: change
@@ -22,7 +26,7 @@ before_install:
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get install -qq libboost-locale1.55-dev
+  - sudo apt-get install -qq libboost-locale1.55-dev lftp
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
 
 before_script:
@@ -33,3 +37,5 @@ script:
 
 after_success:
   - make package
+  - curl https://gist.githubusercontent.com/carstene1ns/a23f152a40a589f098c6/raw/upload.sh > upload.sh
+  - bash upload.sh libnpa-*.tar.bz2
