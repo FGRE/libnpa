@@ -1,17 +1,20 @@
 cmake_minimum_required(VERSION 2.8)
-project (libnpa)
+project (libnpa CXX)
 
 find_package(Boost REQUIRED COMPONENTS locale)
 
 set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 include_directories(${PROJECT_SOURCE_DIR}/include)
-add_definitions(-std=c++11)
-
-aux_source_directory(${PROJECT_SOURCE_DIR}/src/ LIBNPA_SRC)
-
-add_library(npa SHARED ${LIBNPA_SRC})
+add_library(npa SHARED
+src/inpafile.cpp
+src/npafile.cpp
+src/nsbmagic.cpp
+src/onpafile.cpp
+src/scriptfile.cpp)
 target_link_libraries(npa ${Boost_LIBRARIES})
-set_target_properties(npa PROPERTIES LINKER_LANGUAGE CXX)
 
-# install target
+# install headers and library
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include/libnpa)
 install(TARGETS npa DESTINATION lib)
