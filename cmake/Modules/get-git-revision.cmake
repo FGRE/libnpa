@@ -13,6 +13,7 @@ function(get_git_revision _hashvar)
         execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags --exact-match
             WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
             RESULT_VARIABLE EXIT_CODE
+            OUTPUT_QUIET
             ERROR_QUIET
         )
         # it failed => not a tagged revision
