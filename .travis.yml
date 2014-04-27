@@ -4,6 +4,18 @@ compiler:
   - gcc
   - clang
 
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+  irc:
+    channels:
+      - "chat.freenode.net#fgre"
+    on_success: change
+    on_failure: change
+    use_notice: true
+    skip_join: true
+
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo add-apt-repository -y ppa:boost-latest/ppa
