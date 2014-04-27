@@ -77,7 +77,7 @@ void ScriptFile::Open(char* NsbData, uint32_t NsbSize, char* MapData, uint32_t M
         Label.resize(Size);
         Read(&Iter, &Label[0], Size);
         std::memcpy(&Entry, NsbData + Offset, sizeof(uint32_t));
-        Symbols[Label] = Entry - 1;
+        Symbols[NpaFile::ToUtf8(Label)] = Entry - 1;
     }
 }
 
