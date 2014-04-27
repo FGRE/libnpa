@@ -48,4 +48,5 @@ install(TARGETS npa DESTINATION lib)
 
 # create packages
 set(CPACK_GENERATOR "TBZ2")
+set(CPACK_PACKAGE_VERSION ${LIBNPA_VERSION})
 include(CPack)
