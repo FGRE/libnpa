@@ -1,4 +1,5 @@
 #include "exefile.hpp"
+#include "npafile.hpp"
 #include <cstdint>
 #include <cassert>
 #include <cstring>
@@ -59,4 +60,18 @@ uint32_t ExeFile::VirtualToPhysical(uint32_t Address)
             return Diff + Sections[i].PointerToRawData;
     }
     assert(false);
+}
+
+template <> std::string ExeFile::Read(uint32_t Address)
+{
+    std::string Ret;
+    std::ifstream File(Name, std::ios::binary);
+    File.seekg(VirtualToPhysical(Address));
+    uint16_t Char;
+    do
+    {
+        File.read((char*)&Char, 2);
+        if (Char) Ret.append((char*)&Char, 2);
+    } while (Char);
+    return NpaFile::ToUtf8(Ret);
 }

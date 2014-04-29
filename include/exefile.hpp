@@ -22,7 +22,7 @@ class ExeFile
     };
 public:
     ExeFile(const std::string& Name);
-    template <class T> void Read(T& Dest, uint32_t Address);
+    template <class T> T Read(uint32_t Address);
 
 private:
     uint32_t VirtualToPhysical(uint32_t Address);
@@ -31,11 +31,13 @@ private:
     std::vector<SectionHeader> Sections;
 };
 
-template <class T> void ExeFile::Read(T& Dest, uint32_t Address)
+template <class T> T ExeFile::Read(uint32_t Address)
 {
+    T Ret;
     std::ifstream File(Name, std::ios::binary);
     File.seekg(VirtualToPhysical(Address));
-    File.read((char*)&Dest, sizeof(T));
+    File.read((char*)&Ret, sizeof(T));
+    return Ret;
 }
 
 #endif
