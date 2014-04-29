@@ -37,6 +37,7 @@ add_library(npa SHARED
     src/nsbmagic.cpp
     src/onpafile.cpp
     src/scriptfile.cpp
+    src/exefile.cpp
 )
 target_link_libraries(npa ${Boost_LIBRARIES})
 
