@@ -59,19 +59,24 @@ uint32_t ExeFile::VirtualToPhysical(uint32_t Address)
         if (Diff >= 0 && Diff < Sections[i].SizeOfRawData)
             return Diff + Sections[i].PointerToRawData;
     }
-    assert(false);
+    return 0;
 }
 
 template <> std::string ExeFile::Read(uint32_t Address)
 {
     std::string Ret;
     std::ifstream File(Name, std::ios::binary);
-    File.seekg(VirtualToPhysical(Address));
+    uint32_t PhysicalAddress = VirtualToPhysical(Address);
+
+    if (PhysicalAddress == 0)
+        return Ret;
+
+    File.seekg(PhysicalAddress);
     uint16_t Char;
     do
     {
         File.read((char*)&Char, 2);
         if (Char) Ret.append((char*)&Char, 2);
     } while (Char);
-    return NpaFile::ToUtf8(Ret);
+    return Ret.empty() ? Ret : NpaFile::ToUtf8(Ret);
 }

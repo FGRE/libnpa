@@ -35,9 +35,16 @@ template <class T> T ExeFile::Read(uint32_t Address)
 {
     T Ret;
     std::ifstream File(Name, std::ios::binary);
-    File.seekg(VirtualToPhysical(Address));
+    uint32_t PhysicalAddress = VirtualToPhysical(Address);
+
+    if (PhysicalAddress == 0)
+        return T();
+
+    File.seekg(PhysicalAddress);
     File.read((char*)&Ret, sizeof(T));
     return Ret;
 }
+
+template <> std::string ExeFile::Read(uint32_t Address);
 
 #endif
