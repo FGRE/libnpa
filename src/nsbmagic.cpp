@@ -174,7 +174,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_SET_LOOP, "SetLoop")
     (MAGIC_UNK160, "UNK160")
     (MAGIC_UNK161, "UNK161")
-    (MAGIC_UNK162, "UNK162")
+    (MAGIC_STR_STR, "StrStr")
     (MAGIC_SET_TEXTBOX_ATTRIBUTES, "SetTextboxAttributes")
     (MAGIC_UNK164, "UNK164")
     (MAGIC_WAIT_TEXT, "WaitText")
