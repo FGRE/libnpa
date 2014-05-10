@@ -5,7 +5,10 @@
 
 static const char PeSig[4] = { 'P', 'E', 0, 0 };
 
-ExeFile::ExeFile(const std::string& Name) : Name(Name), ImageBase(0)
+ExeFile::ExeFile(const std::string& Name, uint8_t CharWidth) :
+Name(Name),
+ImageBase(0),
+CharWidth(CharWidth)
 {
     std::ifstream File(Name, std::ios::binary);
     if (!File)
@@ -74,8 +77,8 @@ template <> std::string ExeFile::Read(uint32_t Address)
     uint16_t Char;
     do
     {
-        File.read((char*)&Char, 2);
-        if (Char) Ret.append((char*)&Char, 2);
+        File.read((char*)&Char, CharWidth);
+        if (Char) Ret.append((char*)&Char, CharWidth);
     } while (Char);
     return Ret.empty() ? Ret : NpaFile::ToUtf8(Ret);
 }

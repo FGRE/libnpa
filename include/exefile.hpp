@@ -21,11 +21,13 @@ class ExeFile
         uint32_t Characteristics;
     };
 public:
-    ExeFile(const std::string& Name);
+    ExeFile(const std::string& Name, uint8_t CharWidth);
     template <class T> T Read(uint32_t Address);
 
 private:
     uint32_t VirtualToPhysical(uint32_t Address);
+
+    uint8_t CharWidth;
     uint32_t ImageBase;
     const std::string Name;
     std::vector<SectionHeader> Sections;
