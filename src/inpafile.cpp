@@ -58,6 +58,7 @@ void INpaFile::ReadHeader()
     uint32_t HeaderSize, EntryCount;
     File.read((char*)&HeaderSize, 4);
     char* pHeader = new char[HeaderSize];
+    char* pHeaderBeg = pHeader;
     File.read(pHeader, HeaderSize);
     Decrypt(pHeader, HeaderSize);
     EntryCount = *(uint32_t*)pHeader;
@@ -72,4 +73,6 @@ void INpaFile::ReadHeader()
         Registry[ToUtf8(Filename)] = *(Entry*)pHeader;
         pHeader += sizeof(Entry);
     }
+
+    delete[] pHeaderBeg;
 }
