@@ -13,10 +13,10 @@ public:
     static void SetLocale(const char* LocaleStr);
     static std::string ToUtf8(const std::string& String);
     static std::string FromUtf8(const std::string& String);
-protected:
-    void Decrypt(char* pBuff, uint32_t Size, uint32_t Offset = 0);
-    char* Encrypt(char* pBuff, uint32_t Size);
+    static char* Decrypt(char* pBuff, uint32_t Size, uint32_t Offset = 0);
+    static char* Encrypt(char* pBuff, uint32_t Size);
 
+protected:
     std::string Name;
 private:
     static std::locale Locale;
