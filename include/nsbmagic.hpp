@@ -190,7 +190,7 @@ enum /* Magic */ : uint16_t
     MAGIC_READ_FILE = SWAP_UINT16(0x6700), // Chaos;Head
     MAGIC_SOUND_AMPLITUDE = SWAP_UINT16(0x5600), // Chaos;Head
     MAGIC_WRITE_FILE = SWAP_UINT16(0x5700), // Chaos;Head
-    MAGIC_UNK176 = SWAP_UINT16(0x5000),
+    MAGIC_LOAD = SWAP_UINT16(0x5000), // Chaos;Head
     MAGIC_MESSAGE_BOX = SWAP_UINT16(0x7100), // MessageBox(title, text, type, icon) YESNO returns value
     MAGIC_UNK178 = SWAP_UINT16(0x3600),
     MAGIC_UNK179 = SWAP_UINT16(0xF200),
