@@ -1,8 +1,8 @@
 #include "scriptfile.hpp"
 #include "npafile.hpp"
+#include "fscommon.hpp"
 
 #include <cstring>
-#include <fstream>
 
 ScriptFile::ScriptFile(std::string Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize) :
 Name(Name)
@@ -13,21 +13,11 @@ Name(Name)
 ScriptFile::ScriptFile(std::string Name) :
 Name(Name)
 {
-    std::ifstream NsbFile(Name, std::ios::binary);
-    NsbFile.seekg(0, std::ios::end);
-    uint32_t NsbSize = NsbFile.tellg();
-    char* NsbData = new char[NsbSize];
-    NsbFile.seekg(0, std::ios::beg);
-    NsbFile.read(NsbData, NsbSize);
-
     std::string MapName = std::string(Name, 0, Name.size() - 3) + "map";
-    std::ifstream MapFile(MapName, std::ios::binary);
-    MapFile.seekg(0, std::ios::end);
-    uint32_t MapSize = MapFile.tellg();
-    char* MapData = new char[MapSize];
-    MapFile.seekg(0, std::ios::beg);
-    MapFile.read(MapData, MapSize);
 
+    uint32_t NsbSize, MapSize;
+    char* NsbData = fs::ReadFile(Name, NsbSize);
+    char* MapData = fs::ReadFile(MapName, MapSize);
     Open(NsbData, NsbSize, MapData, MapSize);
 
     delete[] NsbData;

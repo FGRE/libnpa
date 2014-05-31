@@ -1,4 +1,5 @@
 #include "onpafile.hpp"
+#include "fscommon.hpp"
 #include <fstream>
 
 struct Buffer
@@ -44,15 +45,8 @@ ONpaFile::~ONpaFile()
 
 void ONpaFile::WriteFile(const std::string& Filename)
 {
-    std::ifstream File(Filename, std::ios::binary);
-    if (!File)
-        return;
-
-    File.seekg(0, File.end);
-    uint32_t Size = File.tellg();
-    char* pData = new char[Size];
-    File.seekg(0, File.beg);
-    File.read(pData, Size);
+    uint32_t Size;
+    char* pData = fs::ReadFile(Filename, Size);
     WriteFile(Filename, pData, Size);
 }
 
