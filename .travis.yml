@@ -33,7 +33,7 @@ before_install:
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get install -qq libboost-locale1.55-dev lftp
+  - sudo apt-get install -qq libboost-locale1.55-dev libboost-filesystem1.55-dev lftp
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
 
 before_script:
