@@ -178,7 +178,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK161 = SWAP_UINT16(0x7000), // LoadScript?
     MAGIC_STR_STR = SWAP_UINT16(0x6400), // Steins;Gate
     MAGIC_SET_TEXTBOX_ATTRIBUTES = SWAP_UINT16(0x0E01), // SetTextboxAttributes(STRING handle, INT unk, STRING font, INT unk, STRING color1, STRING color2, INT unk, STRING unk)
-    MAGIC_UNK164 = SWAP_UINT16(0x1D00),
+    MAGIC_LOAD_TEXT = SWAP_UINT16(0x1D00), // Chaos;Head, Steins;Gate
     MAGIC_WAIT_TEXT = SWAP_UINT16(0x4200), // Chaos;Head
     MAGIC_UNK166 = SWAP_UINT16(0x4900),
     MAGIC_UNK167 = SWAP_UINT16(0x5900),
