@@ -19,7 +19,7 @@ enum /* Magic */ : uint16_t
     MAGIC_LOGICAL_OR = SWAP_UINT16(0xC700), // Intrinsic
     MAGIC_SCOPE_BEGIN = SWAP_UINT16(0xC800), // Intrinsic
     MAGIC_SCOPE_END = SWAP_UINT16(0xC900), // Intrinsic
-    MAGIC_GET_SCRIPT_NAME = SWAP_UINT16(0x6800),
+    MAGIC_GET_MODULE_FILE_NAME = SWAP_UINT16(0x6800), // FMDM, Steins;Gate
     MAGIC_CLEAR_PARAMS = SWAP_UINT16(0x8E00), // Intrinsic
     MAGIC_RESET = SWAP_UINT16(0x5B00), // Chaos;Head
     MAGIC_LOGICAL_NOT_EQUAL = SWAP_UINT16(0xC100), // Intrinsic
@@ -56,7 +56,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK39 = SWAP_UINT16(0x0501), // phone/message related
     MAGIC_STRING_TO_VARIABLE = SWAP_UINT16(0x7500),
     MAGIC_CREATE_TEXTURE = SWAP_UINT16(0x0D00), // Chaos;Head
-    MAGIC_TEXTURE_WIDTH = SWAP_UINT16(0x6100),
+    MAGIC_IMAGE_HORIZON = SWAP_UINT16(0x6100), // FMDM, Chaos;Head, Steins;Gate (GetImageHorizon)
     MAGIC_DIVIDE = SWAP_UINT16(0xA800), // Intrinsic
     MAGIC_MULTIPLY = SWAP_UINT16(0xA700), // Intrinsic
     MAGIC_LOGICAL_NOT = SWAP_UINT16(0xAC00), // Intrinsic
@@ -86,7 +86,7 @@ enum /* Magic */ : uint16_t
     MAGIC_ARRAY = SWAP_UINT16(0x7200), // FMDM, Steins;Gate
     MAGIC_ASSOC_ARRAY = SWAP_UINT16(0x7300), // FMDM, Steins;Gate
     MAGIC_CREATE_CHOICE = SWAP_UINT16(0x1600),
-    MAGIC_TEXTURE_HEIGHT = SWAP_UINT16(0x6200),
+    MAGIC_IMAGE_VERTICAL = SWAP_UINT16(0x6200), // FMDM, Chaos;Head, Steins;Gate (GetImageVertical)
     MAGIC_COUNT = SWAP_UINT16(0x7400), // FMDM, Steins;Gate
     MAGIC_SET_FONT = SWAP_UINT16(0x4E00), // Chaos;Head, Steins;Gate
     MAGIC_CREATE_TEXT = SWAP_UINT16(0x1300), // Chaos;Head, Steins;Gate
