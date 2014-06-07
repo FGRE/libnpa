@@ -75,7 +75,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK60, "UNK60")
     (MAGIC_ADD_ASSIGN, "AddAssign")
     (MAGIC_UNK62, "UNK62")
-    (MAGIC_UNK63, "UNK63")
+    (MAGIC_SUB_ASSIGN, "SubAssign")
     (MAGIC_LOGICAL_LESS, "LogicalLess")
     (MAGIC_WHILE_END, "WhileEnd")
     (MAGIC_LOCK_VIDEO, "LockVideo")
