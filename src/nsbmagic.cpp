@@ -124,7 +124,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_WAIT_ACTION, "WaitAction")
     (MAGIC_UNK110, "UNK110")
     (MAGIC_MOVIE_PLAY, "MoviePlay")
-    (MAGIC_UNK112, "UNK112")
+    (MAGIC_SET_STREAM, "SetStream")
     (MAGIC_WAIT_PLAY, "WaitPlay")
     (MAGIC_SYSTEM, "System")
     (MAGIC_UNK115, "UNK115")
