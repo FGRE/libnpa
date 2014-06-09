@@ -180,7 +180,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_WAIT_TEXT, "WaitText")
     (MAGIC_UNK166, "UNK166")
     (MAGIC_UNK167, "UNK167")
-    (MAGIC_UNK168, "UNK168")
+    (MAGIC_PASSAGE_TIME, "PassageTime")
     (MAGIC_UNK169, "UNK169")
     (MAGIC_WAIT_FADE, "WaitFade")
     (MAGIC_UNK171, "UNK171")
