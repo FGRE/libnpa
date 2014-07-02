@@ -32,13 +32,15 @@ find_package(Boost REQUIRED COMPONENTS locale filesystem)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 add_library(npa SHARED
-    src/inpafile.cpp
     src/npafile.cpp
     src/nsbmagic.cpp
     src/onpafile.cpp
     src/scriptfile.cpp
     src/exefile.cpp
     src/fscommon.cpp
+    src/inipafile.cpp
+    src/isgfile.cpp
+    src/npakeys.cpp
 )
 target_link_libraries(npa ${Boost_LIBRARIES})
 
