@@ -18,7 +18,6 @@ public:
     ~ISGFile();
 
     char* ReadFile(const std::string& Filename, uint32_t& Size);
-    char* ReadFile(NpaIterator iter);
     char* ReadFile(NpaIterator iter, uint32_t Offset, uint32_t Size, void *(*Alloc)(size_t) = DefaultAlloc);
     uint32_t GetFileSize(NpaIterator iter) { return iter->second.Size; }
 

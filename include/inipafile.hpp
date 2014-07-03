@@ -63,7 +63,10 @@ public:
     char* ReadFile(const std::string& Filename, uint32_t& Size);
     char* ReadFile(NpaIterator iter);
 
+    uint32_t GetFileSize(NpaIterator iter) { return iter->second.origsize; }
 protected:
+    char* ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t)) {}
+
     void ReadHeader();
     int Crypt(int32_t curnum, int32_t curfile);
     int Crypt2(char* name, int32_t origsize);
