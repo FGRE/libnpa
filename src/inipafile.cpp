@@ -4,7 +4,6 @@
 #include <zlib.h>
 
 extern uint8_t NpaKeyTable[][0x100];
-typedef NipaEntry Entry;
 
 INipaFile::INipaFile(const std::string& Name, uint8_t GameID) : INpaFile(Name), GameID(GameID)
 {
@@ -13,6 +12,8 @@ INipaFile::INipaFile(const std::string& Name, uint8_t GameID) : INpaFile(Name), 
 
 INipaFile::~INipaFile()
 {
+     for (auto i = Registry.begin(); i != Registry.end(); ++i)
+        delete i->second;
 }
 
 void INipaFile::ReadHeader()
@@ -22,7 +23,7 @@ void INipaFile::ReadHeader()
         return;
 
     File.read(NPAHeader.Magic, 7);
-    if (strncmp("NPA\x01", NPAHeader.Magic, 4) != 0)
+    if (strncmp("NPA\x01\x00\x00\x00", NPAHeader.Magic, 7) != 0)
         return;
 
     File.read((char*)&NPAHeader.Key1, 4);
@@ -37,23 +38,23 @@ void INipaFile::ReadHeader()
 
     for (int i = 0; i < NPAHeader.TotalCount; ++i)
     {
-        Entry NPAEntry;
-        File.read((char*)&NPAEntry.NameSize, 4);
+        NipaEntry* NPAEntry = new NipaEntry;
+        File.read((char*)&NPAEntry->NameSize, 4);
 
-        NPAEntry.Filename = new char[NPAEntry.NameSize + 1];
-        File.read((char*)NPAEntry.Filename, NPAEntry.NameSize);
+        NPAEntry->Filename = new char[NPAEntry->NameSize + 1];
+        File.read((char*)NPAEntry->Filename, NPAEntry->NameSize);
 
-        for (int x = 0; x < NPAEntry.NameSize; ++x)
-            NPAEntry.Filename[x] += Crypt(x, i);
-        NPAEntry.Filename[NPAEntry.NameSize] = '\0';
+        for (int x = 0; x < NPAEntry->NameSize; ++x)
+            NPAEntry->Filename[x] += Crypt(x, i);
+        NPAEntry->Filename[NPAEntry->NameSize] = '\0';
 
-        File.read((char*)&NPAEntry.Type, 1);
-        File.read((char*)&NPAEntry.FileID, 4);
-        File.read((char*)&NPAEntry.Offset, 4);
-        File.read((char*)&NPAEntry.compsize, 4);
-        File.read((char*)&NPAEntry.origsize, 4);
+        File.read((char*)&NPAEntry->Type, 1);
+        File.read((char*)&NPAEntry->FileID, 4);
+        File.read((char*)&NPAEntry->Offset, 4);
+        File.read((char*)&NPAEntry->CompSize, 4);
+        File.read((char*)&NPAEntry->Size, 4);
 
-        std::string UtfPath = NpaFile::ToUtf8(NPAEntry.Filename);
+        std::string UtfPath = NpaFile::ToUtf8(NPAEntry->Filename);
         boost::replace_all(UtfPath, "\\", "/");
         Registry[UtfPath] = NPAEntry;
     }
@@ -125,21 +126,21 @@ char* INipaFile::ReadFile(NpaIterator iter)
     if (!File)
         return nullptr;
 
-    Entry NPAEntry = iter->second;
-    uint8_t* buffer = new uint8_t[NPAEntry.compsize];
+    NipaEntry* NPAEntry = (NipaEntry*)iter->second;
+    uint8_t* buffer = new uint8_t[NPAEntry->CompSize];
 
-    File.seekg(NPAEntry.Offset + NPAHeader.Start + 0x29);
-    File.read((char*)buffer, NPAEntry.compsize);
+    File.seekg(NPAEntry->Offset + NPAHeader.Start + 0x29);
+    File.read((char*)buffer, NPAEntry->CompSize);
 
     if (NPAHeader.Encrypt == 1)
     {
-        int key = Crypt2(NPAEntry.Filename, NPAEntry.origsize);
+        int key = Crypt2(NPAEntry->Filename, NPAEntry->Size);
         int len = 0x1000;
 
         if (GameID != LAMENTO && GameID != LAMENTOTR)
-            len += strlen(NPAEntry.Filename);
+            len += strlen(NPAEntry->Filename);
 
-        for (int x = 0; x < NPAEntry.compsize && x < len; ++x)
+        for (int x = 0; x < NPAEntry->CompSize && x < len; ++x)
         {
             if (GameID == LAMENTO || GameID == LAMENTOTR)
                 buffer[x] = NpaKeyTable[GameID][buffer[x]] - key;
@@ -150,22 +151,11 @@ char* INipaFile::ReadFile(NpaIterator iter)
 
     if (NPAHeader.Compress == 1)
     {
-        char* zbuffer = new char[NPAEntry.origsize];
-        uLongf sz = NPAEntry.origsize;
-        assert(uncompress((Bytef*)zbuffer, &sz, buffer, NPAEntry.compsize) == Z_OK);
+        char* zbuffer = new char[NPAEntry->Size];
+        uLongf sz = NPAEntry->Size;
+        assert(uncompress((Bytef*)zbuffer, &sz, buffer, NPAEntry->CompSize) == Z_OK);
         delete[] buffer;
         return zbuffer;
     }
     return (char*)buffer;
-}
-
-char* INipaFile::ReadFile(const std::string& Filename, uint32_t& Size)
-{
-    auto iter = FindFile(Filename);
-    if (iter == End())
-        return nullptr;
-
-    char* pData = ReadFile(iter);
-    Size = iter->second.origsize;
-    return pData;
 }

@@ -36,7 +36,7 @@ void ISGFile::ReadHeader()
         pHeader += 4;
         std::string Filename(pHeader, FilenameSize);
         pHeader += FilenameSize;
-        Registry[ToUtf8(Filename)] = *(SGEntry*)pHeader;
+        Registry[ToUtf8(Filename)] = new SGEntry(*(SGEntry*)pHeader);
         pHeader += sizeof(SGEntry);
     }
 

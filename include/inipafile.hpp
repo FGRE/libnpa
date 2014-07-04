@@ -3,18 +3,7 @@
 
 #include "inpafile.hpp"
 
-struct NipaEntry
-{
-    uint32_t NameSize;
-    char* Filename;
-    uint8_t Type;
-    uint32_t FileID;
-    uint32_t Offset;
-    uint32_t compsize;
-    uint32_t origsize;
-};
-
-class INipaFile : public INpaFile<NipaEntry>
+class INipaFile : public INpaFile
 {
     struct
     {
@@ -56,6 +45,15 @@ public:
         DRAMATICALMURDER
     };
 
+    struct NipaEntry : INpaFile::Entry
+    {
+        uint32_t NameSize;
+        char* Filename;
+        uint8_t Type;
+        uint32_t FileID;
+        uint32_t CompSize;
+    };
+
     INipaFile(const std::string& Name, uint8_t GameID);
     ~INipaFile();
 
@@ -63,7 +61,6 @@ public:
     char* ReadFile(const std::string& Filename, uint32_t& Size);
     char* ReadFile(NpaIterator iter);
 
-    uint32_t GetFileSize(NpaIterator iter) { return iter->second.origsize; }
 protected:
     char* ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t)) {}
 
