@@ -13,8 +13,8 @@ public:
     struct Entry
     {
         virtual ~Entry() {}
-        uint32_t Offset;
         uint32_t Size;
+        uint32_t Offset;
     };
     typedef std::map<std::string, Entry*> NpaRegistry;
     typedef NpaRegistry::iterator NpaIterator;
