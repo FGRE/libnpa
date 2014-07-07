@@ -61,6 +61,9 @@ public:
     char* ReadFile(const std::string& Filename, uint32_t& Size);
     char* ReadFile(NpaIterator iter);
 
+    static uint8_t GameStringToID(const std::string& String);
+    static const char** GetGameStringList();
+
 protected:
     char* ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t)) {}
 

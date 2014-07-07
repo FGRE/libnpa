@@ -5,6 +5,46 @@
 
 extern uint8_t NpaKeyTable[][0x100];
 
+static const char* NipaGames[] =
+{
+    "ChaosHead",
+    "ChaosHeadTR1",
+    "ChaosHeadTR2",
+    "MuramasaTR",
+    "Muramasa",
+    "Sumaga",
+    "Django",
+    "DjangoTR",
+    "Lamento",
+    "LamentoTR",
+    "SweetPool",
+    "SumagaSP",
+    "Demonbane",
+    "MuramasaAD",
+    "Axanel",
+    "Kikokugai",
+    "SoniComiTR2",
+    "Sumaga3P",
+    "SoniComi",
+    "LostX",
+    "LostXTrailer",
+    "DramaticalMurder",
+    nullptr
+};
+
+const char** INipaFile::GetGameStringList()
+{
+    return NipaGames;
+}
+
+uint8_t INipaFile::GameStringToID(const std::string& String)
+{
+    for (int i = 0; NipaGames[i]; ++i)
+        if (String == NipaGames[i])
+            return i;
+    return -1;
+}
+
 INipaFile::INipaFile(const std::string& Name, uint8_t GameID) : INpaFile(Name), GameID(GameID)
 {
     ReadHeader();
