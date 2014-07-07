@@ -5,8 +5,8 @@ compiler:
   - clang
 
 env:
-  # this is our secret upload key $SECRET_TOKEN:
-  secure: "kLYp8/RWqON7LsaSYhhmWL8K7qRcLHBKXzSv7QZGAURoffnx0SxyDKuS1ldTMSPRaV8QyVc/ilrMcgtL10t1MeeCcFIqfc4UHxauXIN0kba6M47/7i6WjBzj5l4jaaERecPXLa/6BeBsv3eAr++ysqffSnI2WPPOgjZegFH7FMw="
+  # this is our secret upload key $UPLOAD_TOKEN:
+  secure: "I14aeKfPaQ7nWFW5Gn4g4bnO01iCP//Zmm9dfdhbvd7k21VfB3azxo/NkAYTYN9Z1tyZTeVP41yfGUIDCIep3+fOdhJ+qcFeOzm83CoMqffdnRgDGXdCzIMpelEMUcbRCA+5M9E0fmWk3Dt0FZVVFzpmJ+zVvpyg5zg/HjYw178="
 
 branches:
   only:
@@ -33,7 +33,7 @@ before_install:
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get install -qq libboost-locale1.55-dev libboost-filesystem1.55-dev lftp
+  - sudo apt-get install -qq libboost-locale1.55-dev libboost-filesystem1.55-dev curl
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
 
 before_script:
