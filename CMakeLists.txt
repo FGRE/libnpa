@@ -31,7 +31,11 @@ configure_file(${PROJECT_SOURCE_DIR}/include/npaversion.hpp.in
 find_package(Boost REQUIRED COMPONENTS system locale filesystem)
 find_package(ZLIB REQUIRED)
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/include
+    ${Boost_INCLUDE_DIR}
+    ${ZLIB_INCLUDE_DIR}
+)
+
 add_library(npa SHARED
     src/inpafile.cpp
     src/npafile.cpp
