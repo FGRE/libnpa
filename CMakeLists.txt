@@ -28,7 +28,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 configure_file(${PROJECT_SOURCE_DIR}/include/npaversion.hpp.in
     ${PROJECT_SOURCE_DIR}/include/npaversion.hpp)
 
-find_package(Boost REQUIRED COMPONENTS locale filesystem)
+find_package(Boost REQUIRED COMPONENTS system locale filesystem)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 add_library(npa SHARED
