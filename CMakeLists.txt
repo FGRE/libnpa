@@ -28,9 +28,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 configure_file(${PROJECT_SOURCE_DIR}/include/npaversion.hpp.in
     ${PROJECT_SOURCE_DIR}/include/npaversion.hpp)
 
-find_package(Boost REQUIRED COMPONENTS locale filesystem)
+find_package(Boost REQUIRED COMPONENTS system locale filesystem)
+find_package(ZLIB REQUIRED)
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/include
+    ${Boost_INCLUDE_DIR}
+    ${ZLIB_INCLUDE_DIR}
+)
+
 add_library(npa SHARED
     src/inpafile.cpp
     src/npafile.cpp
@@ -43,7 +48,7 @@ add_library(npa SHARED
     src/isgfile.cpp
     src/npakeys.cpp
 )
-target_link_libraries(npa ${Boost_LIBRARIES})
+target_link_libraries(npa ${Boost_LIBRARIES} ${ZLIB_LIBRARIES})
 
 # install headers and library
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
