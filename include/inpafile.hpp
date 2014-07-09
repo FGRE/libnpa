@@ -22,6 +22,7 @@ public:
     INpaFile(const std::string& Filename) : NpaFile(Filename) { }
     virtual ~INpaFile() = 0;
 
+    virtual bool IsDirectory(NpaIterator iter) = 0;
     char* ReadFile(const std::string& Filename, uint32_t& Size);
     virtual char* ReadFile(NpaIterator iter);
     char* ReadFile(NpaIterator iter, uint32_t Offset, uint32_t Size, void *(*Alloc)(size_t) = DefaultAlloc);

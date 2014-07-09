@@ -59,3 +59,8 @@ char* ISGFile::ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Si
     Decrypt(pData, Size, LocalOffset);
     return pData;
 }
+
+bool ISGFile::IsDirectory(NpaIterator iter)
+{
+    return false;
+}

@@ -57,6 +57,7 @@ public:
     INipaFile(const std::string& Name, uint8_t GameID);
     ~INipaFile();
 
+    bool IsDirectory(NpaIterator iter);
     char* ReadFile(NpaIterator iter, uint32_t Offset, uint32_t Size, void *(*Alloc)(size_t));
     char* ReadFile(const std::string& Filename, uint32_t& Size);
     char* ReadFile(NpaIterator iter);

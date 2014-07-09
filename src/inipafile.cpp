@@ -52,8 +52,6 @@ INipaFile::INipaFile(const std::string& Name, uint8_t GameID) : INpaFile(Name), 
 
 INipaFile::~INipaFile()
 {
-     for (auto i = Registry.begin(); i != Registry.end(); ++i)
-        delete i->second;
 }
 
 void INipaFile::ReadHeader()
@@ -198,4 +196,9 @@ char* INipaFile::ReadFile(NpaIterator iter)
         return zbuffer;
     }
     return (char*)buffer;
+}
+
+bool INipaFile::IsDirectory(NpaIterator iter)
+{
+    return ((NipaEntry*)iter->second)->Type == 1;
 }

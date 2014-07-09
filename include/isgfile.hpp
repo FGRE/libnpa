@@ -15,6 +15,7 @@ public:
         uint32_t Unk;
     };
 
+    bool IsDirectory(NpaIterator iter);
     char* ReadFile(const std::string& Filename, uint32_t& Size);
     char* ReadFile(NpaIterator iter, uint32_t Offset, uint32_t Size, void *(*Alloc)(size_t) = DefaultAlloc);
 

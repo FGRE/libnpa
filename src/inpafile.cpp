@@ -2,6 +2,8 @@
 
 INpaFile::~INpaFile()
 {
+     for (auto i = Registry.begin(); i != Registry.end(); ++i)
+        delete i->second;
 }
 
 char* INpaFile::ReadFile(const std::string& Filename, uint32_t& Size)
