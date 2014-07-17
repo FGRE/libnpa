@@ -1,38 +1,8 @@
 #include "onpafile.hpp"
 #include "fscommon.hpp"
+#include "buffer.hpp"
 #include <fstream>
-
-struct Buffer
-{
-    uint32_t Size()
-    {
-        return Data.size();
-    }
-
-    void Write(const std::string& String)
-    {
-        Write(String.size());
-        Write(String.c_str(), String.size());
-    }
-
-    void Write(uint32_t Integer)
-    {
-        Write(&Integer, 4);
-    }
-
-    void Write(const void* pData, uint32_t Size)
-    {
-        Data.resize(this->Size() + Size);
-        Write(pData, Size, this->Size() - Size);
-    }
-
-    void Write(const void* pData, uint32_t Size, uint32_t Offset)
-    {
-        std::memcpy(&Data[Offset], pData, Size);
-    }
-
-    std::vector<char> Data;
-};
+using namespace NpaPrivate;
 
 ONpaFile::ONpaFile(const std::string& Filename) : NpaFile(Filename)
 {
@@ -59,14 +29,14 @@ void ONpaFile::WriteToDisk()
 {
     // Create header
     Buffer Header;
-    Header.Write(Registry.size());
+    Header.Write32(Registry.size());
     for (auto iter = Registry.begin(); iter != Registry.end(); ++iter)
     {
         Header.Write(FromUtf8(iter->first));
-        Header.Write(iter->second.Size);
+        Header.Write32(iter->second.Size);
         iter->second.Offset = Header.Size();
-        Header.Write(0); // Offset
-        Header.Write(0); // Unk
+        Header.Write32(0); // Offset
+        Header.Write32(0); // Unk
     }
 
     // Calculate offsets

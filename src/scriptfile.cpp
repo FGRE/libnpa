@@ -1,30 +1,62 @@
 #include "scriptfile.hpp"
 #include "npafile.hpp"
 #include "fscommon.hpp"
-
+#include "buffer.hpp"
 #include <cstring>
+using namespace NpaPrivate;
 
-ScriptFile::ScriptFile(std::string Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize) :
+ScriptFile::ScriptFile(const std::string& Name, char* NssData, uint32_t NssSize) :
 Name(Name)
 {
-    Open(NsbData, NsbSize, MapData, MapSize);
+    ReadNss(NssData, NssSize);
 }
 
-ScriptFile::ScriptFile(std::string Name) :
+ScriptFile::ScriptFile(const std::string& Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize) :
 Name(Name)
+{
+    ReadNsb(NsbData, NsbSize, MapData, MapSize);
+}
+
+ScriptFile::ScriptFile(const std::string& Name, FileType Type) :
+Name(Name)
+{
+    switch (Type)
+    {
+        case NSS: OpenNss(Name); break;
+        case NSB: OpenNsb(Name); break;
+        default: assert(false);
+    }
+}
+
+void ScriptFile::OpenNss(const std::string& Name)
+{
+    uint32_t NssSize;
+    char* NssData = fs::ReadFile(Name, NssSize);
+    ReadNss(NssData, NssSize);
+    delete[] NssData;
+}
+
+void ScriptFile::OpenNsb(std::string Name)
 {
     std::string MapName = std::string(Name, 0, Name.size() - 3) + "map";
 
     uint32_t NsbSize, MapSize;
     char* NsbData = fs::ReadFile(Name, NsbSize);
     char* MapData = fs::ReadFile(MapName, MapSize);
-    Open(NsbData, NsbSize, MapData, MapSize);
+    ReadNsb(NsbData, NsbSize, MapData, MapSize);
 
     delete[] NsbData;
     delete[] MapData;
 }
 
-void ScriptFile::Open(char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize)
+void ScriptFile::ReadNss(char* NssData, uint32_t NssSize)
+{
+    Buffer NsbBuffer, MapBuffer;
+    Nss::Compile(NssData, NssSize, &NsbBuffer, &MapBuffer);
+    ReadNsb(&NsbBuffer.Data[0], NsbBuffer.Size(), &MapBuffer.Data[0], MapBuffer.Size());
+}
+
+void ScriptFile::ReadNsb(char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize)
 {
     uint32_t Entry, Length;
     uint16_t NumParams;

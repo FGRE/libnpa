@@ -18,8 +18,7 @@ ISGFile::~ISGFile()
 void ISGFile::ReadHeader()
 {
     std::ifstream File(Name, std::ios::binary);
-    if (!File)
-        return;
+    assert(File);
 
     uint32_t HeaderSize, EntryCount;
     File.read((char*)&HeaderSize, 4);

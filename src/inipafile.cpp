@@ -61,8 +61,7 @@ void INipaFile::ReadHeader()
         return;
 
     File.read(NPAHeader.Magic, 7);
-    if (strncmp("NPA\x01\x00\x00\x00", NPAHeader.Magic, 7) != 0)
-        return;
+    assert(strncmp("NPA\x01\x00\x00\x00", NPAHeader.Magic, 7) == 0);
 
     File.read((char*)&NPAHeader.Key1, 4);
     File.read((char*)&NPAHeader.Key2, 4);

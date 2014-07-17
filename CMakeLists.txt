@@ -30,11 +30,16 @@ configure_file(${PROJECT_SOURCE_DIR}/include/npaversion.hpp.in
 
 find_package(Boost REQUIRED COMPONENTS system locale filesystem)
 find_package(ZLIB REQUIRED)
+find_package(FLEX REQUIRED)
+find_package(BISON REQUIRED)
 
 include_directories(${PROJECT_SOURCE_DIR}/include
     ${Boost_INCLUDE_DIR}
     ${ZLIB_INCLUDE_DIR}
 )
+
+flex_target(lexer ${CMAKE_SOURCE_DIR}/src/lexer.l ${CMAKE_SOURCE_DIR}/src/lexer.cpp)
+bison_target(parser ${CMAKE_SOURCE_DIR}/src/parser.y ${CMAKE_SOURCE_DIR}/src/parser.cpp)
 
 add_library(npa SHARED
     src/inpafile.cpp
@@ -47,6 +52,10 @@ add_library(npa SHARED
     src/inipafile.cpp
     src/isgfile.cpp
     src/npakeys.cpp
+    src/buffer.cpp
+    src/nsscompiler.cpp
+    src/parser.cpp
+    src/lexer.cpp
 )
 target_link_libraries(npa ${Boost_LIBRARIES} ${ZLIB_LIBRARIES})
 
