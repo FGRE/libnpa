@@ -10,7 +10,7 @@ extern Block* pRoot;
 extern int yyparse();
 typedef struct yy_buffer_state* YY_BUFFER_STATE;
 extern int yyparse();
-extern YY_BUFFER_STATE yy_scan_bytes(const char* bytes, int len);
+extern YY_BUFFER_STATE yy_scan_bytes(const char* bytes, size_t len);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 static uint32_t Counter = 1;
