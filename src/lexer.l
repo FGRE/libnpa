@@ -21,7 +21,8 @@ extern "C" int yywrap() { }
 "while"                 return TOKEN(TWHILE);
 "return"                return TOKEN(TRETURN);
 "\""                    return TOKEN(TQUOTE);
-[@*a-zA-Zａ-ｚＡ-Ｚあ-ゖァ-ヺ一-龯_][/*a-zA-Zａ-ｚＡ-Ｚあ-ゖァ-ヺ一-龯０-９0-9_]*  SAVE_TOKEN; return TIDENTIFIER;
+[a-zA-Zａ-ｚＡ-Ｚあ-ゖァ-ヺ一-龯_][/.a-zA-Zａ-ｚＡ-Ｚあ-ゖァ-ヺ一-龯０-９0-9_]*  SAVE_TOKEN; return TIDENTIFIER;
+\"([^\\\"]|\\.)*\"      SAVE_TOKEN; return TSTRING;
 [0-9]+\.[0-9]*          SAVE_TOKEN; return TFLOAT;
 [0-9]+                  SAVE_TOKEN; return TINTEGER;
 ","                     return TOKEN(TCOMMA);
