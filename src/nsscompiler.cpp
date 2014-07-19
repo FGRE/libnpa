@@ -116,7 +116,7 @@ void Subroutine::CompilePrototype(uint16_t BeginMagic, uint32_t NumBeginParams)
     uint32_t Pos = Output->Size();
     uint16_t Size = Name.Data.size();
     MapOutput->Write((char*)&Pos, sizeof(uint32_t));
-    MapOutput->Write((char*)&Size, sizeof(uint32_t));
+    MapOutput->Write((char*)&Size, sizeof(uint16_t));
     MapOutput->Write(Name.Data.c_str(), Size);
 
     // Compile
