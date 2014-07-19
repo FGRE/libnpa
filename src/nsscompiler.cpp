@@ -5,8 +5,8 @@
 #include "buffer.hpp"
 using namespace NpaPrivate;
 
-class Block;
-extern Block* pRoot;
+class Program;
+extern Program* pRoot;
 extern int yyparse();
 typedef struct yy_buffer_state* YY_BUFFER_STATE;
 extern int yyparse();
@@ -132,6 +132,12 @@ void Subroutine::Compile()
 void Subroutine::CompileReturn(uint16_t EndMagic)
 {
     Node::Compile(EndMagic, NumEndParams);
+}
+
+void Program::Compile()
+{
+    for (auto i = Subroutines.begin(); i != Subroutines.end(); ++i)
+        (*i)->Compile();
 }
 
 void Function::Compile()

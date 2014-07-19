@@ -3,7 +3,7 @@
     #include <cstdio>
     #include <cstdlib>
 
-    Block* pRoot;
+    Program* pRoot;
     extern int yylex();
     void yyerror(const char* s) { std::printf("Error: %s\n", s); std::exit(1); }
 %}
@@ -11,10 +11,12 @@
 %union
 {
     Node* node;
+    Program* program;
     Block* block;
     Statement* stmt;
     Argument* arg;
     Expression* expr;
+    Subroutine* subr;
     std::vector<Argument*>* argvec;
     std::string* string;
     int token;
@@ -25,27 +27,33 @@
 %token <token> TADD TSUB TMUL TDIV TIF TWHILE TLESS TGREATER TEQUALEQUAL TNEQUAL TGEQUAL TLEQUAL TAND TOR TNOT
 %token <token> TRETURN TCALLCHAPTER TCALLSCENE
 
+%type <program> start program
 %type <arg> arg 
 %type <argvec> func_args
-%type <block> program stmts block
-%type <stmt> stmt func_decl call cond
+%type <block> stmts block
+%type <stmt> stmt call cond
+%type <subr> func_decl
 %type <expr> expr
 
 %left TPLUS TMINUS
 %left TMUL TDIV
 
-%start program
+%start start
 
 %%
 
-program : stmts { pRoot = $1; }
+start : program { pRoot = $1; }
+      ;
+
+program : func_decl { $$ = new Program; $$->Subroutines.push_back($1); }
+        | program func_decl { $1->Subroutines.push_back($2); }
         ;
 
 stmts : stmt { $$ = new Block(); $$->Statements.push_back($<stmt>1); }
       | stmts stmt { $1->Statements.push_back($<stmt>2); }
       ;
 
-stmt : func_decl | call | expr | cond
+stmt : call | expr | cond
      ;
 
 block : TLBRACE stmts TRBRACE { $$ = $2; }
@@ -53,8 +61,8 @@ block : TLBRACE stmts TRBRACE { $$ = $2; }
       ;
 
 func_decl : TFUNCTION arg TLPAREN func_args TRPAREN block { $2->Data = string("function.") + $2->Data; $$ = new Function(*$2, *$4, *$6); delete $4; }
-          | TCHAPTER arg block { $2->Data = string("chapter.") + $2->Data; $$ = new Chapter(*$2, *$3); delete $3; }
-          | TSCENE arg block { $2->Data = string("scene.") + $2->Data; $$ = new Scene(*$2, *$3); delete $3; }
+          | TCHAPTER arg block { $2->Data = string("chapter.") + $2->Data; $$ = new Chapter(*$2, *$3); }
+          | TSCENE arg block { $2->Data = string("scene.") + $2->Data; $$ = new Scene(*$2, *$3); }
           ;
 
 func_args : { $$ = new ArgumentList(); }

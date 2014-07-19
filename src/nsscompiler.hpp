@@ -10,8 +10,10 @@ using namespace std;
 
 class Statement;
 class Argument;
+class Subroutine;
 typedef std::vector<Statement*> StatementList;
 typedef std::vector<Argument*> ArgumentList;
+typedef std::vector<Subroutine*> SubroutineList;
 
 enum ArgumentType
 {
@@ -77,7 +79,7 @@ struct Condition : Statement
     Block& ConditionBlock;
 };
 
-struct Subroutine : Statement
+struct Subroutine : Node
 {
     Subroutine(Argument& Name, Block& SubroutineBlock) : Name(Name), SubroutineBlock(SubroutineBlock) {}
     void CompilePrototype(uint16_t BeginMagic, uint32_t NumBeginParams);
@@ -87,6 +89,13 @@ struct Subroutine : Statement
     const uint16_t NumEndParams = 0;
     Argument& Name;
     Block& SubroutineBlock;
+};
+
+struct Program
+{
+    virtual void Compile();
+
+    SubroutineList Subroutines;
 };
 
 struct Function : Subroutine
