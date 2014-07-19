@@ -120,9 +120,10 @@ struct Scene : Subroutine
 
 struct Assignment : Expression
 {
-    Assignment(Argument& Name, Expression& Rhs) : Name(Name), Rhs(Rhs) {}
+    Assignment(Argument& Name, Expression& Rhs, uint16_t Magic) : Name(Name), Rhs(Rhs), Magic(Magic) {}
     virtual void Compile();
 
+    uint16_t Magic;
     Argument& Name;
     Expression& Rhs;
 };

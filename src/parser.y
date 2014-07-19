@@ -97,7 +97,9 @@ call : arg TLPAREN func_args TRPAREN TSEMICOLON { $$ = new Call(*$1, *$3, MAGIC_
      | TCALLSCENE TDOLLAR TIDENTIFIER TSEMICOLON { $$ = MakeCall(*$2 + *$3, MAGIC_CALL_SCENE); delete $2; delete $3; }
      ;
 
-expr : arg TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$3); }
+expr : arg TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$3, MAGIC_ASSIGN); }
+     | arg TADD TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$4, MAGIC_ADD_ASSIGN); }
+     | arg TSUB TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$4, MAGIC_SUB_ASSIGN); }
      | arg { $<arg>$ = $1; }
      | expr TMUL expr { $$ = new BinaryOperator(*$1, MAGIC_MULTIPLY, *$3); }
      | expr TDIV expr { $$ = new BinaryOperator(*$1, MAGIC_DIVIDE, *$3); }

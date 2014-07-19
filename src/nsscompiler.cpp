@@ -166,7 +166,7 @@ void Scene::Compile()
 void Assignment::Compile()
 {
     Rhs.Compile();
-    Node::Compile(MAGIC_ASSIGN, 1);
+    Node::Compile(Magic, 1);
     Name.CompileRaw();
     Node::Compile(MAGIC_CLEAR_PARAMS, 0);
 }
