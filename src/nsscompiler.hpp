@@ -79,6 +79,14 @@ struct Condition : Statement
     Block& ConditionBlock;
 };
 
+struct Else : Statement
+{
+    Else(Block& ElseBlock) : ElseBlock(ElseBlock) {}
+    virtual void Compile();
+
+    Block& ElseBlock;
+};
+
 struct Subroutine : Node
 {
     Subroutine(Argument& Name, Block& SubroutineBlock) : Name(Name), SubroutineBlock(SubroutineBlock) {}

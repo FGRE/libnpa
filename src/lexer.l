@@ -18,6 +18,7 @@ extern "C" int yywrap() { }
 "chapter"               return TOKEN(TCHAPTER);
 "scene"                 return TOKEN(TSCENE);
 "if"                    return TOKEN(TIF);
+"else"                  return TOKEN(TELSE);
 "while"                 return TOKEN(TWHILE);
 "return"                return TOKEN(TRETURN);
 "\""                    return TOKEN(TQUOTE);

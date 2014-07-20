@@ -191,6 +191,11 @@ void Condition::Compile()
     ConditionBlock.Compile();
 }
 
+void Else::Compile()
+{
+    ElseBlock.Compile();
+}
+
 namespace Nss
 {
 

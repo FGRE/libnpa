@@ -25,7 +25,7 @@
 %token <string> TIDENTIFIER TFLOAT TINTEGER TXML TDOLLAR TSTRING
 %token <token> TLPAREN TRPAREN TLBRACE TRBRACE TFUNCTION TSEMICOLON TEQUAL TCOMMA TQUOTE TCHAPTER TSCENE
 %token <token> TADD TSUB TMUL TDIV TIF TWHILE TLESS TGREATER TEQUALEQUAL TNEQUAL TGEQUAL TLEQUAL TAND TOR TNOT
-%token <token> TRETURN TCALLCHAPTER TCALLSCENE
+%token <token> TRETURN TCALLCHAPTER TCALLSCENE TELSE
 
 %type <program> start program
 %type <arg> arg 
@@ -117,6 +117,8 @@ expr : arg TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$3, MAGIC_ASS
      ;
 
 cond : TIF TLPAREN expr TRPAREN block { $$ = new Condition(*$5, *$3, MAGIC_IF); }
+     | TELSE TIF TLPAREN expr TRPAREN block { $$ = new Condition(*$6, *$4, MAGIC_IF); }
+     | TELSE block { $$ = new Else(*$2); }
      | TWHILE TLPAREN expr TRPAREN block { $$ = new Condition(*$5, *$3, MAGIC_WHILE); }
      ;
 
