@@ -55,7 +55,7 @@ void Argument::Compile()
     else
     {
         Node::Compile(MAGIC_LITERAL, 2);
-        std::string Data = NpaFile::FromUtf8(ArgumentTypes[Type]);
+        string Data = NpaFile::FromUtf8(ArgumentTypes[Type]);
         uint32_t TypeSize = Data.size();
         Output->Write((char*)&TypeSize, sizeof(uint32_t));
         Output->Write(Data.c_str(), TypeSize);
@@ -198,10 +198,12 @@ void Else::Compile()
 
 void Select::Compile()
 {
+    SelectBlock.Compile();
 }
 
 void Case::Compile()
 {
+    CaseBlock.Compile();
 }
 
 namespace Nss

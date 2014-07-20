@@ -11,9 +11,9 @@ using namespace std;
 class Statement;
 class Argument;
 class Subroutine;
-typedef std::vector<Statement*> StatementList;
-typedef std::vector<Argument*> ArgumentList;
-typedef std::vector<Subroutine*> SubroutineList;
+typedef vector<Statement*> StatementList;
+typedef vector<Argument*> ArgumentList;
+typedef vector<Subroutine*> SubroutineList;
 
 enum ArgumentType
 {
