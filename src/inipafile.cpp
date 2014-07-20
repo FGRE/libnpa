@@ -29,6 +29,7 @@ static const char* NipaGames[] =
     "LostX",
     "LostXTrailer",
     "DramaticalMurder",
+    "Totono",
     nullptr
 };
 
