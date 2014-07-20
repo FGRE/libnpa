@@ -42,7 +42,8 @@ public:
         SONICOMI,
         LOSTX,
         LOSTXTRAILER,
-        DRAMATICALMURDER
+        DRAMATICALMURDER,
+        TOTONO
     };
 
     struct NipaEntry : INpaFile::Entry

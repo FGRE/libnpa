@@ -135,6 +135,9 @@ int INipaFile::Crypt2(char* name, int32_t origsize)
         case DRAMATICALMURDER:
             key1 = 0x20101118;
             break;
+        case TOTONO:
+            key1 = 0x12345678;
+            break;
         default:
             key1 = 0x87654321;
             break;
@@ -179,7 +182,18 @@ char* INipaFile::ReadFile(NpaIterator iter)
 
         for (int x = 0; x < NPAEntry->CompSize && x < len; ++x)
         {
-            if (GameID == LAMENTO || GameID == LAMENTOTR)
+            if (GameID == TOTONO)
+            {
+                uint8_t r = buffer[x];
+                char r2;
+                r = NpaKeyTable[GameID][r];
+                r = NpaKeyTable[GameID][r];
+                r = NpaKeyTable[GameID][r];
+                r = ~r;
+                r2 = (char)r - key - x;
+                buffer[x] = (uint8_t)r2;
+            }
+            else if (GameID == LAMENTO || GameID == LAMENTOTR)
                 buffer[x] = NpaKeyTable[GameID][buffer[x]] - key;
             else
                 buffer[x] = (NpaKeyTable[GameID][buffer[x]] - key) - x;
