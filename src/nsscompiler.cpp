@@ -196,6 +196,14 @@ void Else::Compile()
     ElseBlock.Compile();
 }
 
+void Select::Compile()
+{
+}
+
+void Case::Compile()
+{
+}
+
 namespace Nss
 {
 

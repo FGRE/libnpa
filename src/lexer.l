@@ -20,6 +20,8 @@ extern "C" int yywrap() { }
 "if"                    return TOKEN(TIF);
 "else"                  return TOKEN(TELSE);
 "while"                 return TOKEN(TWHILE);
+"select"                return TOKEN(TSELECT);
+"case"                  return TOKEN(TCASE);
 "return"                return TOKEN(TRETURN);
 "\""                    return TOKEN(TQUOTE);
 [a-zA-Zａ-ｚＡ-Ｚあ-ゖァ-ヺ一-龯_][/.a-zA-Zａ-ｚＡ-Ｚあ-ゖァ-ヺ一-龯０-９0-9_]*  SAVE_TOKEN; return TIDENTIFIER;
@@ -28,6 +30,7 @@ extern "C" int yywrap() { }
 [0-9]+                  SAVE_TOKEN; return TINTEGER;
 ","                     return TOKEN(TCOMMA);
 ";"                     return TOKEN(TSEMICOLON);
+":"                     return TOKEN(TCOLON);
 [$#]                    SAVE_TOKEN; return TDOLLAR;
 "="                     return TOKEN(TEQUAL);
 "("                     return TOKEN(TLPAREN);

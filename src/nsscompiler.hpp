@@ -87,6 +87,23 @@ struct Else : Statement
     Block& ElseBlock;
 };
 
+struct Select : Statement
+{
+    Select(Block& SelectBlock) : SelectBlock(SelectBlock) {}
+    virtual void Compile();
+
+    Block& SelectBlock;
+};
+
+struct Case : Statement
+{
+    Case(const string& Name, Block& CaseBlock) : Name(NpaFile::FromUtf8(Name)), CaseBlock(CaseBlock) {}
+    virtual void Compile();
+
+    string Name;
+    Block& CaseBlock;
+};
+
 struct Subroutine : Node
 {
     Subroutine(Argument& Name, Block& SubroutineBlock) : Name(Name), SubroutineBlock(SubroutineBlock) {}
