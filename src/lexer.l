@@ -48,6 +48,7 @@ extern "C" int yywrap() { }
 "||"                    return TOKEN(TOR);
 "!"                     return TOKEN(TNOT);
 "//".*
+".".*
 .                       printf("Unknown token!\n"); yyterminate();
 
 %%
