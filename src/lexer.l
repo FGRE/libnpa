@@ -11,7 +11,7 @@ extern "C" int yywrap() { }
 
 "/*"((\*+[^/*])|([^*]))*\**"*/" ;
 "<PRE"(.|[ \t\v\n])*"</PRE>" SAVE_TOKEN; return TXML;
-[ \t\n]                 ;
+[ \t\n\r]               ;
 "call_chapter"          return TOKEN(TCALLCHAPTER);
 "call_scene"            return TOKEN(TCALLSCENE);
 "function"              return TOKEN(TFUNCTION);
