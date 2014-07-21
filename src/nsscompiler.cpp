@@ -1,4 +1,5 @@
 #include <cstring>
+#include <boost/lexical_cast.hpp>
 #include "nsscompiler.hpp"
 #include "scriptfile.hpp"
 #include "parser.hpp"
@@ -19,6 +20,7 @@ extern YY_BUFFER_STATE yy_scan_bytes(const char* bytes, int len);
 #endif
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
+static uint32_t SymCounter = 1;
 static uint32_t Counter = 1;
 static Buffer* Output;
 static Buffer* MapOutput;
@@ -36,6 +38,15 @@ Call* MakeCall(string Name, uint16_t Magic)
     Args.push_back(new Argument(Name, ARG_STRING));
     Argument* Arg = new Argument(Nsb::StringifyMagic(Magic), ARG_FUNCTION);
     return new Call(*Arg, Args, Magic);
+}
+
+void WriteSymbol(const string& Symbol)
+{
+    uint32_t Pos = Output->Size();
+    uint16_t Size = Symbol.size();
+    MapOutput->Write((char*)&Pos, sizeof(uint32_t));
+    MapOutput->Write((char*)&Size, sizeof(uint16_t));
+    MapOutput->Write(Symbol.c_str(), Size);
 }
 
 void Node::Compile(uint16_t Magic, uint16_t NumParams)
@@ -120,14 +131,7 @@ void Block::Compile()
 
 void Subroutine::CompilePrototype(uint16_t BeginMagic, uint32_t NumBeginParams)
 {
-    // Write symbol to .map
-    uint32_t Pos = Output->Size();
-    uint16_t Size = Name.Data.size();
-    MapOutput->Write((char*)&Pos, sizeof(uint32_t));
-    MapOutput->Write((char*)&Size, sizeof(uint16_t));
-    MapOutput->Write(Name.Data.c_str(), Size);
-
-    // Compile
+    WriteSymbol(Name.Data);
     Node::Compile(BeginMagic, NumBeginParams);
     Name.CompileRaw();
 }
@@ -194,9 +198,25 @@ void UnaryOperator::Compile()
 
 void Condition::Compile()
 {
+    string Symbol;
+    switch (Magic)
+    {
+        case MAGIC_IF: Symbol = "label.if."; break;
+        case MAGIC_WHILE: Symbol = "label.while."; break;
+        default: abort();
+    }
+    Argument BeginSym(Symbol + "begin." + boost::lexical_cast<string>(SymCounter), ARG_STRING);
+    Argument EndSym(Symbol + "end." + boost::lexical_cast<string>(SymCounter++), ARG_STRING);
+    WriteSymbol(BeginSym.Data);
+
     Expr.Compile();
-    Node::Compile(Magic, 0);
+    Node::Compile(Magic, 1);
+    EndSym.CompileRaw();
     ConditionBlock.Compile();
+    Node::Compile(MAGIC_JUMP, 1);
+    BeginSym.CompileRaw();
+
+    WriteSymbol(EndSym.Data);
 }
 
 void Else::Compile()
