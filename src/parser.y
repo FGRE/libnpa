@@ -114,6 +114,7 @@ expr : arg TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$3, MAGIC_ASS
      | expr TAND expr { $$ = new BinaryOperator(*$1, MAGIC_LOGICAL_AND, *$3); }
      | expr TOR expr { $$ = new BinaryOperator(*$1, MAGIC_LOGICAL_OR, *$3); }
      | TNOT expr { $$ = new UnaryOperator(MAGIC_LOGICAL_NOT, *$2); }
+     | TSUB expr { $$ = new UnaryOperator(MAGIC_NEGATIVE, *$2); }
      | arg TLPAREN func_args TRPAREN { $$ = new Call(*$1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
      ;
 
