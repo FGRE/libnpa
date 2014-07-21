@@ -50,6 +50,7 @@ extern "C" int yywrap() { }
 "&&"                    return TOKEN(TAND);
 "||"                    return TOKEN(TOR);
 "!"                     return TOKEN(TNOT);
+"@"                     return TOKEN(TAT);
 "#include".*
 "//".*
 ".".*

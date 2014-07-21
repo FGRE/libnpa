@@ -32,7 +32,7 @@ const char* ArgumentTypes[] =
 
 Call* MakeCall(string Name, uint16_t Magic)
 {
-    ArgumentList Args;
+    ExpressionList Args;
     Args.push_back(new Argument(Name, ARG_STRING));
     Argument* Arg = new Argument(Nsb::StringifyMagic(Magic), ARG_FUNCTION);
     return new Call(*Arg, Args, Magic);
@@ -68,6 +68,13 @@ void Argument::CompileRaw()
     uint32_t Size = Data.size();
     Output->Write((char*)&Size, sizeof(uint32_t));
     Output->Write(Data.c_str(), Size);
+}
+
+void Expression::CompileRaw()
+{
+    uint32_t Size = 1;
+    Output->Write((char*)&Size, sizeof(uint32_t));
+    Output->Write("@", Size);
 }
 
 void Call::Compile()

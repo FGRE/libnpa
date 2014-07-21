@@ -9,9 +9,11 @@
 using namespace std;
 
 class Statement;
-class Argument;
+class Expression;
 class Subroutine;
+class Argument;
 typedef vector<Statement*> StatementList;
+typedef vector<Expression*> ExpressionList;
 typedef vector<Argument*> ArgumentList;
 typedef vector<Subroutine*> SubroutineList;
 
@@ -38,6 +40,7 @@ struct Statement : virtual Node
 struct Expression : virtual Node
 {
     virtual void Compile() = 0;
+    virtual void CompileRaw();
 };
 
 struct Argument : Expression
@@ -52,17 +55,17 @@ struct Argument : Expression
 
 struct Call : Expression, Statement
 {
-    Call(Argument& Name, ArgumentList& Arguments, uint16_t Magic) : Name(Name), Arguments(Arguments), Magic(Magic) {}
+    Call(Argument& Name, ExpressionList& Arguments, uint16_t Magic) : Name(Name), Arguments(Arguments), Magic(Magic) {}
     virtual void Compile();
 
     uint16_t Magic;
     Argument& Name;
-    ArgumentList Arguments;
+    ExpressionList Arguments;
 };
 
 struct CallStatement : Call
 {
-    CallStatement(Argument& Name, ArgumentList& Arguments, uint16_t Magic) : Call(Name, Arguments, Magic) {}
+    CallStatement(Argument& Name, ExpressionList& Arguments, uint16_t Magic) : Call(Name, Arguments, Magic) {}
     virtual void Compile();
 };
 
@@ -149,7 +152,7 @@ struct Scene : Subroutine
     virtual void Compile();
 };
 
-struct Assignment : Expression
+struct Assignment : Statement
 {
     Assignment(Argument& Name, Expression& Rhs, uint16_t Magic) : Name(Name), Rhs(Rhs), Magic(Magic) {}
     virtual void Compile();
