@@ -5,13 +5,13 @@
 #include <cstring>
 using namespace NpaPrivate;
 
-ScriptFile::ScriptFile(const std::string& Name, char* NssData, uint32_t NssSize) :
+ScriptFile::ScriptFile(const std::string& Name, const char* NssData, uint32_t NssSize) :
 Name(Name)
 {
     ReadNss(NssData, NssSize);
 }
 
-ScriptFile::ScriptFile(const std::string& Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize) :
+ScriptFile::ScriptFile(const std::string& Name, const char* NsbData, uint32_t NsbSize, const char* MapData, uint32_t MapSize) :
 Name(Name)
 {
     ReadNsb(NsbData, NsbSize, MapData, MapSize);
@@ -49,19 +49,19 @@ void ScriptFile::OpenNsb(std::string Name)
     delete[] MapData;
 }
 
-void ScriptFile::ReadNss(char* NssData, uint32_t NssSize)
+void ScriptFile::ReadNss(const char* NssData, uint32_t NssSize)
 {
     Buffer NsbBuffer, MapBuffer;
     Nss::Compile(NssData, NssSize, &NsbBuffer, &MapBuffer);
     ReadNsb(&NsbBuffer.Data[0], NsbBuffer.Size(), &MapBuffer.Data[0], MapBuffer.Size());
 }
 
-void ScriptFile::ReadNsb(char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize)
+void ScriptFile::ReadNsb(const char* NsbData, uint32_t NsbSize, const char* MapData, uint32_t MapSize)
 {
     uint32_t Entry, Length;
     uint16_t NumParams;
     Line* CurrLine;
-    char* Iter;
+    const char* Iter;
 
     // Read source code lines
     Iter = NsbData;
@@ -103,7 +103,7 @@ void ScriptFile::ReadNsb(char* NsbData, uint32_t NsbSize, char* MapData, uint32_
     }
 }
 
-void ScriptFile::Read(char** Src, void* Dest, uint32_t Size)
+void ScriptFile::Read(const char** Src, void* Dest, uint32_t Size)
 {
     std::memcpy(Dest, *Src, Size);
     *Src += Size;

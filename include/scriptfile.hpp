@@ -27,8 +27,8 @@ public:
         NSS
     };
 
-    ScriptFile(const std::string& Name, char* NssData, uint32_t NssSize);
-    ScriptFile(const std::string& Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize);
+    ScriptFile(const std::string& Name, const char* NssData, uint32_t NssSize);
+    ScriptFile(const std::string& Name, const char* NsbData, uint32_t NsbSize, const char* MapData, uint32_t MapSize);
     ScriptFile(const std::string& Name, FileType Type);
 
     uint32_t GetSymbol(const std::string& Symbol);
@@ -38,9 +38,9 @@ public:
 private:
     void OpenNss(const std::string& Name);
     void OpenNsb(std::string Name);
-    void ReadNss(char* NssData, uint32_t NssSize);
-    void ReadNsb(char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize);
-    void Read(char** Src, void* Dest, uint32_t Size);
+    void ReadNss(const char* NssData, uint32_t NssSize);
+    void ReadNsb(const char* NsbData, uint32_t NsbSize, const char* MapData, uint32_t MapSize);
+    void Read(const char** Src, void* Dest, uint32_t Size);
 
     std::map<std::string, uint32_t> Symbols;
     std::vector<Line> Source;
@@ -49,7 +49,7 @@ private:
 
 namespace Nss
 {
-    void Compile(char* pBuffer, uint32_t Length, NpaPrivate::Buffer* NsbBuffer, NpaPrivate::Buffer* MapBuffer);
+    void Compile(const char* pBuffer, uint32_t Length, NpaPrivate::Buffer* NsbBuffer, NpaPrivate::Buffer* MapBuffer);
 }
 
 #endif

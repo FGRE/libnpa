@@ -217,7 +217,7 @@ void Case::Compile()
 namespace Nss
 {
 
-void Compile(char* pBuffer, uint32_t Length, Buffer* NsbBuffer, Buffer* MapBuffer)
+void Compile(const char* pBuffer, uint32_t Length, Buffer* NsbBuffer, Buffer* MapBuffer)
 {
     Output = NsbBuffer;
     MapOutput = MapBuffer;

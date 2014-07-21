@@ -28,6 +28,11 @@ char* NpaFile::Encrypt(char* pBuff, uint32_t Size)
     return Decrypt(pBuff, Size);
 }
 
+std::string NpaFile::ToUtf8(const char* pBuff, uint32_t Size)
+{
+    return boost::locale::conv::to_utf<char>(pBuff, pBuff + Size, Locale);
+}
+
 std::string NpaFile::ToUtf8(const std::string& String)
 {
     return boost::locale::conv::to_utf<char>(String.c_str(), String.c_str() + String.size(), Locale);
