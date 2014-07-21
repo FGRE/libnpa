@@ -30,12 +30,12 @@ struct Node
     void Compile(uint16_t Magic, uint16_t NumParams);
 };
 
-struct Statement : Node
+struct Statement : virtual Node
 {
     virtual void Compile() = 0;
 };
 
-struct Expression : Node
+struct Expression : virtual Node
 {
     virtual void Compile() = 0;
 };
@@ -50,7 +50,7 @@ struct Argument : Expression
     ArgumentType Type; // Todo: CallArgument : Argument?
 };
 
-struct Call : Statement
+struct Call : Expression, Statement
 {
     Call(Argument& Name, ArgumentList& Arguments, uint16_t Magic) : Name(Name), Arguments(Arguments), Magic(Magic) {}
     virtual void Compile();
@@ -58,6 +58,12 @@ struct Call : Statement
     uint16_t Magic;
     Argument& Name;
     ArgumentList Arguments;
+};
+
+struct CallStatement : Call
+{
+    CallStatement(Argument& Name, ArgumentList& Arguments, uint16_t Magic) : Call(Name, Arguments, Magic) {}
+    virtual void Compile();
 };
 
 struct Block : Statement

@@ -95,11 +95,12 @@ void Call::Compile()
     // Arguments
     for (auto i = Arguments.begin(); i != Arguments.end(); ++i)
         (*i)->CompileRaw();
+}
 
-    if (BuiltinMagic != MAGIC_PARSE_TEXT &&
-        BuiltinMagic != MAGIC_CALL_SCENE &&
-        BuiltinMagic != MAGIC_CALL_CHAPTER)
-        Node::Compile(MAGIC_CLEAR_PARAMS, 0);
+void CallStatement::Compile()
+{
+    Call::Compile();
+    Node::Compile(MAGIC_CLEAR_PARAMS, 0);
 }
 
 void Block::Compile()

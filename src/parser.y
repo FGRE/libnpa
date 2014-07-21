@@ -76,7 +76,7 @@ arg : TDOLLAR TIDENTIFIER { $$ = new Argument(*$1 + *$2, ARG_VARIABLE); delete $
       | TINTEGER { $$ = new Argument(*$1, ARG_INT); delete $1; }
       ;
 
-call : arg TLPAREN func_args TRPAREN TSEMICOLON { $$ = new Call(*$1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
+call : arg TLPAREN func_args TRPAREN TSEMICOLON { $$ = new CallStatement(*$1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
      | TRETURN TSEMICOLON
           {
                ArgumentList Args;
@@ -114,6 +114,7 @@ expr : arg TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$3, MAGIC_ASS
      | expr TAND expr { $$ = new BinaryOperator(*$1, MAGIC_LOGICAL_AND, *$3); }
      | expr TOR expr { $$ = new BinaryOperator(*$1, MAGIC_LOGICAL_OR, *$3); }
      | TNOT expr { $$ = new UnaryOperator(MAGIC_LOGICAL_NOT, *$2); }
+     | arg TLPAREN func_args TRPAREN { $$ = new Call(*$1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
      ;
 
 cond : TIF TLPAREN expr TRPAREN block { $$ = new Condition(*$5, *$3, MAGIC_IF); }
