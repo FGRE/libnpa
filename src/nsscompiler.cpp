@@ -207,14 +207,20 @@ void Condition::Compile()
     }
     Argument BeginSym(Symbol + "begin." + boost::lexical_cast<string>(SymCounter), ARG_STRING);
     Argument EndSym(Symbol + "end." + boost::lexical_cast<string>(SymCounter++), ARG_STRING);
-    WriteSymbol(BeginSym.Data);
+
+    if (Magic == MAGIC_WHILE)
+        WriteSymbol(BeginSym.Data);
 
     Expr.Compile();
     Node::Compile(Magic, 1);
     EndSym.CompileRaw();
     ConditionBlock.Compile();
-    Node::Compile(MAGIC_JUMP, 1);
-    BeginSym.CompileRaw();
+
+    if (Magic == MAGIC_WHILE)
+    {
+        Node::Compile(MAGIC_JUMP, 1);
+        BeginSym.CompileRaw();
+    }
 
     WriteSymbol(EndSym.Data);
 }
