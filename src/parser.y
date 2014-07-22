@@ -23,10 +23,10 @@
     int token;
 }
 
-%token <string> TIDENTIFIER TFLOAT TINTEGER TXML TDOLLAR TSTRING
+%token <string> TIDENTIFIER TFLOAT TINTEGER TXML TSTRING THEX
 %token <token> TLPAREN TRPAREN TLBRACE TRBRACE TFUNCTION TSEMICOLON TEQUAL TCOMMA TQUOTE TCHAPTER TSCENE
 %token <token> TADD TSUB TMUL TDIV TIF TWHILE TLESS TGREATER TEQUALEQUAL TNEQUAL TGEQUAL TLEQUAL TAND TOR TNOT
-%token <token> TRETURN TCALLCHAPTER TCALLSCENE TELSE TSELECT TCASE TCOLON TAT
+%token <token> TRETURN TCALLCHAPTER TCALLSCENE TELSE TSELECT TCASE TCOLON TAT TDOLLAR THASH
 
 %type <program> start program
 %type <arg> arg 
@@ -80,7 +80,9 @@ func_exps : { $$ = new ExpressionList(); }
           | func_exps TCOMMA expr { $1->push_back($<expr>3); }
           ;
 
-arg : TDOLLAR TIDENTIFIER { $$ = new Argument(*$1 + *$2, ARG_VARIABLE); delete $1; delete $2; }
+arg : TDOLLAR TIDENTIFIER { $$ = new Argument('$' + *$2, ARG_VARIABLE); delete $2; }
+      | THASH TIDENTIFIER { $$ = new Argument('#' + *$2, ARG_VARIABLE); delete $2; }
+      | THEX { $$ = new Argument(*$1, ARG_STRING); delete $1; }
       | TIDENTIFIER { $$ = new Argument(*$1, ARG_STRING); delete $1; }
       | TSTRING { $$ = new Argument($1->substr(1, $1->size() - 2), ARG_STRING); delete $1; }
       | TINTEGER { $$ = new Argument(*$1, ARG_INT); delete $1; }
@@ -102,9 +104,9 @@ call : arg TLPAREN func_exps TRPAREN TSEMICOLON { $$ = new CallStatement(*$1, *$
                $$ = new Call(*Arg, Args, 0);
             }
      | TCALLCHAPTER TIDENTIFIER TSEMICOLON { $$ = MakeCall(*$2, MAGIC_CALL_CHAPTER); delete $2; }
-     | TCALLCHAPTER TDOLLAR TIDENTIFIER TSEMICOLON { $$ = MakeCall(*$2 + *$3, MAGIC_CALL_CHAPTER); delete $2; delete $3; }
+     | TCALLCHAPTER TDOLLAR TIDENTIFIER TSEMICOLON { $$ = MakeCall('$' + *$3, MAGIC_CALL_CHAPTER); delete $3; }
      | TCALLSCENE TIDENTIFIER TSEMICOLON { $$ = MakeCall(*$2, MAGIC_CALL_SCENE); delete $2; }
-     | TCALLSCENE TDOLLAR TIDENTIFIER TSEMICOLON { $$ = MakeCall(*$2 + *$3, MAGIC_CALL_SCENE); delete $2; delete $3; }
+     | TCALLSCENE TDOLLAR TIDENTIFIER TSEMICOLON { $$ = MakeCall('$' + *$3, MAGIC_CALL_SCENE); delete $3; }
      ;
 
 expr : arg { $<arg>$ = $1; }
