@@ -128,12 +128,12 @@ expr : arg { $<arg>$ = $1; }
      | arg TLPAREN func_exps TRPAREN { $$ = new Call(*$1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
      ;
 
-cond : TIF TLPAREN expr TRPAREN block { $$ = new Condition(*$5, *$3, MAGIC_IF); }
-     | TELSE TIF TLPAREN expr TRPAREN block { $$ = new Condition(*$6, *$4, MAGIC_IF); }
+cond : TIF TLPAREN expr TRPAREN block { $$ = new If(*$5, *$3); }
+     | TELSE TIF TLPAREN expr TRPAREN block { $$ = new If(*$6, *$4); }
      | TELSE block { $$ = new Else(*$2); }
      | TSELECT block { $$ = new Select(*$2); }
      | TCASE TIDENTIFIER TCOLON block { $$ = new Case(*$2, *$4); delete $2; }
-     | TWHILE TLPAREN expr TRPAREN block { $$ = new Condition(*$5, *$3, MAGIC_WHILE); }
+     | TWHILE TLPAREN expr TRPAREN block { $$ = new While(*$5, *$3); }
      ;
 
 %%

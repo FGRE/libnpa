@@ -81,11 +81,24 @@ struct Block : Statement
 struct Condition : Statement
 {
     Condition(Block& ConditionBlock, Expression& Expr, uint16_t Magic) : ConditionBlock(ConditionBlock), Expr(Expr), Magic(Magic) {}
-    virtual void Compile();
+    virtual void Compile() = 0;
+    void _Compile(Argument& EndSym);
 
     uint16_t Magic;
     Expression& Expr;
     Block& ConditionBlock;
+};
+
+struct If : Condition
+{
+    If(Block& ConditionBlock, Expression& Expr) : Condition(ConditionBlock, Expr, MAGIC_IF) {}
+    virtual void Compile();
+};
+
+struct While : Condition
+{
+    While(Block& ConditionBlock, Expression& Expr) : Condition(ConditionBlock, Expr, MAGIC_WHILE) {}
+    virtual void Compile();
 };
 
 struct Else : Statement

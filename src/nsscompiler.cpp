@@ -196,32 +196,30 @@ void UnaryOperator::Compile()
     Node::Compile(Magic, 0);
 }
 
-void Condition::Compile()
+void Condition::_Compile(Argument& EndSym)
 {
-    string Symbol;
-    switch (Magic)
-    {
-        case MAGIC_IF: Symbol = "label.if."; break;
-        case MAGIC_WHILE: Symbol = "label.while."; break;
-        default: abort();
-    }
-    Argument BeginSym(Symbol + "begin." + boost::lexical_cast<string>(SymCounter), ARG_STRING);
-    Argument EndSym(Symbol + "end." + boost::lexical_cast<string>(SymCounter++), ARG_STRING);
-
-    if (Magic == MAGIC_WHILE)
-        WriteSymbol(BeginSym.Data);
-
     Expr.Compile();
     Node::Compile(Magic, 1);
     EndSym.CompileRaw();
     ConditionBlock.Compile();
+    SymCounter++;
+}
 
-    if (Magic == MAGIC_WHILE)
-    {
-        Node::Compile(MAGIC_JUMP, 1);
-        BeginSym.CompileRaw();
-    }
+void If::Compile()
+{
+    Argument EndSym("label.if.end." + boost::lexical_cast<string>(SymCounter), ARG_STRING);
+    Condition::_Compile(EndSym);
+    WriteSymbol(EndSym.Data);
+}
 
+void While::Compile()
+{
+    Argument BeginSym("label.while.begin." + boost::lexical_cast<string>(SymCounter), ARG_STRING);
+    Argument EndSym("label.while.end." + boost::lexical_cast<string>(SymCounter), ARG_STRING);
+    WriteSymbol(BeginSym.Data);
+    Condition::_Compile(EndSym);
+    Node::Compile(MAGIC_JUMP, 1);
+    BeginSym.CompileRaw();
     WriteSymbol(EndSym.Data);
 }
 
