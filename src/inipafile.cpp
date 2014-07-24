@@ -161,6 +161,11 @@ char* INipaFile::ReadFile(NpaIterator iter, uint32_t Offset, uint32_t Size, void
     return nullptr;
 }
 
+char* INipaFile::ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t))
+{
+    return nullptr;
+}
+
 char* INipaFile::ReadFile(NpaIterator iter)
 {
     std::ifstream File(Name, std::ios::binary);

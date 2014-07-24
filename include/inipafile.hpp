@@ -67,7 +67,7 @@ public:
     static const char** GetGameStringList();
 
 protected:
-    char* ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t)) {}
+    char* ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t));
 
     void ReadHeader();
     int Crypt(int32_t curnum, int32_t curfile);
