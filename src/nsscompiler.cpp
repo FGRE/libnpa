@@ -154,11 +154,11 @@ void Program::Compile()
 
 void Function::Compile()
 {
-    CompilePrototype(MAGIC_FUNCTION_BEGIN, Arguments.size() + 1);
+    CompilePrototype(MAGIC_FUNCTION_DECLARATION, Arguments.size() + 1);
     for (auto i = Arguments.begin(); i != Arguments.end(); ++i)
         (*i)->CompileRaw();
     Subroutine::Compile();
-    CompileReturn(MAGIC_FUNCTION_END);
+    CompileReturn(MAGIC_END_FUNCTION);
 }
 
 void Chapter::Compile()
