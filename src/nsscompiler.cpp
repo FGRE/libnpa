@@ -218,10 +218,10 @@ void While::Compile()
     Argument EndSym("label.while.end." + boost::lexical_cast<string>(SymCounter), ARG_STRING);
     WriteSymbol(BeginSym.Data);
     Condition::_Compile(EndSym);
+    Node::Compile(MAGIC_WHILE_END, 0);
     Node::Compile(MAGIC_JUMP, 1);
     BeginSym.CompileRaw();
     WriteSymbol(EndSym.Data);
-    Node::Compile(MAGIC_WHILE_END, 0);
 }
 
 void Else::Compile()
