@@ -61,7 +61,7 @@ void Argument::Compile()
 {
     // Value
     if (Type == ARG_VARIABLE)
-        Node::Compile(MAGIC_GET, 1);
+        Node::Compile(MAGIC_VARIABLE, 1);
     // Variable
     else
     {

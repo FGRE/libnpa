@@ -23,7 +23,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_LOGICAL_NOT_EQUAL, "LogicalNotEqual")
     (MAGIC_ADD_EXPRESSION, "AddExpression")
     (MAGIC_ASSIGN, "Assign")
-    (MAGIC_GET, "Get")
+    (MAGIC_VARIABLE, "Variable")
     (MAGIC_END_CHAPTER, "EndChapter")
     (MAGIC_SCENE_DECLARATION, "SceneDeclaration")
     (MAGIC_CALL_SCENE, "CallScene")
