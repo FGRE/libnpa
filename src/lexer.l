@@ -23,6 +23,7 @@ extern "C" int yywrap() { }
 "select"                return TOKEN(TSELECT);
 "case"                  return TOKEN(TCASE);
 "return"                return TOKEN(TRETURN);
+"break"                 return TOKEN(TBREAK);
 "\""                    return TOKEN(TQUOTE);
 [a-zA-Zａ-ｚＡ-Ｚあ-ゖァ-ヺ一-龯_][/.a-zA-Zａ-ｚＡ-Ｚあ-ゖァ-ヺ一-龯０-９0-9_]*  SAVE_TOKEN; return TIDENTIFIER;
 \"([^\\\"]|\\.)*\"      SAVE_TOKEN; return TSTRING;

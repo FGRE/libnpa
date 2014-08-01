@@ -26,7 +26,7 @@
 %token <string> TIDENTIFIER TFLOAT TINTEGER TXML TSTRING THEX
 %token <token> TLPAREN TRPAREN TLBRACE TRBRACE TFUNCTION TSEMICOLON TEQUAL TCOMMA TQUOTE TCHAPTER TSCENE
 %token <token> TADD TSUB TMUL TDIV TIF TWHILE TLESS TGREATER TEQUALEQUAL TNEQUAL TGEQUAL TLEQUAL TAND TOR TNOT
-%token <token> TRETURN TCALLCHAPTER TCALLSCENE TELSE TSELECT TCASE TCOLON TAT TDOLLAR THASH
+%token <token> TRETURN TCALLCHAPTER TCALLSCENE TELSE TSELECT TCASE TCOLON TAT TDOLLAR THASH TBREAK
 
 %type <program> start program
 %type <arg> arg 
@@ -93,6 +93,12 @@ call : arg TLPAREN func_exps TRPAREN TSEMICOLON { $$ = new CallStatement(*$1, *$
           {
                ExpressionList Args;
                Argument* Arg = new Argument("Return", ARG_FUNCTION);
+               $$ = new Call(*Arg, Args, 0);
+          }
+     | TBREAK TSEMICOLON
+          {
+               ExpressionList Args;
+               Argument* Arg = new Argument("Break", ARG_FUNCTION);
                $$ = new Call(*Arg, Args, 0);
           }
      | TXML {
