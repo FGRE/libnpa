@@ -116,10 +116,10 @@ call : arg TLPAREN func_exps TRPAREN TSEMICOLON { $$ = new CallStatement(*$1, *$
      ;
 
 expr : arg { $<arg>$ = $1; }
-     | expr TMUL expr { $$ = new BinaryOperator(*$1, MAGIC_MULTIPLY, *$3); }
-     | expr TDIV expr { $$ = new BinaryOperator(*$1, MAGIC_DIVIDE, *$3); }
-     | expr TADD expr { $$ = new BinaryOperator(*$1, MAGIC_ADD, *$3); }
-     | expr TSUB expr { $$ = new BinaryOperator(*$1, MAGIC_SUBSTRACT, *$3); }
+     | expr TMUL expr { $$ = new BinaryOperator(*$1, MAGIC_MUL_EXPRESSION, *$3); }
+     | expr TDIV expr { $$ = new BinaryOperator(*$1, MAGIC_DIV_EXPRESSION, *$3); }
+     | expr TADD expr { $$ = new BinaryOperator(*$1, MAGIC_ADD_EXPRESSION, *$3); }
+     | expr TSUB expr { $$ = new BinaryOperator(*$1, MAGIC_SUB_EXPRESSION, *$3); }
      | expr TLESS expr { $$ = new BinaryOperator(*$1, MAGIC_CMP_LESS, *$3); }
      | expr TGREATER expr { $$ = new BinaryOperator(*$1, MAGIC_CMP_GREATER, *$3); }
      | expr TEQUALEQUAL expr { $$ = new BinaryOperator(*$1, MAGIC_CMP_EQUAL, *$3); }
@@ -129,7 +129,7 @@ expr : arg { $<arg>$ = $1; }
      | expr TAND expr { $$ = new BinaryOperator(*$1, MAGIC_CMP_LOGICAL_AND, *$3); }
      | expr TOR expr { $$ = new BinaryOperator(*$1, MAGIC_CMP_LOGICAL_OR, *$3); }
      | TNOT expr { $$ = new UnaryOperator(MAGIC_LOGICAL_NOT, *$2); }
-     | TSUB expr { $$ = new UnaryOperator(MAGIC_NEGATIVE, *$2); }
+     | TSUB expr { $$ = new UnaryOperator(MAGIC_NEGA_EXPRESSION, *$2); }
      | TAT expr { $$ = new UnaryOperator(MAGIC_PLACEHOLDER_PARAM, *$2); }
      | arg TLPAREN func_exps TRPAREN { $$ = new Call(*$1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
      ;
