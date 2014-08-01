@@ -221,6 +221,7 @@ void While::Compile()
     Node::Compile(MAGIC_JUMP, 1);
     BeginSym.CompileRaw();
     WriteSymbol(EndSym.Data);
+    Node::Compile(MAGIC_WHILE_END, 0);
 }
 
 void Else::Compile()
