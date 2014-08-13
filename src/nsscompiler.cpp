@@ -1,5 +1,4 @@
 #include <cstring>
-#include <boost/lexical_cast.hpp>
 #include "nsscompiler.hpp"
 #include "scriptfile.hpp"
 #include "parser.hpp"
@@ -44,16 +43,16 @@ void WriteSymbol(const string& Symbol)
 {
     uint32_t Pos = Output->Size();
     uint16_t Size = Symbol.size();
-    MapOutput->Write((char*)&Pos, sizeof(uint32_t));
-    MapOutput->Write((char*)&Size, sizeof(uint16_t));
+    MapOutput->Write(&Pos, sizeof(uint32_t));
+    MapOutput->Write(&Size, sizeof(uint16_t));
     MapOutput->Write(Symbol.c_str(), Size);
 }
 
 void Node::Compile(uint16_t Magic, uint16_t NumParams)
 {
-    Output->Write((char*)&Counter, sizeof(uint32_t));
-    Output->Write((char*)&Magic, sizeof(uint16_t));
-    Output->Write((char*)&NumParams, sizeof(uint16_t));
+    Output->Write(&Counter, sizeof(uint32_t));
+    Output->Write(&Magic, sizeof(uint16_t));
+    Output->Write(&NumParams, sizeof(uint16_t));
     ++Counter;
 }
 
@@ -68,7 +67,7 @@ void Argument::Compile()
         Node::Compile(MAGIC_LITERAL, 2);
         string Data = NpaFile::FromUtf8(ArgumentTypes[Type]);
         uint32_t TypeSize = Data.size();
-        Output->Write((char*)&TypeSize, sizeof(uint32_t));
+        Output->Write(&TypeSize, sizeof(uint32_t));
         Output->Write(Data.c_str(), TypeSize);
     }
     CompileRaw();
@@ -77,14 +76,14 @@ void Argument::Compile()
 void Argument::CompileRaw()
 {
     uint32_t Size = Data.size();
-    Output->Write((char*)&Size, sizeof(uint32_t));
+    Output->Write(&Size, sizeof(uint32_t));
     Output->Write(Data.c_str(), Size);
 }
 
 void Expression::CompileRaw()
 {
     uint32_t Size = 1;
-    Output->Write((char*)&Size, sizeof(uint32_t));
+    Output->Write(&Size, sizeof(uint32_t));
     Output->Write("@", Size);
 }
 
@@ -207,15 +206,15 @@ void Condition::_Compile(Argument& EndSym)
 
 void If::Compile()
 {
-    Argument EndSym("label.if.end." + boost::lexical_cast<string>(SymCounter), ARG_STRING);
+    Argument EndSym("label.if.end." + std::to_string(SymCounter), ARG_STRING);
     Condition::_Compile(EndSym);
     WriteSymbol(EndSym.Data);
 }
 
 void While::Compile()
 {
-    Argument BeginSym("label.while.begin." + boost::lexical_cast<string>(SymCounter), ARG_STRING);
-    Argument EndSym("label.while.end." + boost::lexical_cast<string>(SymCounter), ARG_STRING);
+    Argument BeginSym("label.while.begin." + std::to_string(SymCounter), ARG_STRING);
+    Argument EndSym("label.while.end." + std::to_string(SymCounter), ARG_STRING);
     WriteSymbol(BeginSym.Data);
     Condition::_Compile(EndSym);
     Node::Compile(MAGIC_WHILE_END, 0);
