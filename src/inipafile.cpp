@@ -156,27 +156,26 @@ int INipaFile::Crypt2(char* name, int32_t origsize)
     return key & 0xff;
 }
 
-char* INipaFile::ReadFile(NpaIterator iter, uint32_t Offset, uint32_t Size, void *(*Alloc)(size_t) = DefaultAlloc)
-{
-    return nullptr;
-}
-
-char* INipaFile::ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t))
-{
-    return nullptr;
-}
-
 char* INipaFile::ReadFile(NpaIterator iter)
 {
+    return ReadData(iter, 0, ((NipaEntry*)iter->second)->CompSize);
+}
+
+char* INipaFile::ReadData(NpaIterator iter, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t))
+{
+    // Cannot offset into compressed file
+    if (LocalOffset != 0 && NPAHeader.Compress == 1)
+        return nullptr;
+
     std::ifstream File(Name, std::ios::binary);
     if (!File)
         return nullptr;
 
     NipaEntry* NPAEntry = (NipaEntry*)iter->second;
-    uint8_t* buffer = new uint8_t[NPAEntry->CompSize];
+    uint8_t* buffer = new uint8_t[Size];
 
-    File.seekg(NPAEntry->Offset + NPAHeader.Start + 0x29);
-    File.read((char*)buffer, NPAEntry->CompSize);
+    File.seekg(NPAEntry->Offset + LocalOffset + NPAHeader.Start + 0x29);
+    File.read((char*)buffer, Size);
 
     if (NPAHeader.Encrypt == 1)
     {
@@ -186,7 +185,7 @@ char* INipaFile::ReadFile(NpaIterator iter)
         if (GameID != LAMENTO && GameID != LAMENTOTR)
             len += strlen(NPAEntry->Filename);
 
-        for (int x = 0; x < NPAEntry->CompSize && x < len; ++x)
+        for (int x = LocalOffset; x < Size + LocalOffset && x < len + LocalOffset; ++x)
         {
             if (GameID == TOTONO)
             {

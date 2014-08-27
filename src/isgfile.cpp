@@ -46,14 +46,19 @@ void ISGFile::ReadHeader()
     delete[] pHeaderBeg;
 }
 
-char* ISGFile::ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t))
+char* ISGFile::ReadFile(NpaIterator iter)
+{
+    return ReadData(iter, 0, GetFileSize(iter));
+}
+
+char* ISGFile::ReadData(NpaIterator iter, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t))
 {
     std::ifstream File(Name, std::ios::binary);
     if (!File)
         return nullptr;
 
     char* pData = (char*)Alloc(Size);
-    File.seekg(GlobalOffset + LocalOffset, File.beg);
+    File.seekg(iter->second->Offset + LocalOffset, File.beg);
     File.read(pData, Size);
     Decrypt(pData, Size, LocalOffset);
     return pData;

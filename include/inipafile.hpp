@@ -58,17 +58,14 @@ public:
     INipaFile(const std::string& Name, uint8_t GameID);
     ~INipaFile();
 
-    bool IsDirectory(NpaIterator iter);
-    char* ReadFile(NpaIterator iter, uint32_t Offset, uint32_t Size, void *(*Alloc)(size_t));
-    char* ReadFile(const std::string& Filename, uint32_t& Size);
     char* ReadFile(NpaIterator iter);
+    virtual char* ReadData(NpaIterator iter, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t) = DefaultAlloc);
+    bool IsDirectory(NpaIterator iter);
 
     static uint8_t GameStringToID(const std::string& String);
     static const char** GetGameStringList();
 
 protected:
-    char* ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t));
-
     void ReadHeader();
     int Crypt(int32_t curnum, int32_t curfile);
     int Crypt2(char* name, int32_t origsize);

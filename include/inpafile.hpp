@@ -24,16 +24,15 @@ public:
 
     virtual bool IsDirectory(NpaIterator iter) = 0;
     char* ReadFile(const std::string& Filename, uint32_t& Size);
-    virtual char* ReadFile(NpaIterator iter);
-    char* ReadFile(NpaIterator iter, uint32_t Offset, uint32_t Size, void *(*Alloc)(size_t) = DefaultAlloc);
+    virtual char* ReadFile(NpaIterator iter) = 0;
+    virtual char* ReadData(NpaIterator iter, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t) = DefaultAlloc) = 0;
+
     NpaIterator Begin() { return Registry.begin(); }
     NpaIterator End() { return Registry.end(); }
     NpaIterator FindFile(const std::string& Filename) { return Registry.find(Filename); }
     uint32_t GetFileSize(NpaIterator iter) { return iter->second->Size; }
 
 protected:
-    virtual char* ReadData(uint32_t GlobalOffset, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t)) = 0;
-
     NpaRegistry Registry;
 };
 
