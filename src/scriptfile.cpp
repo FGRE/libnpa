@@ -99,7 +99,12 @@ void ScriptFile::ReadNsb(const char* NsbData, uint32_t NsbSize, const char* MapD
         Label.resize(Size);
         Read(&Iter, &Label[0], Size);
         std::memcpy(&Entry, NsbData + Offset, sizeof(uint32_t));
-        Symbols[NpaFile::ToUtf8(Label)] = Entry - 1;
+
+        Label = NpaFile::ToUtf8(Label);
+        if (Label.substr(0, 7) == "include")
+            Includes.push_back(Label.substr(8));
+        else
+            Symbols[Label] = Entry - 1;
     }
 }
 

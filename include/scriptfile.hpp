@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <list>
 #include <cstdint>
 #define NSB_INVALIDE_LINE ~(uint32_t)0
 
@@ -31,6 +32,7 @@ public:
     ScriptFile(const std::string& Name, const char* NsbData, uint32_t NsbSize, const char* MapData, uint32_t MapSize);
     ScriptFile(const std::string& Name, FileType Type);
 
+    const std::list<std::string>& GetIncludes() { return Includes; }
     uint32_t GetSymbol(const std::string& Symbol);
     const std::string& GetName() const { return Name; }
     Line* GetLine(uint32_t Entry) { return Entry < Source.size() ? &Source[Entry] : nullptr; }
@@ -43,6 +45,7 @@ private:
     void Read(const char** Src, void* Dest, uint32_t Size);
 
     std::map<std::string, uint32_t> Symbols;
+    std::list<std::string> Includes;
     std::vector<Line> Source;
     const std::string Name;
 };
