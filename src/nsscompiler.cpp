@@ -195,6 +195,12 @@ void UnaryOperator::Compile()
     Node::Compile(Magic, 0);
 }
 
+void UnaryStatement::Compile()
+{
+    UnaryOperator::Compile();
+    Node::Compile(MAGIC_CLEAR_PARAMS, 0);
+}
+
 void Condition::_Compile(Argument& EndSym)
 {
     Expr.Compile();

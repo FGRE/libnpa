@@ -59,6 +59,8 @@ stmt : call | cond
      | arg TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$3, MAGIC_ASSIGN); }
      | arg TADD TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$4, MAGIC_ADD_ASSIGN); }
      | arg TSUB TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$4, MAGIC_SUB_ASSIGN); }
+     | arg TADD TADD TSEMICOLON { $$ = new UnaryStatement(MAGIC_INCREMENT, *$1); }
+     | arg TSUB TSUB TSEMICOLON { $$ = new UnaryStatement(MAGIC_DECREMENT, *$1); }
      ;
 
 block : TLBRACE stmts TRBRACE { $$ = $2; }

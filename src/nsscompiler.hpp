@@ -187,11 +187,17 @@ struct BinaryOperator : Expression
 
 struct UnaryOperator : Expression
 {
-    UnaryOperator(int Op, Expression& Rhs) : Magic(Op), Rhs(Rhs) {}
+    UnaryOperator(uint16_t Op, Expression& Rhs) : Magic(Op), Rhs(Rhs) {}
     virtual void Compile();
 
     uint16_t Magic;
     Expression& Rhs;
+};
+
+struct UnaryStatement : UnaryOperator, Statement
+{
+    UnaryStatement(uint16_t Op, Expression& Rhs) : UnaryOperator(Op, Rhs) {}
+    virtual void Compile();
 };
 
 Call* MakeCall(string Name, uint16_t Magic);
