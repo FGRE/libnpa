@@ -29,7 +29,7 @@ extern "C" int yywrap() { }
 \"([^\\\"]|\\.)*\"      SAVE_TOKEN; return TSTRING;
 [0-9]+\.[0-9]*          SAVE_TOKEN; return TFLOAT;
 [0-9]+                  SAVE_TOKEN; return TINTEGER;
-"#"[0-9A-F]{6}          SAVE_TOKEN; return THEX;
+"#"[0-9A-Fa-f]{6}       SAVE_TOKEN; return THEX;
 ","                     return TOKEN(TCOMMA);
 ";"                     return TOKEN(TSEMICOLON);
 ":"                     return TOKEN(TCOLON);
