@@ -1,23 +1,13 @@
 #include <cstring>
 #include "nsscompiler.hpp"
 #include "scriptfile.hpp"
+#include "flex.hpp"
 #include "parser.hpp"
 #include "buffer.hpp"
 using namespace NpaPrivate;
 
 class Program;
 extern Program* pRoot;
-extern int yyparse();
-typedef struct yy_buffer_state* YY_BUFFER_STATE;
-extern int yyparse();
-#if ((FLEX_VERSION_MAJOR) > 2 || \
-    ((FLEX_VERSION_MAJOR == 2 && FLEX_VERSION_MINOR > 5) || \
-    ((FLEX_VERSION_MAJOR == 2 && FLEX_VERSION_MINOR == 5 && FLEX_VERSION_PATCH > 35))))
-extern YY_BUFFER_STATE yy_scan_bytes(const char* bytes, size_t len);
-#else
-extern YY_BUFFER_STATE yy_scan_bytes(const char* bytes, int len);
-#endif
-extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 static uint32_t SymCounter = 1;
 static uint32_t Counter = 1;
