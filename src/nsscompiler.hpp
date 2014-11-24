@@ -23,7 +23,8 @@ enum ArgumentType
     ARG_STRING,
     ARG_FLOAT,
     ARG_VARIABLE,
-    ARG_FUNCTION
+    ARG_FUNCTION,
+    ARG_ARRAY
 };
 
 struct Node
@@ -51,6 +52,15 @@ struct Argument : Expression
 
     string Data;
     ArgumentType Type; // Todo: CallArgument : Argument?
+};
+
+struct Array : Argument
+{
+    Array(const string& Data) : Argument("__array_variable__", ARG_ARRAY), ArrayData(Data) {}
+    virtual void Compile();
+
+    string ArrayData;
+    ArgumentList Arguments;
 };
 
 struct Call : Expression, Statement

@@ -29,7 +29,7 @@
 %token <token> TRETURN TCALLCHAPTER TCALLSCENE TELSE TSELECT TCASE TCOLON TAT TDOLLAR THASH TBREAK TLABRACE TRABRACE
 
 %type <program> start program
-%type <arg> arg 
+%type <arg> arg array
 %type <argvec> func_args
 %type <expvec> func_exps
 %type <block> stmts block
@@ -88,7 +88,12 @@ arg : TDOLLAR TIDENTIFIER { $$ = new Argument('$' + *$2, ARG_VARIABLE); delete $
       | TIDENTIFIER { $$ = new Argument(*$1, ARG_STRING); delete $1; }
       | TSTRING { $$ = new Argument($1->substr(1, $1->size() - 2), ARG_STRING); delete $1; }
       | TINTEGER { $$ = new Argument(*$1, ARG_INT); delete $1; }
+      | array { $$ = $1; }
       ;
+
+array : TDOLLAR TIDENTIFIER TLABRACE arg TRABRACE { $$ = new Array('$' + *$2); ((Array*)$$)->Arguments.push_back($4); delete $2; }
+      | THASH TIDENTIFIER TLABRACE arg TRABRACE { $$ = new Array('#' + *$2); ((Array*)$$)->Arguments.push_back($4); delete $2; }
+      | array TLABRACE arg TRABRACE { $$ = $1; ((Array*)$$)->Arguments.push_back($3); }
 
 call : arg TLPAREN func_exps TRPAREN TSEMICOLON { $$ = new CallStatement(*$1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
      | TRETURN TSEMICOLON

@@ -48,10 +48,8 @@ void Node::Compile(uint16_t Magic, uint16_t NumParams)
 
 void Argument::Compile()
 {
-    // Value
     if (Type == ARG_VARIABLE)
         Node::Compile(MAGIC_VARIABLE, 1);
-    // Variable
     else
     {
         Node::Compile(MAGIC_LITERAL, 2);
@@ -68,6 +66,18 @@ void Argument::CompileRaw()
     uint32_t Size = Data.size();
     Output->Write(&Size, sizeof(uint32_t));
     Output->Write(Data.c_str(), Size);
+}
+
+void Array::Compile()
+{
+    for (auto i = Arguments.begin(); i != Arguments.end(); ++i)
+        (*i)->Compile();
+
+    Node::Compile(MAGIC_ARRAY_READ, 2);
+    Argument Arg1(ArrayData, ARG_STRING);
+    Arg1.CompileRaw();
+    Argument Arg2(std::to_string(Arguments.size()), ARG_INT);
+    Arg2.CompileRaw();
 }
 
 void Expression::CompileRaw()
@@ -166,6 +176,8 @@ void Scene::Compile()
 
 void Assignment::Compile()
 {
+    if (Name.Type == ARG_ARRAY)
+        Name.Compile();
     Rhs.Compile();
     Node::Compile(Magic, 1);
     Name.CompileRaw();
