@@ -57,6 +57,7 @@ struct Argument : Expression
 struct Array : Argument
 {
     Array(const string& Data) : Argument("__array_variable__", ARG_ARRAY), ArrayData(Data) {}
+    virtual ~Array() { for (auto i : Arguments) delete i; }
     virtual void Compile();
 
     string ArrayData;
@@ -65,17 +66,18 @@ struct Array : Argument
 
 struct Call : Expression, Statement
 {
-    Call(Argument& Name, ExpressionList& Arguments, uint16_t Magic) : Name(Name), Arguments(Arguments), Magic(Magic) {}
+    Call(Argument* Name, ExpressionList& Arguments, uint16_t Magic) : Name(Name), Arguments(Arguments), Magic(Magic) {}
+    ~Call() { for (auto i : Arguments) delete i; delete Name; }
     virtual void Compile();
 
     uint16_t Magic;
-    Argument& Name;
+    Argument* Name;
     ExpressionList Arguments;
 };
 
 struct CallStatement : Call
 {
-    CallStatement(Argument& Name, ExpressionList& Arguments, uint16_t Magic) : Call(Name, Arguments, Magic) {}
+    CallStatement(Argument* Name, ExpressionList& Arguments, uint16_t Magic) : Call(Name, Arguments, Magic) {}
     virtual void Compile();
 };
 
@@ -83,6 +85,7 @@ struct Block : Statement
 {
     Block() {}
     Block(StatementList& Statements) : Statements(Statements) {}
+    virtual ~Block() { for (auto i : Statements) delete i; }
     virtual void Compile();
 
     StatementList Statements;
@@ -90,66 +93,72 @@ struct Block : Statement
 
 struct Condition : Statement
 {
-    Condition(Block& ConditionBlock, Expression& Expr, uint16_t Magic) : ConditionBlock(ConditionBlock), Expr(Expr), Magic(Magic) {}
+    Condition(Block* ConditionBlock, Expression* Expr, uint16_t Magic) : ConditionBlock(ConditionBlock), Expr(Expr), Magic(Magic) {}
+    virtual ~Condition() { delete Expr; delete ConditionBlock; }
     virtual void Compile() = 0;
     void _Compile(Argument& EndSym);
 
     uint16_t Magic;
-    Expression& Expr;
-    Block& ConditionBlock;
+    Expression* Expr;
+    Block* ConditionBlock;
 };
 
 struct If : Condition
 {
-    If(Block& ConditionBlock, Expression& Expr) : Condition(ConditionBlock, Expr, MAGIC_IF) {}
+    If(Block* ConditionBlock, Expression* Expr) : Condition(ConditionBlock, Expr, MAGIC_IF) {}
     virtual void Compile();
 };
 
 struct While : Condition
 {
-    While(Block& ConditionBlock, Expression& Expr) : Condition(ConditionBlock, Expr, MAGIC_WHILE) {}
+    While(Block* ConditionBlock, Expression* Expr) : Condition(ConditionBlock, Expr, MAGIC_WHILE) {}
     virtual void Compile();
 };
 
 struct Else : Statement
 {
-    Else(Block& ElseBlock) : ElseBlock(ElseBlock) {}
+    Else(Block* ElseBlock) : ElseBlock(ElseBlock) {}
+    virtual ~Else() { delete ElseBlock; }
     virtual void Compile();
 
-    Block& ElseBlock;
+    Block* ElseBlock;
 };
 
 struct Select : Statement
 {
-    Select(Block& SelectBlock) : SelectBlock(SelectBlock) {}
+    Select(Block* SelectBlock) : SelectBlock(SelectBlock) {}
+    virtual ~Select() { delete SelectBlock; }
     virtual void Compile();
 
-    Block& SelectBlock;
+    Block* SelectBlock;
 };
 
 struct Case : Statement
 {
-    Case(const string& Name, Block& CaseBlock) : Name(NpaFile::FromUtf8(Name)), CaseBlock(CaseBlock) {}
+    Case(const string& Name, Block* CaseBlock) : Name(NpaFile::FromUtf8(Name)), CaseBlock(CaseBlock) {}
+    virtual ~Case() { delete CaseBlock; }
     virtual void Compile();
 
     string Name;
-    Block& CaseBlock;
+    Block* CaseBlock;
 };
 
 struct Subroutine : Node
 {
-    Subroutine(Argument& Name, Block& SubroutineBlock) : Name(Name), SubroutineBlock(SubroutineBlock) {}
+    Subroutine(Argument* Name, Block* SubroutineBlock) : Name(Name), SubroutineBlock(SubroutineBlock) {}
+    virtual ~Subroutine() { delete SubroutineBlock; delete Name; }
     void CompilePrototype(uint16_t BeginMagic, uint32_t NumBeginParams);
     virtual void Compile();
     void CompileReturn(uint16_t EndMagic);
 
     const uint16_t NumEndParams = 0;
-    Argument& Name;
-    Block& SubroutineBlock;
+    Argument* Name;
+    Block* SubroutineBlock;
 };
 
 struct Program
 {
+    ~Program() { for (auto i : Subroutines) delete i; }
     virtual void Compile();
 
     SubroutineList Subroutines;
@@ -157,7 +166,8 @@ struct Program
 
 struct Function : Subroutine
 {
-    Function(Argument& Name, ArgumentList& Arguments, Block& Statements) : Subroutine(Name, Statements), Arguments(Arguments) {}
+    Function(Argument* Name, ArgumentList& Arguments, Block* Statements) : Subroutine(Name, Statements), Arguments(Arguments) {}
+    virtual ~Function() { for (auto i : Arguments) delete i; }
     virtual void Compile();
 
     ArgumentList Arguments;
@@ -165,48 +175,51 @@ struct Function : Subroutine
 
 struct Chapter : Subroutine
 {
-    Chapter(Argument& Name, Block& Statements) : Subroutine(Name, Statements) {}
+    Chapter(Argument* Name, Block* Statements) : Subroutine(Name, Statements) {}
     virtual void Compile();
 };
 
 struct Scene : Subroutine
 {
-    Scene(Argument& Name, Block& Statements) : Subroutine(Name, Statements) {}
+    Scene(Argument* Name, Block* Statements) : Subroutine(Name, Statements) {}
     virtual void Compile();
 };
 
 struct Assignment : Statement
 {
-    Assignment(Argument& Name, Expression& Rhs, uint16_t Magic) : Name(Name), Rhs(Rhs), Magic(Magic) {}
+    Assignment(Argument* Name, Expression* Rhs, uint16_t Magic) : Name(Name), Rhs(Rhs), Magic(Magic) {}
+    virtual ~Assignment() { delete Name; delete Rhs; }
     virtual void Compile();
 
     uint16_t Magic;
-    Argument& Name;
-    Expression& Rhs;
+    Argument* Name;
+    Expression* Rhs;
 };
 
 struct BinaryOperator : Expression
 {
-    BinaryOperator(Expression& Lhs, uint16_t Op, Expression& Rhs) : Lhs(Lhs), Magic(Op), Rhs(Rhs) {}
+    BinaryOperator(Expression* Lhs, uint16_t Op, Expression* Rhs) : Lhs(Lhs), Magic(Op), Rhs(Rhs) {}
+    virtual ~BinaryOperator() { delete Lhs; delete Rhs; }
     virtual void Compile();
 
     uint16_t Magic;
-    Expression& Lhs;
-    Expression& Rhs;
+    Expression* Lhs;
+    Expression* Rhs;
 };
 
 struct UnaryOperator : Expression
 {
-    UnaryOperator(uint16_t Op, Expression& Rhs) : Magic(Op), Rhs(Rhs) {}
+    UnaryOperator(uint16_t Op, Expression* Rhs) : Magic(Op), Rhs(Rhs) {}
+    virtual ~UnaryOperator() { delete Rhs; }
     virtual void Compile();
 
     uint16_t Magic;
-    Expression& Rhs;
+    Expression* Rhs;
 };
 
 struct UnaryStatement : UnaryOperator, Statement
 {
-    UnaryStatement(uint16_t Op, Expression& Rhs) : UnaryOperator(Op, Rhs) {}
+    UnaryStatement(uint16_t Op, Expression* Rhs) : UnaryOperator(Op, Rhs) {}
     virtual void Compile();
 };
 

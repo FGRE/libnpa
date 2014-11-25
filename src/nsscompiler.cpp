@@ -26,7 +26,7 @@ Call* MakeCall(string Name, uint16_t Magic)
     ExpressionList Args;
     Args.push_back(new Argument(Name, ARG_STRING));
     Argument* Arg = new Argument(Nsb::StringifyMagic(Magic), ARG_FUNCTION);
-    return new Call(*Arg, Args, Magic);
+    return new Call(Arg, Args, Magic);
 }
 
 void WriteSymbol(const string& Symbol)
@@ -90,7 +90,7 @@ void Expression::CompileRaw()
 void Call::Compile()
 {
     uint16_t NumParams = Arguments.size();
-    uint32_t BuiltinMagic = Nsb::MagicifyString(Name.Data.c_str());
+    uint32_t BuiltinMagic = Nsb::MagicifyString(Name->Data.c_str());
 
     // Parameters
     if (BuiltinMagic != MAGIC_PARSE_TEXT &&
@@ -107,7 +107,7 @@ void Call::Compile()
     {
         NumParams += 1;
         Node::Compile(Magic, NumParams);
-        Name.CompileRaw();
+        Name->CompileRaw();
     }
     // Arguments
     for (auto i = Arguments.begin(); i != Arguments.end(); ++i)
@@ -130,14 +130,14 @@ void Block::Compile()
 
 void Subroutine::CompilePrototype(uint16_t BeginMagic, uint32_t NumBeginParams)
 {
-    WriteSymbol(Name.Data);
+    WriteSymbol(Name->Data);
     Node::Compile(BeginMagic, NumBeginParams);
-    Name.CompileRaw();
+    Name->CompileRaw();
 }
 
 void Subroutine::Compile()
 {
-    SubroutineBlock.Compile();
+    SubroutineBlock->Compile();
 }
 
 void Subroutine::CompileReturn(uint16_t EndMagic)
@@ -176,24 +176,24 @@ void Scene::Compile()
 
 void Assignment::Compile()
 {
-    if (Name.Type == ARG_ARRAY)
-        Name.Compile();
-    Rhs.Compile();
+    if (Name->Type == ARG_ARRAY)
+        Name->Compile();
+    Rhs->Compile();
     Node::Compile(Magic, 1);
-    Name.CompileRaw();
+    Name->CompileRaw();
     Node::Compile(MAGIC_CLEAR_PARAMS, 0);
 }
 
 void BinaryOperator::Compile()
 {
-    Lhs.Compile();
-    Rhs.Compile();
+    Lhs->Compile();
+    Rhs->Compile();
     Node::Compile(Magic, 0);
 }
 
 void UnaryOperator::Compile()
 {
-    Rhs.Compile();
+    Rhs->Compile();
     Node::Compile(Magic, 0);
 }
 
@@ -205,10 +205,10 @@ void UnaryStatement::Compile()
 
 void Condition::_Compile(Argument& EndSym)
 {
-    Expr.Compile();
+    Expr->Compile();
     Node::Compile(Magic, 1);
     EndSym.CompileRaw();
-    ConditionBlock.Compile();
+    ConditionBlock->Compile();
     SymCounter++;
 }
 
@@ -233,17 +233,17 @@ void While::Compile()
 
 void Else::Compile()
 {
-    ElseBlock.Compile();
+    ElseBlock->Compile();
 }
 
 void Select::Compile()
 {
-    SelectBlock.Compile();
+    SelectBlock->Compile();
 }
 
 void Case::Compile()
 {
-    CaseBlock.Compile();
+    CaseBlock->Compile();
 }
 
 namespace Nss
@@ -257,6 +257,7 @@ void Compile(const char* pBuffer, uint32_t Length, Buffer* NsbBuffer, Buffer* Ma
     yyparse();
     pRoot->Compile();
     yy_delete_buffer(buffer);
+    delete pRoot;
 }
 
 }

@@ -56,20 +56,20 @@ stmts : stmt { $$ = new Block(); $$->Statements.push_back($<stmt>1); }
       ;
 
 stmt : call | cond
-     | arg TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$3, MAGIC_ASSIGN); }
-     | arg TADD TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$4, MAGIC_ADD_ASSIGN); }
-     | arg TSUB TEQUAL expr TSEMICOLON { $$ = new Assignment(*$<arg>1, *$4, MAGIC_SUB_ASSIGN); }
-     | arg TADD TADD TSEMICOLON { $$ = new UnaryStatement(MAGIC_INCREMENT, *$1); }
-     | arg TSUB TSUB TSEMICOLON { $$ = new UnaryStatement(MAGIC_DECREMENT, *$1); }
+     | arg TEQUAL expr TSEMICOLON { $$ = new Assignment($1, $3, MAGIC_ASSIGN); }
+     | arg TADD TEQUAL expr TSEMICOLON { $$ = new Assignment($1, $4, MAGIC_ADD_ASSIGN); }
+     | arg TSUB TEQUAL expr TSEMICOLON { $$ = new Assignment($1, $4, MAGIC_SUB_ASSIGN); }
+     | arg TADD TADD TSEMICOLON { $$ = new UnaryStatement(MAGIC_INCREMENT, $1); }
+     | arg TSUB TSUB TSEMICOLON { $$ = new UnaryStatement(MAGIC_DECREMENT, $1); }
      ;
 
 block : TLBRACE stmts TRBRACE { $$ = $2; }
       | TLBRACE TRBRACE { $$ = new Block(); }
       ;
 
-func_decl : TFUNCTION arg TLPAREN func_args TRPAREN block { $2->Data = string("function.") + $2->Data; $$ = new Function(*$2, *$4, *$6); delete $4; }
-          | TCHAPTER arg block { $2->Data = string("chapter.") + $2->Data; $$ = new Chapter(*$2, *$3); }
-          | TSCENE arg block { $2->Data = string("scene.") + $2->Data; $$ = new Scene(*$2, *$3); }
+func_decl : TFUNCTION arg TLPAREN func_args TRPAREN block { $2->Data = string("function.") + $2->Data; $$ = new Function($2, *$4, $6); delete $4; }
+          | TCHAPTER arg block { $2->Data = string("chapter.") + $2->Data; $$ = new Chapter($2, $3); }
+          | TSCENE arg block { $2->Data = string("scene.") + $2->Data; $$ = new Scene($2, $3); }
           ;
 
 func_args : { $$ = new ArgumentList(); }
@@ -95,18 +95,18 @@ array : TDOLLAR TIDENTIFIER TLABRACE arg TRABRACE { $$ = new Array('$' + *$2); (
       | THASH TIDENTIFIER TLABRACE arg TRABRACE { $$ = new Array('#' + *$2); ((Array*)$$)->Arguments.push_back($4); delete $2; }
       | array TLABRACE arg TRABRACE { $$ = $1; ((Array*)$$)->Arguments.push_back($3); }
 
-call : arg TLPAREN func_exps TRPAREN TSEMICOLON { $$ = new CallStatement(*$1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
+call : arg TLPAREN func_exps TRPAREN TSEMICOLON { $$ = new CallStatement($1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
      | TRETURN TSEMICOLON
           {
                ExpressionList Args;
                Argument* Arg = new Argument("Return", ARG_FUNCTION);
-               $$ = new Call(*Arg, Args, 0);
+               $$ = new Call(Arg, Args, 0);
           }
      | TBREAK TSEMICOLON
           {
                ExpressionList Args;
                Argument* Arg = new Argument("Break", ARG_FUNCTION);
-               $$ = new Call(*Arg, Args, 0);
+               $$ = new Call(Arg, Args, 0);
           }
      | TXML {
                ExpressionList Args;
@@ -114,7 +114,8 @@ call : arg TLPAREN func_exps TRPAREN TSEMICOLON { $$ = new CallStatement(*$1, *$
                Args.push_back(new Argument("TODO", ARG_STRING));
                Args.push_back(new Argument(*$1, ARG_STRING));
                Argument* Arg = new Argument("ParseText", ARG_FUNCTION);
-               $$ = new Call(*Arg, Args, 0);
+               $$ = new Call(Arg, Args, 0);
+               delete $1;
             }
      | TCALLCHAPTER TIDENTIFIER TSEMICOLON { $$ = MakeCall(*$2, MAGIC_CALL_CHAPTER); delete $2; }
      | TCALLCHAPTER TDOLLAR TIDENTIFIER TSEMICOLON { $$ = MakeCall('$' + *$3, MAGIC_CALL_CHAPTER); delete $3; }
@@ -123,30 +124,30 @@ call : arg TLPAREN func_exps TRPAREN TSEMICOLON { $$ = new CallStatement(*$1, *$
      ;
 
 expr : arg { $<arg>$ = $1; }
-     | expr TMUL expr { $$ = new BinaryOperator(*$1, MAGIC_MUL_EXPRESSION, *$3); }
-     | expr TDIV expr { $$ = new BinaryOperator(*$1, MAGIC_DIV_EXPRESSION, *$3); }
-     | expr TADD expr { $$ = new BinaryOperator(*$1, MAGIC_ADD_EXPRESSION, *$3); }
-     | expr TSUB expr { $$ = new BinaryOperator(*$1, MAGIC_SUB_EXPRESSION, *$3); }
-     | expr TLESS expr { $$ = new BinaryOperator(*$1, MAGIC_CMP_LESS, *$3); }
-     | expr TGREATER expr { $$ = new BinaryOperator(*$1, MAGIC_CMP_GREATER, *$3); }
-     | expr TEQUALEQUAL expr { $$ = new BinaryOperator(*$1, MAGIC_CMP_EQUAL, *$3); }
-     | expr TNEQUAL expr { $$ = new BinaryOperator(*$1, MAGIC_LOGICAL_NOT_EQUAL, *$3); }
-     | expr TGEQUAL expr { $$ = new BinaryOperator(*$1, MAGIC_LOGICAL_GREATER_EQUAL, *$3); }
-     | expr TLEQUAL expr { $$ = new BinaryOperator(*$1, MAGIC_LOGICAL_LESS_EQUAL, *$3); }
-     | expr TAND expr { $$ = new BinaryOperator(*$1, MAGIC_CMP_LOGICAL_AND, *$3); }
-     | expr TOR expr { $$ = new BinaryOperator(*$1, MAGIC_CMP_LOGICAL_OR, *$3); }
-     | TNOT expr { $$ = new UnaryOperator(MAGIC_LOGICAL_NOT, *$2); }
-     | TSUB expr { $$ = new UnaryOperator(MAGIC_NEGA_EXPRESSION, *$2); }
-     | TAT expr { $$ = new UnaryOperator(MAGIC_PLACEHOLDER_PARAM, *$2); }
-     | arg TLPAREN func_exps TRPAREN { $$ = new Call(*$1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
+     | expr TMUL expr { $$ = new BinaryOperator($1, MAGIC_MUL_EXPRESSION, $3); }
+     | expr TDIV expr { $$ = new BinaryOperator($1, MAGIC_DIV_EXPRESSION, $3); }
+     | expr TADD expr { $$ = new BinaryOperator($1, MAGIC_ADD_EXPRESSION, $3); }
+     | expr TSUB expr { $$ = new BinaryOperator($1, MAGIC_SUB_EXPRESSION, $3); }
+     | expr TLESS expr { $$ = new BinaryOperator($1, MAGIC_CMP_LESS, $3); }
+     | expr TGREATER expr { $$ = new BinaryOperator($1, MAGIC_CMP_GREATER, $3); }
+     | expr TEQUALEQUAL expr { $$ = new BinaryOperator($1, MAGIC_CMP_EQUAL, $3); }
+     | expr TNEQUAL expr { $$ = new BinaryOperator($1, MAGIC_LOGICAL_NOT_EQUAL, $3); }
+     | expr TGEQUAL expr { $$ = new BinaryOperator($1, MAGIC_LOGICAL_GREATER_EQUAL, $3); }
+     | expr TLEQUAL expr { $$ = new BinaryOperator($1, MAGIC_LOGICAL_LESS_EQUAL, $3); }
+     | expr TAND expr { $$ = new BinaryOperator($1, MAGIC_CMP_LOGICAL_AND, $3); }
+     | expr TOR expr { $$ = new BinaryOperator($1, MAGIC_CMP_LOGICAL_OR, $3); }
+     | TNOT expr { $$ = new UnaryOperator(MAGIC_LOGICAL_NOT, $2); }
+     | TSUB expr { $$ = new UnaryOperator(MAGIC_NEGA_EXPRESSION, $2); }
+     | TAT expr { $$ = new UnaryOperator(MAGIC_PLACEHOLDER_PARAM, $2); }
+     | arg TLPAREN func_exps TRPAREN { $$ = new Call($1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
      ;
 
-cond : TIF TLPAREN expr TRPAREN block { $$ = new If(*$5, *$3); }
-     | TELSE TIF TLPAREN expr TRPAREN block { $$ = new If(*$6, *$4); }
-     | TELSE block { $$ = new Else(*$2); }
-     | TSELECT block { $$ = new Select(*$2); }
-     | TCASE TIDENTIFIER TCOLON block { $$ = new Case(*$2, *$4); delete $2; }
-     | TWHILE TLPAREN expr TRPAREN block { $$ = new While(*$5, *$3); }
+cond : TIF TLPAREN expr TRPAREN block { $$ = new If($5, $3); }
+     | TELSE TIF TLPAREN expr TRPAREN block { $$ = new If($6, $4); }
+     | TELSE block { $$ = new Else($2); }
+     | TSELECT block { $$ = new Select($2); }
+     | TCASE TIDENTIFIER TCOLON block { $$ = new Case(*$2, $4); delete $2; }
+     | TWHILE TLPAREN expr TRPAREN block { $$ = new While($5, $3); }
      ;
 
 %%
