@@ -9,8 +9,8 @@ using namespace NpaPrivate;
 class Program;
 extern Program* pRoot;
 
-static uint32_t SymCounter = 1;
-static uint32_t Counter = 1;
+static uint32_t SymCounter;
+static uint32_t Counter;
 static Buffer* Output;
 static Buffer* MapOutput;
 
@@ -251,6 +251,8 @@ namespace Nss
 
 void Compile(const char* pBuffer, uint32_t Length, Buffer* NsbBuffer, Buffer* MapBuffer)
 {
+    Counter = 1;
+    SymCounter = 1;
     Output = NsbBuffer;
     MapOutput = MapBuffer;
     YY_BUFFER_STATE buffer = yy_scan_bytes(pBuffer, Length);
