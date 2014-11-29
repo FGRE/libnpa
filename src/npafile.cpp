@@ -38,6 +38,11 @@ std::string NpaFile::ToUtf8(const std::string& String)
     return boost::locale::conv::to_utf<char>(String.c_str(), String.c_str() + String.size(), Locale);
 }
 
+std::string NpaFile::ToUtf8(const char* pText)
+{
+    return boost::locale::conv::to_utf<char>(pText, Locale);
+}
+
 std::string NpaFile::FromUtf8(const std::string& String)
 {
     return boost::locale::conv::from_utf<char>(String.c_str(), String.c_str() + String.size(), Locale);

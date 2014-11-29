@@ -13,6 +13,7 @@ public:
     static void SetLocale(const char* LocaleStr);
     static std::string ToUtf8(const char* pBuff, uint32_t Size);
     static std::string ToUtf8(const std::string& String);
+    static std::string ToUtf8(const char* pText);
     static std::string FromUtf8(const std::string& String);
     static char* Decrypt(char* pBuff, uint32_t Size, uint32_t Offset = 0);
     static char* Encrypt(char* pBuff, uint32_t Size);

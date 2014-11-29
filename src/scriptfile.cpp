@@ -81,7 +81,7 @@ void ScriptFile::ReadNsb(const char* NsbData, uint32_t NsbSize, const char* MapD
             Read(&Iter, &Length, sizeof(uint32_t));
             char* String = new char[Length];
             Read(&Iter, String, Length);
-            CurrLine->Params.push_back(NpaFile::ToUtf8(std::string(String, Length)));
+            CurrLine->Params.push_back(NpaFile::ToUtf8(String, Length));
             delete[] String;
         }
     }
