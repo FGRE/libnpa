@@ -3,6 +3,9 @@
     #include <cstdio>
     #include <cstdlib>
 
+    Call* MakeCall(string Name, uint16_t Magic);
+    void WriteSymbol(const string& Symbol);
+
     Program* pRoot;
     extern int yylex();
     void yyerror(const char* s) { std::printf("Error: %s\n", s); std::abort(); }
@@ -24,11 +27,11 @@
 }
 
 %token <string> TIDENTIFIER TFLOAT TINTEGER TXML TSTRING THEX
-%token <token> TLPAREN TRPAREN TLBRACE TRBRACE TFUNCTION TSEMICOLON TEQUAL TCOMMA TQUOTE TCHAPTER TSCENE
+%token <token> TLPAREN TRPAREN TLBRACE TRBRACE TFUNCTION TSEMICOLON TEQUAL TCOMMA TQUOTE TCHAPTER TSCENE TINCLUDE
 %token <token> TADD TSUB TMUL TDIV TIF TWHILE TLESS TGREATER TEQUALEQUAL TNEQUAL TGEQUAL TLEQUAL TAND TOR TNOT
 %token <token> TRETURN TCALLCHAPTER TCALLSCENE TELSE TSELECT TCASE TCOLON TAT TDOLLAR THASH TBREAK TLABRACE TRABRACE
 
-%type <program> start program
+%type <program> start
 %type <arg> arg array
 %type <argvec> func_args
 %type <expvec> func_exps
@@ -44,11 +47,16 @@
 
 %%
 
-start : program { pRoot = $1; }
+start : { pRoot = new Program; } program { }
       ;
 
-program : func_decl { $$ = new Program; $$->Subroutines.push_back($1); }
-        | program func_decl { $1->Subroutines.push_back($2); }
+program : func_decl { pRoot->Subroutines.push_back($1); }
+        | program func_decl { pRoot->Subroutines.push_back($2); }
+        | include
+        | program include
+        ;
+
+include : TINCLUDE TSTRING { WriteSymbol("include." + $2->substr(1, $2->size() - 2)); delete $2; }
         ;
 
 stmts : stmt { $$ = new Block(); $$->Statements.push_back($<stmt>1); }

@@ -223,6 +223,4 @@ struct UnaryStatement : UnaryOperator, Statement
     virtual void Compile();
 };
 
-Call* MakeCall(string Name, uint16_t Magic);
-
 #endif

@@ -57,7 +57,7 @@
 "||"                    return TOKEN(TOR);
 "!"                     return TOKEN(TNOT);
 "@"                     return TOKEN(TAT);
-"#include".*
+"#include"              return TOKEN(TINCLUDE);
 "//".*
 ".".*
 .                       printf("Unknown token!\n"); yyterminate();
