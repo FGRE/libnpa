@@ -58,6 +58,7 @@
 "!"                     return TOKEN(TNOT);
 "@"                     return TOKEN(TAT);
 "#include"              return TOKEN(TINCLUDE);
+"BezierMove".*
 "//".*
 ".".*
 .                       printf("Unknown token!\n"); yyterminate();
