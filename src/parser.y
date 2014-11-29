@@ -69,6 +69,7 @@ stmt : call | cond
      | arg TSUB TEQUAL expr TSEMICOLON { $$ = new Assignment($1, $4, MAGIC_SUB_ASSIGN); }
      | arg TADD TADD TSEMICOLON { $$ = new UnaryStatement(MAGIC_INCREMENT, $1); }
      | arg TSUB TSUB TSEMICOLON { $$ = new UnaryStatement(MAGIC_DECREMENT, $1); }
+     | TIDENTIFIER TCOLON { $$ = new Label(*$1); delete $1; }
      ;
 
 block : TLBRACE stmts TRBRACE { $$ = $2; }

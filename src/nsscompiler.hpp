@@ -67,7 +67,7 @@ struct Array : Argument
 struct Call : Expression, Statement
 {
     Call(Argument* Name, ExpressionList& Arguments, uint16_t Magic) : Name(Name), Arguments(Arguments), Magic(Magic) {}
-    ~Call() { for (auto i : Arguments) delete i; delete Name; }
+    virtual ~Call() { for (auto i : Arguments) delete i; delete Name; }
     virtual void Compile();
 
     uint16_t Magic;
@@ -158,7 +158,7 @@ struct Subroutine : Node
 
 struct Program
 {
-    ~Program() { for (auto i : Subroutines) delete i; }
+    virtual ~Program() { for (auto i : Subroutines) delete i; }
     virtual void Compile();
 
     SubroutineList Subroutines;
@@ -221,6 +221,15 @@ struct UnaryStatement : UnaryOperator, Statement
 {
     UnaryStatement(uint16_t Op, Expression* Rhs) : UnaryOperator(Op, Rhs) {}
     virtual void Compile();
+};
+
+// TODO: Unused in SG and CH so idk how to compile it
+struct Label : Statement
+{
+    Label(const string& Symbol) : Symbol(Symbol) { }
+    virtual void Compile() { }
+
+    string Symbol;
 };
 
 #endif
