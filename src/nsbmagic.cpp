@@ -163,7 +163,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_ERASE_ATTACH_CG, "EraseAttachCg")
     (MAGIC_UNK149, "UNK149")
     (MAGIC_UNK150, "UNK150")
-    (MAGIC_LOAD_TEXTURE_CLIP, "LoadTextureClip")
+    (MAGIC_CREATE_CLIP_TEXTURE, "CreateClipTexture")
     (MAGIC_CREATE_STENCIL, "CreateStencil")
     (MAGIC_UNK153, "UNK153")
     (MAGIC_UNK154, "UNK154")
