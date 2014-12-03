@@ -64,6 +64,7 @@ add_library(npa SHARED
     src/nsscompiler.cpp
     src/parser.cpp
     src/lexer.cpp
+    src/nsbconstants.cpp
 )
 target_link_libraries(npa ${Boost_LIBRARIES} ${ZLIB_LIBRARIES})
 
