@@ -692,7 +692,18 @@ namespace Nsb
         {"Dxl1", DXL_1},
         {"Dxl2", DXL_2},
         {"Dxl3", DXL_3},
-        {"AxlDxl", AXL_DXL}
+        {"AxlDxl", AXL_DXL},
+
+        {"black", 0},
+        {"BLACK", 0},
+        {"white", 0xFFFFFFFF},
+        {"WHITE", 0xFFFFFFFF},
+        {"blue", 0xFF0000FF},
+        {"BLUE", 0xFF0000FF},
+        {"red", 0xFFFF0000},
+        {"RED", 0xFFFF0000},
+        {"green", 0xFF00FF00},
+        {"GREEN", 0xFF00FF00}
     };
 
     bool IsValidConstant(const std::string& String)
