@@ -17,7 +17,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_CMP_LOGICAL_OR, "CmpLogicalOr")
     (MAGIC_SCOPE_BEGIN, "ScopeBegin")
     (MAGIC_SCOPE_END, "ScopeEnd")
-    (MAGIC_GET_MODULE_FILE_NAME, "GetModuleFileName")
+    (MAGIC_MODULE_FILE_NAME, "ModuleFileName")
     (MAGIC_CLEAR_PARAMS, "ClearParams")
     (MAGIC_RESET, "Reset")
     (MAGIC_LOGICAL_NOT_EQUAL, "LogicalNotEqual")
