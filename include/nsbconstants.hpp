@@ -34,7 +34,9 @@ namespace Nsb
         DXL_2,
         DXL_3,
         AXL_DXL,
-        NSB_NULL = -1
+        DXL_AXL,
+        AXL_AUTO,
+        DXL_AUTO
     };
 
     bool IsValidConstant(const std::string& String);

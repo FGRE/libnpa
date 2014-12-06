@@ -659,8 +659,8 @@ namespace Nsb
         {"PhID_OKA", 11},
         {"PhID_SUZ_0", 12},
 
-        {"null", NSB_NULL},
-        {"NULL", NSB_NULL},
+        {"null", -1},
+        {"NULL", -1},
         {"true", 1},
         {"false", 0},
 
@@ -693,6 +693,9 @@ namespace Nsb
         {"Dxl2", DXL_2},
         {"Dxl3", DXL_3},
         {"AxlDxl", AXL_DXL},
+        {"DxlDxl", DXL_AXL},
+        {"AxlAuto", AXL_AUTO},
+        {"DxlAuto", DXL_AUTO},
 
         {"black", 0},
         {"BLACK", 0},
@@ -716,6 +719,6 @@ namespace Nsb
         auto iter = Constants.find(String);
         if (iter != Constants.end())
             return iter->second;
-        return NSB_NULL;
+        return -1;
     }
 }
