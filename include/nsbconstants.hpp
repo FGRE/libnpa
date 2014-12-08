@@ -22,7 +22,8 @@ namespace Nsb
         RESUME,
         ENTRUST_SUSPEND,
         COMPULSORY_SUSPEND,
-        SUB_RENDER
+        SUB_RENDER,
+        FADE_ENTER
     };
 
     enum Tempo

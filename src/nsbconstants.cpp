@@ -685,6 +685,7 @@ namespace Nsb
         {"EntrustSuspend", ENTRUST_SUSPEND},
         {"CompulsorySuspend", COMPULSORY_SUSPEND},
         {"SubRender", SUB_RENDER},
+        {"FadeEnter", FADE_ENTER},
 
         {"Axl1", AXL_1},
         {"Axl2", AXL_2},
