@@ -44,7 +44,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_SET_ALIAS, "SetAlias")
     (MAGIC_CREATE_MOVIE, "CreateMovie")
     (MAGIC_SET_VERTEX, "SetVertex")
-    (MAGIC_APPLY_BLUR, "ApplyBlur")
+    (MAGIC_SET_SHADE, "SetShade")
     (MAGIC_CREATE_RENDER_TEXTURE, "CreateRenderTexture")
     (MAGIC_DRAW_TO_TEXTURE, "DrawToTexture")
     (MAGIC_CMP_EQUAL, "CmpEqual")
