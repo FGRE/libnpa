@@ -660,9 +660,14 @@ namespace Nsb
         {"PhID_SUZ_0", 12},
 
         {"null", -1},
+        {"Null", -1},
         {"NULL", -1},
         {"true", 1},
+        {"True", 1},
+        {"TRUE", 1},
         {"false", 0},
+        {"False", 0},
+        {"FALSE", 0},
 
         {"Stop", STOP},
         {"Play", PLAY},
@@ -699,14 +704,19 @@ namespace Nsb
         {"DxlAuto", DXL_AUTO},
 
         {"black", 0},
+        {"Black", 0},
         {"BLACK", 0},
         {"white", 0xFFFFFFFF},
+        {"White", 0xFFFFFFFF},
         {"WHITE", 0xFFFFFFFF},
         {"blue", 0xFF0000FF},
+        {"Blue", 0xFF0000FF},
         {"BLUE", 0xFF0000FF},
         {"red", 0xFFFF0000},
+        {"Red", 0xFFFF0000},
         {"RED", 0xFFFF0000},
         {"green", 0xFF00FF00},
+        {"Green", 0xFF00FF00},
         {"GREEN", 0xFF00FF00}
     };
 
