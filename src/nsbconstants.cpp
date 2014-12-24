@@ -691,6 +691,10 @@ namespace Nsb
         {"CompulsorySuspend", COMPULSORY_SUSPEND},
         {"SubRender", SUB_RENDER},
         {"FadeEnter", FADE_ENTER},
+        {"Increment", INCREMENT},
+        {"Decrement", DECREMENT},
+        {"Next", NEXT},
+        {"Prev", PREV},
 
         {"Axl1", AXL_1},
         {"Axl2", AXL_2},

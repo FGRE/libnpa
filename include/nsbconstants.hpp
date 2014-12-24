@@ -23,7 +23,11 @@ namespace Nsb
         ENTRUST_SUSPEND,
         COMPULSORY_SUSPEND,
         SUB_RENDER,
-        FADE_ENTER
+        FADE_ENTER,
+        INCREMENT,
+        DECREMENT,
+        NEXT,
+        PREV
     };
 
     enum Tempo
