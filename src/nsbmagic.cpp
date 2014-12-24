@@ -38,7 +38,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_NEGA_EXPRESSION, "NegaExpression")
     (MAGIC_SET_VOLUME, "SetVolume")
     (MAGIC_SHAKE, "Shake")
-    (MAGIC_ARRAY_READ, "ArrayRead")
+    (MAGIC_SUB_SCRIPT, "SubScript")
     (MAGIC_UNK27, "UNK27")
     (MAGIC_CREATE_WINDOW, "CreateWindow")
     (MAGIC_SET_ALIAS, "SetAlias")

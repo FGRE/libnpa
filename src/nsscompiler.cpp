@@ -73,7 +73,7 @@ void Array::Compile()
     for (auto i = Arguments.begin(); i != Arguments.end(); ++i)
         (*i)->Compile();
 
-    Node::Compile(MAGIC_ARRAY_READ, 2);
+    Node::Compile(MAGIC_SUB_SCRIPT, 2);
     Argument Arg1(ArrayData, ARG_STRING);
     Arg1.CompileRaw();
     Argument Arg2(std::to_string(Arguments.size()), ARG_INT);
