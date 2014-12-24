@@ -147,7 +147,7 @@ expr : arg { $<arg>$ = $1; }
      | expr TOR expr { $$ = new BinaryOperator($1, MAGIC_CMP_LOGICAL_OR, $3); }
      | TNOT expr { $$ = new UnaryOperator(MAGIC_LOGICAL_NOT, $2); }
      | TSUB expr { $$ = new UnaryOperator(MAGIC_NEGA_EXPRESSION, $2); }
-     | TAT expr { $$ = new UnaryOperator(MAGIC_PLACEHOLDER_PARAM, $2); }
+     | TAT expr { $$ = new UnaryOperator(MAGIC_AT_EXPRESSION, $2); }
      | arg TLPAREN func_exps TRPAREN { $$ = new Call($1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
      ;
 

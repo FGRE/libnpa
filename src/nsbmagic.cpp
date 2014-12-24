@@ -34,7 +34,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_FADE, "Fade")
     (MAGIC_WAIT, "Wait")
     (MAGIC_WAIT_KEY, "WaitKey")
-    (MAGIC_PLACEHOLDER_PARAM, "PlaceholderParam")
+    (MAGIC_AT_EXPRESSION, "AtExpression")
     (MAGIC_NEGA_EXPRESSION, "NegaExpression")
     (MAGIC_SET_VOLUME, "SetVolume")
     (MAGIC_SHAKE, "Shake")
