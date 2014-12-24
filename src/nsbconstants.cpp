@@ -695,6 +695,12 @@ namespace Nsb
         {"Decrement", DECREMENT},
         {"Next", NEXT},
         {"Prev", PREV},
+        {"Typing", TYPING},
+        {"Clickable", CLICKABLE},
+        {"MulRender", MUL_RENDER},
+        {"OverlayRender", OVERLAY_RENDER},
+        {"NormalRender", NORMAL_RENDER},
+        {"Open", OPEN},
 
         {"Axl1", AXL_1},
         {"Axl2", AXL_2},

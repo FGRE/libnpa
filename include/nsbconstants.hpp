@@ -27,7 +27,13 @@ namespace Nsb
         INCREMENT,
         DECREMENT,
         NEXT,
-        PREV
+        PREV,
+        TYPING,
+        CLICKABLE,
+        MUL_RENDER,
+        OVERLAY_RENDER,
+        NORMAL_RENDER,
+        OPEN
     };
 
     enum Tempo
