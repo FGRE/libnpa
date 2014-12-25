@@ -746,6 +746,14 @@ namespace Nsb
         {"AxlAuto", AXL_AUTO},
         {"DxlAuto", DXL_AUTO},
 
+        {"EXTRALIGHT", EXTRALIGHT},
+        {"LIGHT", LIGHT},
+        {"MEDIUM", MEDIUM},
+        {"HEAVY", HEAVY},
+        {"SEMIHEAVY", SEMIHEAVY},
+        {"EXTRAHEAVY", EXTRAHEAVY},
+        {"NOMORE", NOMORE},
+
         {"black", 0},
         {"Black", 0},
         {"BLACK", 0},

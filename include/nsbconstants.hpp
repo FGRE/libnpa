@@ -86,6 +86,17 @@ namespace Nsb
         DXL_AUTO
     };
 
+    enum Shade
+    {
+        EXTRALIGHT,
+        LIGHT,
+        MEDIUM,
+        HEAVY,
+        SEMIHEAVY,
+        EXTRAHEAVY,
+        NOMORE
+    };
+
     bool IsValidConstant(const std::string& String);
     int32_t ConstantToValue(const std::string& String);
 }
