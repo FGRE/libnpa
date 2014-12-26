@@ -150,7 +150,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK128 = SWAP_UINT16(0xFA00), // Phone related
     MAGIC_UNK129 = SWAP_UINT16(0x0F01), // Phone related
     MAGIC_SEND_MAIL_EDIT = SWAP_UINT16(0xE700),
-    MAGIC_UNK131 = SWAP_UINT16(0x5D00),
+    MAGIC_RANDOM = SWAP_UINT16(0x5D00), // GCLX, FMDM, CH, SG (GetRandom)
     MAGIC_UNK132 = SWAP_UINT16(0xE900), // Phone related
     MAGIC_UNK133 = SWAP_UINT16(0x0C01), // Phone related
     MAGIC_UNK134 = SWAP_UINT16(0x0D01),
