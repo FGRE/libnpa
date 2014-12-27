@@ -3,7 +3,7 @@
 #include "fscommon.hpp"
 #include "buffer.hpp"
 #include <cstring>
-using namespace NpaPrivate;
+using namespace Npa;
 
 ScriptFile::ScriptFile(const std::string& Name, const char* NssData, uint32_t NssSize) :
 Name(Name)
@@ -11,10 +11,12 @@ Name(Name)
     ReadNss(NssData, NssSize);
 }
 
-ScriptFile::ScriptFile(const std::string& Name, const char* NsbData, uint32_t NsbSize, const char* MapData, uint32_t MapSize) :
+ScriptFile::ScriptFile(const std::string& Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize) :
 Name(Name)
 {
-    ReadNsb(NsbData, NsbSize, MapData, MapSize);
+    Buffer NsbBuffer(NsbData, NsbSize);
+    Buffer MapBuffer(MapData, MapSize);
+    ReadNsb(NsbBuffer, MapBuffer);
 }
 
 ScriptFile::ScriptFile(const std::string& Name, FileType Type) :
@@ -39,51 +41,40 @@ void ScriptFile::OpenNss(const std::string& Name)
 void ScriptFile::OpenNsb(std::string Name)
 {
     std::string MapName = std::string(Name, 0, Name.size() - 3) + "map";
-
     uint32_t NsbSize, MapSize;
     char* NsbData = fs::ReadFile(Name, NsbSize);
     char* MapData = fs::ReadFile(MapName, MapSize);
-    ReadNsb(NsbData, NsbSize, MapData, MapSize);
-
-    delete[] NsbData;
-    delete[] MapData;
+    Buffer NsbBuffer(NsbData, NsbSize);
+    Buffer MapBuffer(MapData, MapSize);
+    ReadNsb(NsbBuffer, MapBuffer);
 }
 
 void ScriptFile::ReadNss(const char* NssData, uint32_t NssSize)
 {
     Buffer NsbBuffer, MapBuffer;
     Nss::Compile(NssData, NssSize, &NsbBuffer, &MapBuffer);
-    ReadNsb(&NsbBuffer.Data[0], NsbBuffer.Size(), &MapBuffer.Data[0], MapBuffer.Size());
+    ReadNsb(NsbBuffer, MapBuffer);
 }
 
-void ScriptFile::ReadNsb(const char* NsbData, uint32_t NsbSize, const char* MapData, uint32_t MapSize)
+void ScriptFile::ReadNsb(Npa::Buffer& NsbData, Npa::Buffer& MapData)
 {
-    uint32_t Entry, Length;
+    uint32_t Entry;
     uint16_t NumParams;
     Line* CurrLine;
-    const char* Iter;
 
     // Read source code lines
-    Iter = NsbData;
-    while (Iter < NsbData + NsbSize)
+    while (NsbData.GetIter() < NsbData.GetSize())
     {
-        Read(&Iter, &Entry, sizeof(uint32_t));
-        Entry -= 1; // Start counting at zero
+        Entry = NsbData.Read32() - 1; // Start counting at zero
         Source.resize(Source.size() + 1);
         CurrLine = &Source[Entry];
-        Read(&Iter, &CurrLine->Magic, sizeof(uint16_t));
-        Read(&Iter, &NumParams, sizeof(uint16_t));
+        CurrLine->Magic = NsbData.Read16();
+        NumParams = NsbData.Read16();
         CurrLine->Params.reserve(NumParams);
 
         // Read parameters
         for (uint16_t i = 0; i < NumParams; ++i)
-        {
-            Read(&Iter, &Length, sizeof(uint32_t));
-            char* String = new char[Length];
-            Read(&Iter, String, Length);
-            CurrLine->Params.push_back(NpaFile::ToUtf8(String, Length));
-            delete[] String;
-        }
+            CurrLine->Params.push_back(NpaFile::ToUtf8(NsbData.Read()));
     }
 
     uint32_t Offset;
@@ -91,14 +82,13 @@ void ScriptFile::ReadNsb(const char* NsbData, uint32_t NsbSize, const char* MapD
     std::string Label;
 
     // Read symbols
-    Iter = MapData;
-    while (Iter < MapData + MapSize)
+    while (MapData.GetIter() < MapData.GetSize())
     {
-        Read(&Iter, &Offset, sizeof(uint32_t));
-        Read(&Iter, &Size, sizeof(uint16_t));
+        Offset = MapData.Read32();
+        Size = MapData.Read16();
         Label.resize(Size);
-        Read(&Iter, &Label[0], Size);
-        std::memcpy(&Entry, NsbData + Offset, sizeof(uint32_t));
+        MapData.Read(&Label[0], Size);
+        NsbData.Read(&Entry, sizeof(uint32_t), Offset);
 
         Label = NpaFile::ToUtf8(Label);
         if (Label.substr(0, 7) == "include")
@@ -106,12 +96,6 @@ void ScriptFile::ReadNsb(const char* NsbData, uint32_t NsbSize, const char* MapD
         else
             Symbols[Label] = Entry - 1;
     }
-}
-
-void ScriptFile::Read(const char** Src, void* Dest, uint32_t Size)
-{
-    std::memcpy(Dest, *Src, Size);
-    *Src += Size;
 }
 
 uint32_t ScriptFile::GetSymbol(const std::string& Symbol)

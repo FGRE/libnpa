@@ -4,19 +4,34 @@
 #include <vector>
 #include <string>
 
-namespace NpaPrivate
+namespace Npa
 {
 
-struct Buffer
+class Buffer
 {
+public:
+    Buffer();
+    Buffer(char* pData, uint32_t Size);
+    ~Buffer();
+
     void Write(const std::string& String);
-    void Write16(uint16_t Integer);
-    void Write32(uint32_t Integer);
+    void Write16(int16_t Integer);
+    void Write32(int32_t Integer);
     void Write(const void* pData, uint32_t Size);
     void Write(const void* pData, uint32_t Size, uint32_t Offset);
 
-    uint32_t Size();
-    std::vector<char> Data;
+    std::string Read();
+    int16_t Read16();
+    int32_t Read32();
+    void Read(void* pDest, uint32_t Size);
+    void Read(void* pDest, uint32_t Size, uint32_t Offset);
+
+    char* GetData();
+    uint32_t GetSize();
+    uint32_t GetIter();
+private:
+    uint32_t Size, Iter;
+    char* pData;
 };
 
 }

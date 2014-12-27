@@ -2,7 +2,7 @@
 #include "fscommon.hpp"
 #include "buffer.hpp"
 #include <fstream>
-using namespace NpaPrivate;
+using namespace Npa;
 
 ONpaFile::ONpaFile(const std::string& Filename) : NpaFile(Filename)
 {
@@ -34,13 +34,13 @@ void ONpaFile::WriteToDisk()
     {
         Header.Write(FromUtf8(iter->first));
         Header.Write32(iter->second.Size);
-        iter->second.Offset = Header.Size();
+        iter->second.Offset = Header.GetSize();
         Header.Write32(0); // Offset
         Header.Write32(0); // Unk
     }
 
     // Calculate offsets
-    uint32_t Pos = 4 + Header.Size();
+    uint32_t Pos = 4 + Header.GetSize();
     for (auto iter = Registry.begin(); iter != Registry.end(); ++iter)
     {
         Header.Write(&Pos, 4, iter->second.Offset);
@@ -49,9 +49,9 @@ void ONpaFile::WriteToDisk()
 
     // Write data
     std::ofstream File(Name, std::ios::binary);
-    uint32_t Size = Header.Size();
+    uint32_t Size = Header.GetSize();
     File.write((char*)&Size, 4);
-    File.write(Encrypt(&Header.Data[0], Size), Size);
+    File.write(Encrypt(Header.GetData(), Size), Size);
     for (auto iter = Registry.begin(); iter != Registry.end(); ++iter)
     {
         File.write(Encrypt(iter->second.pData, iter->second.Size), iter->second.Size);

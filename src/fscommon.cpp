@@ -54,4 +54,14 @@ void CreateDirectory(const std::string& Path)
     create_directory(path(Path));
 }
 
+void DeleteFile(const std::string& Path)
+{
+    remove(path(Path));
+}
+
+void DeleteDirectory(const std::string& Path)
+{
+    remove_all(path(Path));
+}
+
 }

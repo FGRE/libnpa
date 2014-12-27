@@ -8,7 +8,7 @@
 #include <cstdint>
 #define NSB_INVALIDE_LINE ~(uint32_t)0
 
-namespace NpaPrivate
+namespace Npa
 {
     class Buffer;
 }
@@ -29,7 +29,7 @@ public:
     };
 
     ScriptFile(const std::string& Name, const char* NssData, uint32_t NssSize);
-    ScriptFile(const std::string& Name, const char* NsbData, uint32_t NsbSize, const char* MapData, uint32_t MapSize);
+    ScriptFile(const std::string& Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize);
     ScriptFile(const std::string& Name, FileType Type);
 
     const std::list<std::string>& GetIncludes() { return Includes; }
@@ -41,8 +41,7 @@ private:
     void OpenNss(const std::string& Name);
     void OpenNsb(std::string Name);
     void ReadNss(const char* NssData, uint32_t NssSize);
-    void ReadNsb(const char* NsbData, uint32_t NsbSize, const char* MapData, uint32_t MapSize);
-    void Read(const char** Src, void* Dest, uint32_t Size);
+    void ReadNsb(Npa::Buffer& NsbData, Npa::Buffer& MapData);
 
     std::map<std::string, uint32_t> Symbols;
     std::list<std::string> Includes;
@@ -52,7 +51,7 @@ private:
 
 namespace Nss
 {
-    void Compile(const char* pBuffer, uint32_t Length, NpaPrivate::Buffer* NsbBuffer, NpaPrivate::Buffer* MapBuffer);
+    void Compile(const char* pBuffer, uint32_t Length, Npa::Buffer* NsbBuffer, Npa::Buffer* MapBuffer);
 }
 
 #endif

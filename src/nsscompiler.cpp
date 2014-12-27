@@ -4,7 +4,7 @@
 #include "flex.hpp"
 #include "parser.hpp"
 #include "buffer.hpp"
-using namespace NpaPrivate;
+using namespace Npa;
 
 class Program;
 extern Program* pRoot;
@@ -31,18 +31,16 @@ Call* MakeCall(string Name, uint16_t Magic)
 
 void WriteSymbol(const string& Symbol)
 {
-    uint32_t Pos = Output->Size();
-    uint16_t Size = Symbol.size();
-    MapOutput->Write(&Pos, sizeof(uint32_t));
-    MapOutput->Write(&Size, sizeof(uint16_t));
-    MapOutput->Write(Symbol.c_str(), Size);
+    MapOutput->Write32(Output->GetSize());
+    MapOutput->Write16(Symbol.size());
+    MapOutput->Write(Symbol.c_str(), Symbol.size());
 }
 
 void Node::Compile(uint16_t Magic, uint16_t NumParams)
 {
-    Output->Write(&Counter, sizeof(uint32_t));
-    Output->Write(&Magic, sizeof(uint16_t));
-    Output->Write(&NumParams, sizeof(uint16_t));
+    Output->Write32(Counter);
+    Output->Write16(Magic);
+    Output->Write16(NumParams);
     ++Counter;
 }
 
@@ -53,19 +51,14 @@ void Argument::Compile()
     else
     {
         Node::Compile(MAGIC_LITERAL, 2);
-        string Data = NpaFile::FromUtf8(ArgumentTypes[Type]);
-        uint32_t TypeSize = Data.size();
-        Output->Write(&TypeSize, sizeof(uint32_t));
-        Output->Write(Data.c_str(), TypeSize);
+        Output->Write(NpaFile::FromUtf8(ArgumentTypes[Type]));
     }
     CompileRaw();
 }
 
 void Argument::CompileRaw()
 {
-    uint32_t Size = Data.size();
-    Output->Write(&Size, sizeof(uint32_t));
-    Output->Write(Data.c_str(), Size);
+    Output->Write(Data);
 }
 
 void Array::Compile()
@@ -82,9 +75,7 @@ void Array::Compile()
 
 void Expression::CompileRaw()
 {
-    uint32_t Size = 1;
-    Output->Write(&Size, sizeof(uint32_t));
-    Output->Write("@", Size);
+    Output->Write("@");
 }
 
 void Call::Compile()
