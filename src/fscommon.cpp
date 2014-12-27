@@ -1,6 +1,7 @@
 #include "fscommon.hpp"
 #include <fstream>
 #include <boost/filesystem.hpp>
+using namespace boost::filesystem;
 
 namespace fs
 {
@@ -21,8 +22,6 @@ char* ReadFile(const std::string& Filename, uint32_t& Size)
 
 void WriteFileDirectory(const std::string& Filename, const char* pData, uint32_t Size)
 {
-    using namespace boost::filesystem;
-
     // Create directories
     std::string Path = Filename;
     if (char* delim = strchr((char*)Filename.c_str(), '/'))
@@ -30,8 +29,8 @@ void WriteFileDirectory(const std::string& Filename, const char* pData, uint32_t
         do
         {
             *delim = 0;
-            if (!exists(path(Path)))
-                create_directory(path(Path));
+            if (!Exists(Path))
+                CreateDirectory(Path);
             *delim = '/';
         } while ((delim = strchr(delim + 1, '/')));
     }
@@ -43,6 +42,16 @@ void WriteFile(const std::string& Filename, const char* pData, uint32_t Size)
 {
     std::ofstream File(Filename, std::ios::binary);
     File.write(pData, Size);
+}
+
+bool Exists(const std::string& Path)
+{
+    return exists(path(Path));
+}
+
+void CreateDirectory(const std::string& Path)
+{
+    create_directory(path(Path));
 }
 
 }
