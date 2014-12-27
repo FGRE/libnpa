@@ -29,14 +29,14 @@ void ONpaFile::WriteToDisk()
 {
     // Create header
     Buffer Header;
-    Header.Write32(Registry.size());
+    Header.Write<uint32_t>(Registry.size());
     for (auto iter = Registry.begin(); iter != Registry.end(); ++iter)
     {
         Header.Write(FromUtf8(iter->first));
-        Header.Write32(iter->second.Size);
+        Header.Write<uint32_t>(iter->second.Size);
         iter->second.Offset = Header.GetSize();
-        Header.Write32(0); // Offset
-        Header.Write32(0); // Unk
+        Header.Write<uint32_t>(0); // Offset
+        Header.Write<uint32_t>(0); // Unk
     }
 
     // Calculate offsets

@@ -17,20 +17,16 @@ Buffer::~Buffer()
     delete[] pData;
 }
 
-void Buffer::Write(const std::string& String)
+void Buffer::WriteStr16(const std::string& String)
 {
-    Write32(String.size());
+    Write<uint16_t>(String.size());
     Write(String.c_str(), String.size());
 }
 
-void Buffer::Write16(int16_t Integer)
+void Buffer::WriteStr32(const std::string& String)
 {
-    Write(&Integer, sizeof(int16_t));
-}
-
-void Buffer::Write32(int32_t Integer)
-{
-    Write(&Integer, sizeof(int32_t));
+    Write<uint32_t>(String.size());
+    Write(String.c_str(), String.size());
 }
 
 void Buffer::Write(const void* pData, uint32_t Size)
@@ -48,26 +44,20 @@ void Buffer::Write(const void* pData, uint32_t Size, uint32_t Offset)
     std::memcpy(this->pData + Offset, pData, Size);
 }
 
-std::string Buffer::Read()
+std::string Buffer::ReadStr16()
 {
     std::string String;
-    String.resize(Read32());
+    String.resize(Read<uint16_t>());
     Read(&String[0], String.size());
     return String;
 }
 
-int16_t Buffer::Read16()
+std::string Buffer::ReadStr32()
 {
-    int16_t Integer;
-    Read(&Integer, sizeof(int16_t));
-    return Integer;
-}
-
-int32_t Buffer::Read32()
-{
-    int32_t Integer;
-    Read(&Integer, sizeof(int32_t));
-    return Integer;
+    std::string String;
+    String.resize(Read<uint32_t>());
+    Read(&String[0], String.size());
+    return String;
 }
 
 void Buffer::Read(void* pDest, uint32_t Size)
@@ -94,6 +84,11 @@ uint32_t Buffer::GetSize()
 uint32_t Buffer::GetIter()
 {
     return Iter;
+}
+
+bool Buffer::EndOfBuffer()
+{
+    return Iter >= Size;
 }
 
 }

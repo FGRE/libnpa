@@ -60,37 +60,26 @@ void ScriptFile::ReadNsb(Npa::Buffer& NsbData, Npa::Buffer& MapData)
 {
     uint32_t Entry;
     uint16_t NumParams;
-    Line* CurrLine;
 
     // Read source code lines
-    while (NsbData.GetIter() < NsbData.GetSize())
+    while (!NsbData.EndOfBuffer())
     {
-        Entry = NsbData.Read32() - 1; // Start counting at zero
+        Entry = NsbData.Read<uint32_t>() - 1; // Start counting at zero
         Source.resize(Source.size() + 1);
-        CurrLine = &Source[Entry];
-        CurrLine->Magic = NsbData.Read16();
-        NumParams = NsbData.Read16();
-        CurrLine->Params.reserve(NumParams);
+        Source[Entry].Magic = NsbData.Read<uint16_t>();
+        NumParams = NsbData.Read<uint16_t>();
+        Source[Entry].Params.reserve(NumParams);
 
         // Read parameters
         for (uint16_t i = 0; i < NumParams; ++i)
-            CurrLine->Params.push_back(NpaFile::ToUtf8(NsbData.Read()));
+            Source[Entry].Params.push_back(NpaFile::ToUtf8(NsbData.ReadStr32()));
     }
 
-    uint32_t Offset;
-    uint16_t Size;
-    std::string Label;
-
     // Read symbols
-    while (MapData.GetIter() < MapData.GetSize())
+    while (!MapData.EndOfBuffer())
     {
-        Offset = MapData.Read32();
-        Size = MapData.Read16();
-        Label.resize(Size);
-        MapData.Read(&Label[0], Size);
-        NsbData.Read(&Entry, sizeof(uint32_t), Offset);
-
-        Label = NpaFile::ToUtf8(Label);
+        NsbData.Read(&Entry, sizeof(uint32_t), MapData.Read<uint32_t>());
+        std::string Label = NpaFile::ToUtf8(MapData.ReadStr16());
         if (Label.substr(0, 7) == "include")
             Includes.push_back(Label.substr(8));
         else

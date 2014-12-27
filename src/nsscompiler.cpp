@@ -31,16 +31,15 @@ Call* MakeCall(string Name, uint16_t Magic)
 
 void WriteSymbol(const string& Symbol)
 {
-    MapOutput->Write32(Output->GetSize());
-    MapOutput->Write16(Symbol.size());
-    MapOutput->Write(Symbol.c_str(), Symbol.size());
+    MapOutput->Write<uint32_t>(Output->GetSize());
+    MapOutput->WriteStr16(Symbol);
 }
 
 void Node::Compile(uint16_t Magic, uint16_t NumParams)
 {
-    Output->Write32(Counter);
-    Output->Write16(Magic);
-    Output->Write16(NumParams);
+    Output->Write<uint32_t>(Counter);
+    Output->Write<uint16_t>(Magic);
+    Output->Write<uint16_t>(NumParams);
     ++Counter;
 }
 
@@ -51,14 +50,14 @@ void Argument::Compile()
     else
     {
         Node::Compile(MAGIC_LITERAL, 2);
-        Output->Write(NpaFile::FromUtf8(ArgumentTypes[Type]));
+        Output->WriteStr32(NpaFile::FromUtf8(ArgumentTypes[Type]));
     }
     CompileRaw();
 }
 
 void Argument::CompileRaw()
 {
-    Output->Write(Data);
+    Output->WriteStr32(Data);
 }
 
 void Array::Compile()
@@ -75,7 +74,7 @@ void Array::Compile()
 
 void Expression::CompileRaw()
 {
-    Output->Write("@");
+    Output->WriteStr32("@");
 }
 
 void Call::Compile()
