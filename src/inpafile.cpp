@@ -6,7 +6,7 @@ INpaFile::~INpaFile()
         delete i->second;
 }
 
-char* INpaFile::ReadFile(const std::string& Filename, uint32_t& Size)
+char* INpaFile::ReadFile(const string& Filename, uint32_t& Size)
 {
     auto iter = FindFile(Filename);
     if (iter == End())

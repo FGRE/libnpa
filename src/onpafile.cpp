@@ -4,7 +4,7 @@
 #include <fstream>
 using namespace Npa;
 
-ONpaFile::ONpaFile(const std::string& Filename) : NpaFile(Filename)
+ONpaFile::ONpaFile(const string& Filename) : NpaFile(Filename)
 {
 }
 
@@ -13,14 +13,14 @@ ONpaFile::~ONpaFile()
     WriteToDisk();
 }
 
-void ONpaFile::WriteFile(const std::string& Filename)
+void ONpaFile::WriteFile(const string& Filename)
 {
     uint32_t Size;
     char* pData = fs::ReadFile(Filename, Size);
     WriteFile(Filename, pData, Size);
 }
 
-void ONpaFile::WriteFile(const std::string& Filename, char* pData, uint32_t Size)
+void ONpaFile::WriteFile(const string& Filename, char* pData, uint32_t Size)
 {
     Registry[Filename] = { pData, Size, 0 };
 }
@@ -48,7 +48,7 @@ void ONpaFile::WriteToDisk()
     }
 
     // Write data
-    std::ofstream File(Name, std::ios::binary);
+    ofstream File(Name, ios::binary);
     uint32_t Size = Header.GetSize();
     File.write((char*)&Size, 4);
     File.write(Encrypt(Header.GetData(), Size), Size);

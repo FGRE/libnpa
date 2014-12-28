@@ -6,6 +6,7 @@
 #include <map>
 #include <list>
 #include <cstdint>
+using namespace std;
 #define NSB_INVALIDE_LINE ~(uint32_t)0
 
 namespace Npa
@@ -16,7 +17,7 @@ namespace Npa
 struct Line
 {
     uint16_t Magic;
-    std::vector<std::string> Params;
+    vector<string> Params;
 };
 
 class ScriptFile
@@ -28,25 +29,25 @@ public:
         NSS
     };
 
-    ScriptFile(const std::string& Name, const char* NssData, uint32_t NssSize);
-    ScriptFile(const std::string& Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize);
-    ScriptFile(const std::string& Name, FileType Type);
+    ScriptFile(const string& Name, const char* NssData, uint32_t NssSize);
+    ScriptFile(const string& Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize);
+    ScriptFile(const string& Name, FileType Type);
 
-    const std::list<std::string>& GetIncludes() { return Includes; }
-    uint32_t GetSymbol(const std::string& Symbol);
-    const std::string& GetName() const { return Name; }
+    const list<string>& GetIncludes() { return Includes; }
+    uint32_t GetSymbol(const string& Symbol);
+    const string& GetName() const { return Name; }
     Line* GetLine(uint32_t Entry) { return Entry < Source.size() ? &Source[Entry] : nullptr; }
 
 private:
-    void OpenNss(const std::string& Name);
-    void OpenNsb(std::string Name);
+    void OpenNss(const string& Name);
+    void OpenNsb(string Name);
     void ReadNss(const char* NssData, uint32_t NssSize);
     void ReadNsb(Npa::Buffer& NsbData, Npa::Buffer& MapData);
 
-    std::map<std::string, uint32_t> Symbols;
-    std::list<std::string> Includes;
-    std::vector<Line> Source;
-    const std::string Name;
+    map<string, uint32_t> Symbols;
+    list<string> Includes;
+    vector<Line> Source;
+    const string Name;
 };
 
 namespace Nss

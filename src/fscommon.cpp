@@ -6,24 +6,24 @@ using namespace boost::filesystem;
 namespace fs
 {
 
-char* ReadFile(const std::string& Filename, uint32_t& Size)
+char* ReadFile(const string& Filename, uint32_t& Size)
 {
-    std::ifstream File(Filename, std::ios::binary);
+    ifstream File(Filename, ios::binary);
     if (!File)
         return nullptr;
 
-    File.seekg(0, std::ios::end);
+    File.seekg(0, ios::end);
     Size = File.tellg();
     char* pData = new char[Size];
-    File.seekg(0, std::ios::beg);
+    File.seekg(0, ios::beg);
     File.read(pData, Size);
     return pData;
 }
 
-void WriteFileDirectory(const std::string& Filename, const char* pData, uint32_t Size)
+void WriteFileDirectory(const string& Filename, const char* pData, uint32_t Size)
 {
     // Create directories
-    std::string Path = Filename;
+    string Path = Filename;
     if (char* delim = strchr((char*)Filename.c_str(), '/'))
     {
         do
@@ -38,28 +38,28 @@ void WriteFileDirectory(const std::string& Filename, const char* pData, uint32_t
     WriteFile(Filename, pData, Size);
 }
 
-void WriteFile(const std::string& Filename, const char* pData, uint32_t Size)
+void WriteFile(const string& Filename, const char* pData, uint32_t Size)
 {
-    std::ofstream File(Filename, std::ios::binary);
+    ofstream File(Filename, ios::binary);
     File.write(pData, Size);
 }
 
-bool Exists(const std::string& Path)
+bool Exists(const string& Path)
 {
     return exists(path(Path));
 }
 
-void CreateDirectory(const std::string& Path)
+void CreateDirectory(const string& Path)
 {
     create_directory(path(Path));
 }
 
-void DeleteFile(const std::string& Path)
+void DeleteFile(const string& Path)
 {
     remove(path(Path));
 }
 
-void DeleteDirectory(const std::string& Path)
+void DeleteDirectory(const string& Path)
 {
     remove_all(path(Path));
 }

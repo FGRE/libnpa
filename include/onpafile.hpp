@@ -13,15 +13,15 @@ class ONpaFile : NpaFile
         uint32_t Offset;
     };
 public:
-    ONpaFile(const std::string& Filename);
+    ONpaFile(const string& Filename);
     ~ONpaFile();
 
-    void WriteFile(const std::string& Filename);
-    void WriteFile(const std::string& Filename, char* pData, uint32_t Size);
+    void WriteFile(const string& Filename);
+    void WriteFile(const string& Filename, char* pData, uint32_t Size);
 private:
     void WriteToDisk();
 
-    std::map<std::string, Data> Registry;
+    map<string, Data> Registry;
 };
 
 #endif

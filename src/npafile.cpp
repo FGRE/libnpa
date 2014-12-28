@@ -1,8 +1,8 @@
 #include "npafile.hpp"
 
-std::locale NpaFile::Locale;
+locale NpaFile::Locale;
 
-NpaFile::NpaFile(const std::string& Name) : Name(Name)
+NpaFile::NpaFile(const string& Name) : Name(Name)
 {
 }
 
@@ -28,22 +28,22 @@ char* NpaFile::Encrypt(char* pBuff, uint32_t Size)
     return Decrypt(pBuff, Size);
 }
 
-std::string NpaFile::ToUtf8(const char* pBuff, uint32_t Size)
+string NpaFile::ToUtf8(const char* pBuff, uint32_t Size)
 {
     return boost::locale::conv::to_utf<char>(pBuff, pBuff + Size, Locale);
 }
 
-std::string NpaFile::ToUtf8(const std::string& String)
+string NpaFile::ToUtf8(const string& String)
 {
     return boost::locale::conv::to_utf<char>(String.c_str(), String.c_str() + String.size(), Locale);
 }
 
-std::string NpaFile::ToUtf8(const char* pText)
+string NpaFile::ToUtf8(const char* pText)
 {
     return boost::locale::conv::to_utf<char>(pText, Locale);
 }
 
-std::string NpaFile::FromUtf8(const std::string& String)
+string NpaFile::FromUtf8(const string& String)
 {
     return boost::locale::conv::from_utf<char>(String.c_str(), String.c_str() + String.size(), Locale);
 }

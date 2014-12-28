@@ -3,25 +3,26 @@
 
 #include <string>
 #include <boost/locale.hpp>
+using namespace std;
 
 class NpaFile
 {
 public:
-    NpaFile(const std::string& Name);
+    NpaFile(const string& Name);
     virtual ~NpaFile() = 0;
 
     static void SetLocale(const char* LocaleStr);
-    static std::string ToUtf8(const char* pBuff, uint32_t Size);
-    static std::string ToUtf8(const std::string& String);
-    static std::string ToUtf8(const char* pText);
-    static std::string FromUtf8(const std::string& String);
+    static string ToUtf8(const char* pBuff, uint32_t Size);
+    static string ToUtf8(const string& String);
+    static string ToUtf8(const char* pText);
+    static string FromUtf8(const string& String);
     static char* Decrypt(char* pBuff, uint32_t Size, uint32_t Offset = 0);
     static char* Encrypt(char* pBuff, uint32_t Size);
 
 protected:
-    std::string Name;
+    string Name;
 private:
-    static std::locale Locale;
+    static locale Locale;
 };
 
 #endif

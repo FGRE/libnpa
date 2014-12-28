@@ -55,20 +55,20 @@ public:
         uint32_t CompSize;
     };
 
-    INipaFile(const std::string& Name, uint8_t GameID);
+    INipaFile(const string& Name, uint8_t GameID);
     ~INipaFile();
 
     char* ReadFile(NpaIterator iter);
     virtual char* ReadData(NpaIterator iter, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t) = DefaultAlloc);
     bool IsDirectory(NpaIterator iter);
 
-    static uint8_t GameStringToID(const std::string& String);
+    static uint8_t GameStringToID(const string& String);
     static const char** GetGameStringList();
 
 protected:
     void ReadHeader();
     int Crypt(int32_t curnum, int32_t curfile);
-    int Crypt2(char* name, int32_t origsize);
+    int Crypt2(char* Filename, int32_t origsize);
 
     uint8_t GameID;
 };

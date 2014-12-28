@@ -68,7 +68,7 @@ void Array::Compile()
     Node::Compile(MAGIC_SUB_SCRIPT, 2);
     Argument Arg1(ArrayData, ARG_STRING);
     Arg1.CompileRaw();
-    Argument Arg2(std::to_string(Arguments.size()), ARG_INT);
+    Argument Arg2(to_string(Arguments.size()), ARG_INT);
     Arg2.CompileRaw();
 }
 
@@ -204,15 +204,15 @@ void Condition::_Compile(Argument& EndSym)
 
 void If::Compile()
 {
-    Argument EndSym("label.if.end." + std::to_string(SymCounter), ARG_STRING);
+    Argument EndSym("label.if.end." + to_string(SymCounter), ARG_STRING);
     Condition::_Compile(EndSym);
     WriteSymbol(EndSym.Data);
 }
 
 void While::Compile()
 {
-    Argument BeginSym("label.while.begin." + std::to_string(SymCounter), ARG_STRING);
-    Argument EndSym("label.while.end." + std::to_string(SymCounter), ARG_STRING);
+    Argument BeginSym("label.while.begin." + to_string(SymCounter), ARG_STRING);
+    Argument EndSym("label.while.end." + to_string(SymCounter), ARG_STRING);
     WriteSymbol(BeginSym.Data);
     Condition::_Compile(EndSym);
     Node::Compile(MAGIC_WHILE_END, 0);

@@ -1,4 +1,5 @@
 #include "isgfile.hpp"
+#include "buffer.hpp"
 #include <fstream>
 
 void* DefaultAlloc(size_t Size)
@@ -6,7 +7,7 @@ void* DefaultAlloc(size_t Size)
     return new char[Size];
 }
 
-ISGFile::ISGFile(const std::string& Filename) : INpaFile(Filename)
+ISGFile::ISGFile(const string& Filename) : INpaFile(Filename)
 {
     ReadHeader();
 }
@@ -17,33 +18,26 @@ ISGFile::~ISGFile()
 
 void ISGFile::ReadHeader()
 {
-    std::ifstream File(Name, std::ios::binary);
-    assert(File);
+    ifstream File(Name, ios::binary);
+    if (!File)
+        return;
 
-    uint32_t HeaderSize, EntryCount;
+    uint32_t HeaderSize;
     File.read((char*)&HeaderSize, 4);
-    char* pHeader = new char[HeaderSize];
-    char* pHeaderBeg = pHeader;
-    File.read(pHeader, HeaderSize);
-    Decrypt(pHeader, HeaderSize);
-    EntryCount = *(uint32_t*)pHeader;
-    pHeader += 4;
+    Npa::Buffer SGBuffer(new char[HeaderSize], HeaderSize);
+    File.read(SGBuffer.GetData(), HeaderSize);
+    Decrypt(SGBuffer.GetData(), HeaderSize);
 
+    uint32_t EntryCount = SGBuffer.Read<uint32_t>();
     for (uint32_t i = 0; i < EntryCount; ++i)
     {
-        uint32_t FilenameSize = *(uint32_t*)pHeader;
-        pHeader += 4;
-        std::string Filename(pHeader, FilenameSize);
-        pHeader += FilenameSize;
+        string Filename = SGBuffer.ReadStr32();
         SGEntry* pEntry = new SGEntry;
-        pEntry->Size = *(uint32_t*)pHeader;
-        pEntry->Offset = *(uint32_t*)(pHeader + sizeof(uint32_t));
-        pEntry->Unk = *(uint32_t*)(pHeader + 2 * sizeof(uint32_t));
+        pEntry->Size = SGBuffer.Read<uint32_t>();
+        pEntry->Offset = SGBuffer.Read<uint32_t>();
+        pEntry->Unk = SGBuffer.Read<uint32_t>();
         Registry[ToUtf8(Filename)] = pEntry;
-        pHeader += 3 * sizeof(uint32_t);
     }
-
-    delete[] pHeaderBeg;
 }
 
 char* ISGFile::ReadFile(NpaIterator iter)
@@ -53,7 +47,7 @@ char* ISGFile::ReadFile(NpaIterator iter)
 
 char* ISGFile::ReadData(NpaIterator iter, uint32_t LocalOffset, uint32_t Size, void *(*Alloc)(size_t))
 {
-    std::ifstream File(Name, std::ios::binary);
+    ifstream File(Name, ios::binary);
     if (!File)
         return nullptr;
 

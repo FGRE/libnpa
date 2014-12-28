@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+using namespace std;
 
 namespace Npa
 {
@@ -18,8 +19,8 @@ public:
     {
         Write(&Integer, sizeof(T));
     }
-    void WriteStr16(const std::string& String);
-    void WriteStr32(const std::string& String);
+    void WriteStr16(const string& String);
+    void WriteStr32(const string& String);
     void Write(const void* pData, uint32_t Size);
     void Write(const void* pData, uint32_t Size, uint32_t Offset);
 
@@ -29,8 +30,8 @@ public:
         Read(&Integer, sizeof(T));
         return Integer;
     }
-    std::string ReadStr16();
-    std::string ReadStr32();
+    string ReadStr16();
+    string ReadStr32();
     void Read(void* pDest, uint32_t Size);
     void Read(void* pDest, uint32_t Size, uint32_t Offset);
 

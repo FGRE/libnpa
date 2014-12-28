@@ -5,12 +5,12 @@
 
 static const char PeSig[4] = { 'P', 'E', 0, 0 };
 
-ExeFile::ExeFile(const std::string& Name, uint8_t CharWidth) :
+ExeFile::ExeFile(const string& Name, uint8_t CharWidth) :
 Name(Name),
 ImageBase(0),
 CharWidth(CharWidth)
 {
-    std::ifstream File(Name, std::ios::binary);
+    ifstream File(Name, ios::binary);
     if (!File)
         return;
 
@@ -21,7 +21,7 @@ CharWidth(CharWidth)
     File.seekg(PeOffset);
     char Sig[4];
     File.read(Sig, 4);
-    if (std::memcmp(Sig, PeSig, 4) != 0)
+    if (memcmp(Sig, PeSig, 4) != 0)
         return;
 
     // File header
@@ -39,16 +39,11 @@ CharWidth(CharWidth)
     // Section header
     for (auto& i : Sections)
     {
-        File.read((char*)&i.Name, 8);
-        File.read((char*)&i.VirtualSize, 4);
+        File.seekg(12, File.cur);
         File.read((char*)&i.VirtualAddress, 4);
         File.read((char*)&i.SizeOfRawData, 4);
         File.read((char*)&i.PointerToRawData, 4);
-        File.read((char*)&i.PointerToRelocations, 4);
-        File.read((char*)&i.PointerToLineNumbers, 4);
-        File.read((char*)&i.NumberOfRelocations, 2);
-        File.read((char*)&i.NumberOfLinenumbers, 2);
-        File.read((char*)&i.Characteristics, 4);
+        File.seekg(16, File.cur);
     }
 }
 
@@ -64,10 +59,10 @@ uint32_t ExeFile::VirtualToPhysical(uint32_t Address)
     return 0;
 }
 
-template <> std::string ExeFile::Read(uint32_t Address)
+template <> string ExeFile::Read(uint32_t Address)
 {
-    std::string Ret;
-    std::ifstream File(Name, std::ios::binary);
+    string Ret;
+    ifstream File(Name, ios::binary);
     uint32_t PhysicalAddress = VirtualToPhysical(Address);
 
     if (PhysicalAddress == 0)

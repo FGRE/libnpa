@@ -7,7 +7,7 @@
 class ISGFile : public INpaFile
 {
 public:
-    ISGFile(const std::string& Filename);
+    ISGFile(const string& Filename);
     ~ISGFile();
 
     struct SGEntry : INpaFile::Entry

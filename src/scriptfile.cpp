@@ -5,13 +5,13 @@
 #include <cstring>
 using namespace Npa;
 
-ScriptFile::ScriptFile(const std::string& Name, const char* NssData, uint32_t NssSize) :
+ScriptFile::ScriptFile(const string& Name, const char* NssData, uint32_t NssSize) :
 Name(Name)
 {
     ReadNss(NssData, NssSize);
 }
 
-ScriptFile::ScriptFile(const std::string& Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize) :
+ScriptFile::ScriptFile(const string& Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize) :
 Name(Name)
 {
     Buffer NsbBuffer(NsbData, NsbSize);
@@ -19,7 +19,7 @@ Name(Name)
     ReadNsb(NsbBuffer, MapBuffer);
 }
 
-ScriptFile::ScriptFile(const std::string& Name, FileType Type) :
+ScriptFile::ScriptFile(const string& Name, FileType Type) :
 Name(Name)
 {
     switch (Type)
@@ -30,7 +30,7 @@ Name(Name)
     }
 }
 
-void ScriptFile::OpenNss(const std::string& Name)
+void ScriptFile::OpenNss(const string& Name)
 {
     uint32_t NssSize;
     char* NssData = fs::ReadFile(Name, NssSize);
@@ -38,9 +38,9 @@ void ScriptFile::OpenNss(const std::string& Name)
     delete[] NssData;
 }
 
-void ScriptFile::OpenNsb(std::string Name)
+void ScriptFile::OpenNsb(string Name)
 {
-    std::string MapName = std::string(Name, 0, Name.size() - 3) + "map";
+    string MapName = string(Name, 0, Name.size() - 3) + "map";
     uint32_t NsbSize, MapSize;
     char* NsbData = fs::ReadFile(Name, NsbSize);
     char* MapData = fs::ReadFile(MapName, MapSize);
@@ -79,7 +79,7 @@ void ScriptFile::ReadNsb(Npa::Buffer& NsbData, Npa::Buffer& MapData)
     while (!MapData.EndOfBuffer())
     {
         NsbData.Read(&Entry, sizeof(uint32_t), MapData.Read<uint32_t>());
-        std::string Label = NpaFile::ToUtf8(MapData.ReadStr16());
+        string Label = NpaFile::ToUtf8(MapData.ReadStr16());
         if (Label.substr(0, 7) == "include")
             Includes.push_back(Label.substr(8));
         else
@@ -87,7 +87,7 @@ void ScriptFile::ReadNsb(Npa::Buffer& NsbData, Npa::Buffer& MapData)
     }
 }
 
-uint32_t ScriptFile::GetSymbol(const std::string& Symbol)
+uint32_t ScriptFile::GetSymbol(const string& Symbol)
 {
     auto iter = Symbols.find(Symbol);
     if (iter != Symbols.end())

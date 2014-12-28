@@ -38,7 +38,7 @@ const char** INipaFile::GetGameStringList()
     return NipaGames;
 }
 
-uint8_t INipaFile::GameStringToID(const std::string& String)
+uint8_t INipaFile::GameStringToID(const string& String)
 {
     for (int i = 0; NipaGames[i]; ++i)
         if (String == NipaGames[i])
@@ -46,7 +46,7 @@ uint8_t INipaFile::GameStringToID(const std::string& String)
     return -1;
 }
 
-INipaFile::INipaFile(const std::string& Name, uint8_t GameID) : INpaFile(Name), GameID(GameID)
+INipaFile::INipaFile(const string& Name, uint8_t GameID) : INpaFile(Name), GameID(GameID)
 {
     ReadHeader();
 }
@@ -57,7 +57,7 @@ INipaFile::~INipaFile()
 
 void INipaFile::ReadHeader()
 {
-    std::ifstream File(Name, std::ios::binary);
+    ifstream File(Name, ios::binary);
     if (!File)
         return;
 
@@ -92,7 +92,7 @@ void INipaFile::ReadHeader()
         File.read((char*)&NPAEntry->CompSize, 4);
         File.read((char*)&NPAEntry->Size, 4);
 
-        std::string UtfPath = NpaFile::ToUtf8(NPAEntry->Filename);
+        string UtfPath = NpaFile::ToUtf8(NPAEntry->Filename);
         boost::replace_all(UtfPath, "\\", "/");
         Registry[UtfPath] = NPAEntry;
     }
@@ -119,7 +119,7 @@ int INipaFile::Crypt(int32_t curnum, int32_t curfile)
     return key & 0xff;
 }
 
-int INipaFile::Crypt2(char* name, int32_t origsize)
+int INipaFile::Crypt2(char* Filename, int32_t origsize)
 {
     int i = 0;
     int key1 = 0; /* 2345678 hurr */
@@ -144,8 +144,8 @@ int INipaFile::Crypt2(char* name, int32_t origsize)
             break;
     }
 
-    for (i = 0; name[i] != 0; ++i)
-        key1 -= name[i];
+    for (i = 0; Filename[i] != 0; ++i)
+        key1 -= Filename[i];
 
     key = key1 * i;
     if (GameID != LAMENTO && GameID != LAMENTOTR)
@@ -167,7 +167,7 @@ char* INipaFile::ReadData(NpaIterator iter, uint32_t LocalOffset, uint32_t Size,
     if (LocalOffset != 0 && NPAHeader.Compress == 1)
         return nullptr;
 
-    std::ifstream File(Name, std::ios::binary);
+    ifstream File(Name, ios::binary);
     if (!File)
         return nullptr;
 
