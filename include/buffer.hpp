@@ -17,6 +17,7 @@ public:
 
     template <class T> void Write(T Integer)
     {
+        static_assert(is_fundamental<T>::value, "Buffer::Write<T> T must be trivial!");
         Write(&Integer, sizeof(T));
     }
     void WriteStr16(const string& String);
@@ -26,6 +27,7 @@ public:
 
     template <class T> T Read()
     {
+        static_assert(is_fundamental<T>::value, "Buffer::Read<T> T must be trivial!");
         T Integer;
         Read(&Integer, sizeof(T));
         return Integer;

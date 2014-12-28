@@ -32,7 +32,7 @@ void ONpaFile::WriteToDisk()
     Header.Write<uint32_t>(Registry.size());
     for (auto iter = Registry.begin(); iter != Registry.end(); ++iter)
     {
-        Header.Write(FromUtf8(iter->first));
+        Header.WriteStr32(FromUtf8(iter->first));
         Header.Write<uint32_t>(iter->second.Size);
         iter->second.Offset = Header.GetSize();
         Header.Write<uint32_t>(0); // Offset
