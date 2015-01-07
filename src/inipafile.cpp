@@ -1,4 +1,6 @@
 #include "inipafile.hpp"
+#include "fscommon.hpp"
+#include "buffer.hpp"
 #include <fstream>
 #include <boost/algorithm/string/replace.hpp>
 #include <zlib.h>
@@ -57,40 +59,37 @@ INipaFile::~INipaFile()
 
 void INipaFile::ReadHeader()
 {
-    ifstream File(Name, ios::binary);
-    if (!File)
+    uint32_t Size;
+    char* pData = fs::ReadFile(Name, Size);
+    if (!pData)
         return;
 
-    File.read(NPAHeader.Magic, 7);
+    Npa::Buffer File(pData, Size);
+    File.Read(NPAHeader.Magic, 7);
     assert(strncmp("NPA\x01\x00\x00\x00", NPAHeader.Magic, 7) == 0);
 
-    File.read((char*)&NPAHeader.Key1, 4);
-    File.read((char*)&NPAHeader.Key2, 4);
-    File.read((char*)&NPAHeader.Compress, 1);
-    File.read((char*)&NPAHeader.Encrypt, 1);
-    File.read((char*)&NPAHeader.TotalCount, 4);
-    File.read((char*)&NPAHeader.FolderCount, 4);
-    File.read((char*)&NPAHeader.FileCount, 4);
-    File.read((char*)&NPAHeader.Unk, 8);
-    File.read((char*)&NPAHeader.Start, 4);
+    NPAHeader.Key1 = File.Read<int32_t>();
+    NPAHeader.Key2 = File.Read<int32_t>();
+    NPAHeader.Compress = File.Read<uint8_t>();
+    NPAHeader.Encrypt = File.Read<uint8_t>();
+    NPAHeader.TotalCount = File.Read<uint32_t>();
+    NPAHeader.FolderCount = File.Read<uint32_t>();
+    NPAHeader.FileCount = File.Read<uint32_t>();
+    NPAHeader.Unk = File.Read<uint64_t>();
+    NPAHeader.Start = File.Read<uint32_t>();
 
-    for (int i = 0; i < NPAHeader.TotalCount; ++i)
+    for (uint32_t i = 0; i < NPAHeader.TotalCount; ++i)
     {
         NipaEntry* NPAEntry = new NipaEntry;
-        File.read((char*)&NPAEntry->NameSize, 4);
+        NPAEntry->Filename = File.ReadStr32();
+        for (int x = 0; x < NPAEntry->Filename.size(); ++x)
+            NPAEntry->Filename[x] += FilenameCrypt(x, i);
 
-        NPAEntry->Filename = new char[NPAEntry->NameSize + 1];
-        File.read((char*)NPAEntry->Filename, NPAEntry->NameSize);
-
-        for (int x = 0; x < NPAEntry->NameSize; ++x)
-            NPAEntry->Filename[x] += Crypt(x, i);
-        NPAEntry->Filename[NPAEntry->NameSize] = '\0';
-
-        File.read((char*)&NPAEntry->Type, 1);
-        File.read((char*)&NPAEntry->FileID, 4);
-        File.read((char*)&NPAEntry->Offset, 4);
-        File.read((char*)&NPAEntry->CompSize, 4);
-        File.read((char*)&NPAEntry->Size, 4);
+        NPAEntry->Type = File.Read<uint8_t>();
+        NPAEntry->FileID = File.Read<uint32_t>();
+        NPAEntry->Offset = File.Read<uint32_t>();
+        NPAEntry->CompSize = File.Read<uint32_t>();
+        NPAEntry->Size = File.Read<uint32_t>();
 
         string UtfPath = NpaFile::ToUtf8(NPAEntry->Filename);
         boost::replace_all(UtfPath, "\\", "/");
@@ -98,28 +97,28 @@ void INipaFile::ReadHeader()
     }
 }
 
-int INipaFile::Crypt(int32_t curnum, int32_t curfile)
+char INipaFile::FilenameCrypt(int32_t CharIndex, int32_t FileIndex)
 {
-    int key = 0xFC * curnum;
-    int temp = 0;
+    int32_t Key = 0xFC * CharIndex;
+    int32_t Temp = 0;
 
     if (NPAHeader.Encrypt && (GameID == LAMENTO || GameID == LAMENTOTR))
-        temp = NPAHeader.Key1 + NPAHeader.Key2;
+        Temp = NPAHeader.Key1 + NPAHeader.Key2;
     else
-        temp = NPAHeader.Key1 * NPAHeader.Key2;
+        Temp = NPAHeader.Key1 * NPAHeader.Key2;
 
-    key -= temp >> 0x18;
-    key -= temp >> 0x10;
-    key -= temp >> 0x08;
-    key -= temp  & 0xff;
-    key -= curfile >> 0x18;
-    key -= curfile >> 0x10;
-    key -= curfile >> 0x08;
-    key -= curfile;
-    return key & 0xff;
+    Key -= Temp >> 0x18;
+    Key -= Temp >> 0x10;
+    Key -= Temp >> 0x08;
+    Key -= Temp & 0xff;
+    Key -= FileIndex >> 0x18;
+    Key -= FileIndex >> 0x10;
+    Key -= FileIndex >> 0x08;
+    Key -= FileIndex;
+    return Key & 0xff;
 }
 
-int INipaFile::Crypt2(char* Filename, int32_t origsize)
+int INipaFile::Crypt2(const char* Filename, int32_t origsize)
 {
     int i = 0;
     int key1 = 0; /* 2345678 hurr */
@@ -179,11 +178,11 @@ char* INipaFile::ReadData(NpaIterator iter, uint32_t LocalOffset, uint32_t Size,
 
     if (NPAHeader.Encrypt == 1)
     {
-        int key = Crypt2(NPAEntry->Filename, NPAEntry->Size);
+        int key = Crypt2(NPAEntry->Filename.c_str(), NPAEntry->Size);
         int len = 0x1000;
 
         if (GameID != LAMENTO && GameID != LAMENTOTR)
-            len += strlen(NPAEntry->Filename);
+            len += NPAEntry->Filename.size();
 
         for (int x = LocalOffset; x < Size + LocalOffset && x < len + LocalOffset; ++x)
         {

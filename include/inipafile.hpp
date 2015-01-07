@@ -48,8 +48,8 @@ public:
 
     struct NipaEntry : INpaFile::Entry
     {
-        uint32_t NameSize;
-        char* Filename;
+        //uint32_t NameSize;
+        string Filename;
         uint8_t Type;
         uint32_t FileID;
         uint32_t CompSize;
@@ -67,8 +67,8 @@ public:
 
 protected:
     void ReadHeader();
-    int Crypt(int32_t curnum, int32_t curfile);
-    int Crypt2(char* Filename, int32_t origsize);
+    char FilenameCrypt(int32_t CharIndex, int32_t FileIndex);
+    int Crypt2(const char* Filename, int32_t origsize);
 
     uint8_t GameID;
 };

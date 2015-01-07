@@ -15,14 +15,7 @@ ONpaFile::~ONpaFile()
 
 void ONpaFile::WriteFile(const string& Filename)
 {
-    uint32_t Size;
-    char* pData = fs::ReadFile(Filename, Size);
-    WriteFile(Filename, pData, Size);
-}
-
-void ONpaFile::WriteFile(const string& Filename, char* pData, uint32_t Size)
-{
-    Registry[Filename] = { pData, Size, 0 };
+    Registry[Filename] = 0;
 }
 
 void ONpaFile::WriteToDisk()
@@ -33,8 +26,8 @@ void ONpaFile::WriteToDisk()
     for (auto iter = Registry.begin(); iter != Registry.end(); ++iter)
     {
         Header.WriteStr32(FromUtf8(iter->first));
-        Header.Write<uint32_t>(iter->second.Size);
-        iter->second.Offset = Header.GetSize();
+        Header.Write<uint32_t>(fs::FileSize(iter->first));
+        iter->second = Header.GetSize();
         Header.Write<uint32_t>(0); // Offset
         Header.Write<uint32_t>(0); // Unk
     }
@@ -43,8 +36,8 @@ void ONpaFile::WriteToDisk()
     uint32_t Pos = 4 + Header.GetSize();
     for (auto iter = Registry.begin(); iter != Registry.end(); ++iter)
     {
-        Header.Write(&Pos, 4, iter->second.Offset);
-        Pos += iter->second.Size;
+        Header.Write(&Pos, 4, iter->second);
+        Pos += fs::FileSize(iter->first);
     }
 
     // Write data
@@ -54,7 +47,9 @@ void ONpaFile::WriteToDisk()
     File.write(Encrypt(Header.GetData(), Size), Size);
     for (auto iter = Registry.begin(); iter != Registry.end(); ++iter)
     {
-        File.write(Encrypt(iter->second.pData, iter->second.Size), iter->second.Size);
-        delete iter->second.pData;
+        uint32_t Size;
+        char* pData = fs::ReadFile(iter->first, Size);
+        File.write(Encrypt(pData, Size), Size);
+        delete pData;
     }
 }

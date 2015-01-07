@@ -6,16 +6,29 @@ using namespace boost::filesystem;
 namespace fs
 {
 
+uint32_t FileSize(ifstream& File)
+{
+    uint32_t Size;
+    File.seekg(0, ios::end);
+    Size = File.tellg();
+    File.seekg(0, ios::beg);
+    return Size;
+}
+
+uint32_t FileSize(const string& Filename)
+{
+    ifstream File(Filename, ios::binary);
+    return File ? FileSize(File) : 0;
+}
+
 char* ReadFile(const string& Filename, uint32_t& Size)
 {
     ifstream File(Filename, ios::binary);
     if (!File)
         return nullptr;
 
-    File.seekg(0, ios::end);
-    Size = File.tellg();
+    Size = FileSize(File);
     char* pData = new char[Size];
-    File.seekg(0, ios::beg);
     File.read(pData, Size);
     return pData;
 }

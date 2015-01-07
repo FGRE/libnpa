@@ -6,22 +6,15 @@
 
 class ONpaFile : NpaFile
 {
-    struct Data
-    {
-        char* pData;
-        uint32_t Size;
-        uint32_t Offset;
-    };
 public:
     ONpaFile(const string& Filename);
-    ~ONpaFile();
+    virtual ~ONpaFile();
 
     void WriteFile(const string& Filename);
-    void WriteFile(const string& Filename, char* pData, uint32_t Size);
+
 private:
     void WriteToDisk();
-
-    map<string, Data> Registry;
+    map<string, uint32_t> Registry;
 };
 
 #endif
