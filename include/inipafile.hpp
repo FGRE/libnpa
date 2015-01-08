@@ -68,7 +68,7 @@ public:
 protected:
     void ReadHeader();
     char FilenameCrypt(int32_t CharIndex, int32_t FileIndex);
-    int Crypt2(const char* Filename, int32_t origsize);
+    char Crypt2(const char* Filename, int32_t origsize);
 
     uint8_t GameID;
 };

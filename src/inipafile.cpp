@@ -118,12 +118,11 @@ char INipaFile::FilenameCrypt(int32_t CharIndex, int32_t FileIndex)
     return Key & 0xff;
 }
 
-int INipaFile::Crypt2(const char* Filename, int32_t origsize)
+char INipaFile::Crypt2(const char* Filename, int32_t origsize)
 {
     int i = 0;
     int key1 = 0; /* 2345678 hurr */
     int key2 = NPAHeader.Key1 * NPAHeader.Key2;
-    int key = 0;
 
     switch (GameID)
     {
@@ -146,7 +145,7 @@ int INipaFile::Crypt2(const char* Filename, int32_t origsize)
     for (i = 0; Filename[i] != 0; ++i)
         key1 -= Filename[i];
 
-    key = key1 * i;
+    int key = key1 * i;
     if (GameID != LAMENTO && GameID != LAMENTOTR)
     {
         key += key2;
