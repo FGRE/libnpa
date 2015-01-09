@@ -1,5 +1,15 @@
+#include <string>
+#include <cstdint>
+#include <map>
+using namespace std;
+
 namespace Nsb
 {
+    enum PhoneMail
+    {
+        //...
+    };
+
     enum PhoneMode
     {
         PHONE_MODE_DEFAULT,
@@ -30,10 +40,38 @@ namespace Nsb
         PHONE_MODE_END,
         PHONE_MODE_RECEIVED_MAIL,
         PHONE_MODE_CALLING,
-        PHONE_MODE_DIALOG_SEND_MAILEDIT,
+        PHONE_MODE_DIALOG_SEND_MAIL_EDIT,
         PHONE_MODE_ADDRESS_CONFIRM_MAIL,
         PHONE_MODE_ADDRESS_CONFIRM_DIAL,
         PHONE_MODE_POWER_OFF
+    };
+
+    enum PhID
+    {
+        PHID_MAY,
+        PHID_DAR,
+        PHID_RUK,
+        PHID_OVEN,
+        PHID_MOE,
+        PHID_JOHN,
+        PHID_CRS_0,
+        PHID_CRS,
+        PHID_SUZ,
+        PHID_FEI,
+        PHID_MASTER,
+        PHID_OKA,
+        PHID_SUZ_0
+    };
+
+    enum Null
+    {
+        NSB_NULL = -1
+    };
+
+    enum Boolean
+    {
+        NSB_TRUE = 1,
+        NSB_FALSE = 0
     };
 
     enum Request
@@ -97,6 +135,44 @@ namespace Nsb
         NOMORE
     };
 
-    bool IsValidConstant(const std::string& String);
-    int32_t ConstantToValue(const std::string& String);
+    enum Color
+    {
+        BLACK = 0xFF000000,
+        WHITE = 0xFFFFFFFF,
+        BLUE = 0xFF0000FF,
+        RED = 0xFFFF0000,
+        GREEN = 0xFF00FF00
+    };
+
+    enum Tone
+    {
+        PLAIN,
+        NEGA_POSI,
+        MONOCHROME,
+        SEPIA,
+        KITANO_BLUE,
+        DROP,
+        RAIN
+    };
+
+    template <class T>
+    struct ConstantHolder
+    {
+        static map<string, int32_t> Constants;
+    };
+
+    template <class T>
+    bool IsValidConstant(const string& String)
+    {
+        return ConstantHolder<T>::Constants.find(String) != ConstantHolder<T>::Constants.end();
+    }
+
+    template <class T>
+    int32_t ConstantToValue(const string& String)
+    {
+        auto iter = ConstantHolder<T>::Constants.find(String);
+        if (iter != ConstantHolder<T>::Constants.end())
+            return iter->second;
+        return NSB_NULL;
+    }
 }

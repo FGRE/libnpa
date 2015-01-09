@@ -1,11 +1,8 @@
-#include <string>
-#include <cstdint>
-#include <map>
 #include "nsbconstants.hpp"
 
 namespace Nsb
 {
-    std::map<std::string, int32_t> Constants =
+    template <> map<string, int32_t> ConstantHolder<PhoneMail>::Constants =
     {
         {"FM_From_XXX0001", 0},
         {"FM_From_XXX0002", 1},
@@ -643,65 +640,81 @@ namespace Nsb
         {"RM_From_FEI05_02_A", 633},
         {"RM_From_FEI05_02_B", 634},
         {"RM_From_FEI05_02_C", 635},
-        {"RM_Res_FEI05_02_B1", 636},
+        {"RM_Res_FEI05_02_B1", 636}
+    };
 
-        {"PhoneMode_Default", 0},
-        {"PhoneMode_MailMenu", 1},
-        {"PhoneMode_SendBox", 2},
-        {"PhoneMode_ReceiveBox", 3},
-        {"PhoneMode_SendMail", 4},
-        {"PhoneMode_ReceivedNewMail", 5},
-        {"PhoneMode_AddressBook", 6},
-        {"PhoneMode_AddressConfirm", 7},
-        {"PhoneMode_Sending", 8},
-        {"PhoneMode_Ringing", 9},
-        {"PhoneMode_EngageNormal", 10},
-        {"PhoneMode_EngageVisual", 11},
-        {"PhoneMode_Option", 12},
-        {"PhoneMode_ChangeWallPaper", 13},
-        {"PhoneMode_ChangeRingingMelody", 14},
-        {"PhoneMode_ChangeReceiveingMelody", 15},
-        {"PhoneMode_ChangeRingingVibration", 16},
-        {"PhoneMode_ChangeReceivingVibration", 17},
-        {"PhoneMode_MailSubMenu", 18},
-        {"PhoneMode_DefaultOperatable", 19},
-        {"PhoneMode_SendMailEdit", 20},
-        {"PhoneMode_DialingOperatable", 21},
-        {"PhoneMode_CompleteSendMail", 22},
-        {"PhoneMode_ReceivingMail", 23},
-        {"PhoneMode_CompleteReceiveMail", 24},
-        {"PhoneMode_End", 25},
-        {"PhoneMode_ReceivedMail", 26},
-        {"PhoneMode_Calling", 27},
-        {"PhoneMode_DialogSendMailEdit", 28},
-        {"PhoneMode_AddressConfirmMail", 29},
-        {"PhoneMode_AddressConfirmDial", 30},
-        {"PhoneMode_PowerOff", 31},
+    template <> map<string, int32_t> ConstantHolder<PhoneMode>::Constants =
+    {
+        {"PhoneMode_Default", PHONE_MODE_DEFAULT},
+        {"PhoneMode_MailMenu", PHONE_MODE_MAIL_MENU},
+        {"PhoneMode_SendBox", PHONE_MODE_SEND_BOX},
+        {"PhoneMode_ReceiveBox", PHONE_MODE_RECEIVE_BOX},
+        {"PhoneMode_SendMail", PHONE_MODE_SEND_MAIL},
+        {"PhoneMode_ReceivedNewMail", PHONE_MODE_RECEIVED_NEW_MAIL},
+        {"PhoneMode_AddressBook", PHONE_MODE_ADDRESS_BOOK},
+        {"PhoneMode_AddressConfirm", PHONE_MODE_ADDRESS_CONFIRM},
+        {"PhoneMode_Sending", PHONE_MODE_SENDING},
+        {"PhoneMode_Ringing", PHONE_MODE_RINGING},
+        {"PhoneMode_EngageNormal", PHONE_MODE_ENGAGE_NORMAL},
+        {"PhoneMode_EngageVisual", PHONE_MODE_ENGAGE_VISUAL},
+        {"PhoneMode_Option", PHONE_MODE_OPTION},
+        {"PhoneMode_ChangeWallPaper", PHONE_MODE_CHANGE_WALLPAPER},
+        {"PhoneMode_ChangeRingingMelody", PHONE_MODE_CHANGE_RINGING_MELODY},
+        {"PhoneMode_ChangeReceiveingMelody", PHONE_MODE_CHANGE_RECEIVEING_MELODY},
+        {"PhoneMode_ChangeRingingVibration", PHONE_MODE_CHANGE_RINGING_VIBRATION},
+        {"PhoneMode_ChangeReceivingVibration", PHONE_MODE_CHANGE_RECEIVING_VIBRATION},
+        {"PhoneMode_MailSubMenu", PHONE_MODE_MAIL_SUB_MENU},
+        {"PhoneMode_DefaultOperatable", PHONE_MODE_DEFAULT_OPERATABLE},
+        {"PhoneMode_SendMailEdit", PHONE_MODE_SEND_MAIL_EDIT},
+        {"PhoneMode_DialingOperatable", PHONE_MODE_DIALING_OPERATABLE},
+        {"PhoneMode_CompleteSendMail", PHONE_MODE_COMPLETE_SEND_MAIL},
+        {"PhoneMode_ReceivingMail", PHONE_MODE_RECEIVING_MAIL},
+        {"PhoneMode_CompleteReceiveMail", PHONE_MODE_COMPLETE_RECEIVE_MAIL},
+        {"PhoneMode_End", PHONE_MODE_END},
+        {"PhoneMode_ReceivedMail", PHONE_MODE_RECEIVED_MAIL},
+        {"PhoneMode_Calling", PHONE_MODE_CALLING},
+        {"PhoneMode_DialogSendMailEdit", PHONE_MODE_DIALOG_SEND_MAIL_EDIT},
+        {"PhoneMode_AddressConfirmMail", PHONE_MODE_ADDRESS_CONFIRM_MAIL},
+        {"PhoneMode_AddressConfirmDial", PHONE_MODE_ADDRESS_CONFIRM_DIAL},
+        {"PhoneMode_PowerOff", PHONE_MODE_POWER_OFF}
+    };
 
-        {"PhID_MAY", 0},
-        {"PhID_DAR", 1},
-        {"PhID_RUK", 2},
-        {"PhID_Oven", 3},
-        {"PhID_MOE", 4},
-        {"PhID_John", 5},
-        {"PhID_CRS_0", 6},
-        {"PhID_CRS", 7},
-        {"PhID_SUZ", 8},
-        {"PhID_FEI", 9},
-        {"PhID_Master", 10},
-        {"PhID_OKA", 11},
-        {"PhID_SUZ_0", 12},
+    template <> map<string, int32_t> ConstantHolder<PhID>::Constants =
+    {
+        {"PhID_MAY", PHID_MAY},
+        {"PhID_DAR", PHID_DAR},
+        {"PhID_RUK", PHID_RUK},
+        {"PhID_Oven", PHID_OVEN},
+        {"PhID_MOE", PHID_MOE},
+        {"PhID_John", PHID_JOHN},
+        {"PhID_CRS_0", PHID_CRS_0},
+        {"PhID_CRS", PHID_CRS},
+        {"PhID_SUZ", PHID_SUZ},
+        {"PhID_FEI", PHID_FEI},
+        {"PhID_Master", PHID_MASTER},
+        {"PhID_OKA", PHID_OKA},
+        {"PhID_SUZ_0", PHID_SUZ_0}
+    };
 
-        {"null", -1},
-        {"Null", -1},
-        {"NULL", -1},
-        {"true", 1},
-        {"True", 1},
-        {"TRUE", 1},
-        {"false", 0},
-        {"False", 0},
-        {"FALSE", 0},
+    template <> map<string, int32_t> ConstantHolder<Null>::Constants =
+    {
+        {"null", NSB_NULL},
+        {"Null", NSB_NULL},
+        {"NULL", NSB_NULL}
+    };
 
+    template <> map<string, int32_t> ConstantHolder<Boolean>::Constants =
+    {
+        {"true", NSB_TRUE},
+        {"True", NSB_TRUE},
+        {"TRUE", NSB_TRUE},
+        {"false", NSB_FALSE},
+        {"False", NSB_FALSE},
+        {"FALSE", NSB_FALSE}
+    };
+
+    template <> map<string, int32_t> ConstantHolder<Request>::Constants =
+    {
         {"Stop", STOP},
         {"Play", PLAY},
         {"Disused", DISUSED},
@@ -733,8 +746,11 @@ namespace Nsb
         {"MulRender", MUL_RENDER},
         {"OverlayRender", OVERLAY_RENDER},
         {"NormalRender", NORMAL_RENDER},
-        {"Open", OPEN},
+        {"Open", OPEN}
+    };
 
+    template <> map<string, int32_t> ConstantHolder<Tempo>::Constants =
+    {
         {"Axl1", AXL_1},
         {"Axl2", AXL_2},
         {"Axl3", AXL_3},
@@ -744,43 +760,47 @@ namespace Nsb
         {"AxlDxl", AXL_DXL},
         {"DxlDxl", DXL_AXL},
         {"AxlAuto", AXL_AUTO},
-        {"DxlAuto", DXL_AUTO},
+        {"DxlAuto", DXL_AUTO}
+    };
 
+    template <> map<string, int32_t> ConstantHolder<Shade>::Constants =
+    {
         {"EXTRALIGHT", EXTRALIGHT},
         {"LIGHT", LIGHT},
         {"MEDIUM", MEDIUM},
         {"HEAVY", HEAVY},
         {"SEMIHEAVY", SEMIHEAVY},
         {"EXTRAHEAVY", EXTRAHEAVY},
-        {"NOMORE", NOMORE},
-
-        {"black", 0},
-        {"Black", 0},
-        {"BLACK", 0},
-        {"white", 0xFFFFFFFF},
-        {"White", 0xFFFFFFFF},
-        {"WHITE", 0xFFFFFFFF},
-        {"blue", 0xFF0000FF},
-        {"Blue", 0xFF0000FF},
-        {"BLUE", 0xFF0000FF},
-        {"red", 0xFFFF0000},
-        {"Red", 0xFFFF0000},
-        {"RED", 0xFFFF0000},
-        {"green", 0xFF00FF00},
-        {"Green", 0xFF00FF00},
-        {"GREEN", 0xFF00FF00}
+        {"NOMORE", NOMORE}
     };
 
-    bool IsValidConstant(const std::string& String)
+    template <> map<string, int32_t> ConstantHolder<Color>::Constants =
     {
-        return Constants.find(String) != Constants.end();
-    }
+        {"black", BLACK},
+        {"Black", BLACK},
+        {"BLACK", BLACK},
+        {"white", WHITE},
+        {"White", WHITE},
+        {"WHITE", WHITE},
+        {"blue", BLUE},
+        {"Blue", BLUE},
+        {"BLUE", BLUE},
+        {"red", RED},
+        {"Red", RED},
+        {"RED", RED},
+        {"green", GREEN},
+        {"Green", GREEN},
+        {"GREEN", GREEN}
+    };
 
-    int32_t ConstantToValue(const std::string& String)
+    template <> map<string, int> ConstantHolder<Tone>::Constants =
     {
-        auto iter = Constants.find(String);
-        if (iter != Constants.end())
-            return iter->second;
-        return -1;
-    }
+        {"Plain", PLAIN},
+        {"NegaPosi", NEGA_POSI},
+        {"Monochrome", MONOCHROME},
+        {"Sepia", SEPIA},
+        {"KitanoBlue", KITANO_BLUE},
+        {"Drop", DROP},
+        {"Rain", RAIN}
+    };
 }
