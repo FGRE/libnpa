@@ -9,6 +9,10 @@ set(LIBNPA_VERSION_MINOR "5")
 set(LIBNPA_VERSION_PATCH "0")
 set(LIBNPA_VERSION "${LIBNPA_VERSION_MAJOR}.${LIBNPA_VERSION_MINOR}.${LIBNPA_VERSION_PATCH}")
 
+# make sure all symbols are exported on Windows
+# currently requires cmake-dev (CMake 3.3.20150721 or newer)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
 # append git revision if available
 include(get-git-revision)
 get_git_revision(LIBNPA_VERSION_GIT)
@@ -45,6 +49,13 @@ include_directories(${PROJECT_SOURCE_DIR}/include
     ${Boost_INCLUDE_DIR}
     ${ZLIB_INCLUDE_DIR}
 )
+
+# msvc doesn't have unistd.h, the equivalent is io.h
+# thus, a dummy unistd.h that includes io.h is used
+# if msvc is detected
+if(MSVC)
+	include_directories(${PROJECT_SOURCE_DIR}/include/msvc)
+endif()
 
 flex_target(lexer ${CMAKE_SOURCE_DIR}/src/lexer.l ${CMAKE_SOURCE_DIR}/src/lexer.cpp)
 bison_target(parser ${CMAKE_SOURCE_DIR}/src/parser.y ${CMAKE_SOURCE_DIR}/src/parser.cpp)
