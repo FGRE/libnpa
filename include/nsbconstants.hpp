@@ -5,6 +5,11 @@ using namespace std;
 
 namespace Nsb
 {
+	namespace Constant
+	{
+		bool IsValidConstant(const string& String);
+	}
+
     enum PhoneMail
     {
         //...
@@ -166,6 +171,9 @@ namespace Nsb
     {
         return ConstantHolder<T>::Constants.find(String) != ConstantHolder<T>::Constants.end();
     }
+
+	// non template version
+	bool IsValidConstant(const string& String);
 
     template <class T>
     int32_t ConstantToValue(const string& String)
