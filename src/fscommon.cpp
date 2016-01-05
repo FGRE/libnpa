@@ -6,7 +6,7 @@ using namespace boost::filesystem;
 namespace fs
 {
 
-uint32_t FileSize(ifstream& File)
+uint32_t FileSize(std::ifstream& File)
 {
     uint32_t Size;
     File.seekg(0, ios::end);
@@ -17,13 +17,13 @@ uint32_t FileSize(ifstream& File)
 
 uint32_t FileSize(const string& Filename)
 {
-    ifstream File(Filename, ios::binary);
+    std::ifstream File(Filename, ios::binary);
     return File ? FileSize(File) : 0;
 }
 
 char* ReadFile(const string& Filename, uint32_t& Size)
 {
-    ifstream File(Filename, ios::binary);
+    std::ifstream File(Filename, ios::binary);
     if (!File)
         return nullptr;
 
@@ -53,7 +53,7 @@ void WriteFileDirectory(const string& Filename, const char* pData, uint32_t Size
 
 void WriteFile(const string& Filename, const char* pData, uint32_t Size)
 {
-    ofstream File(Filename, ios::binary);
+    std::ofstream File(Filename, ios::binary);
     File.write(pData, Size);
 }
 
