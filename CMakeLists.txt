@@ -6,7 +6,7 @@ set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 # set version
 set(LIBNPA_VERSION_MAJOR "0")
 set(LIBNPA_VERSION_MINOR "5")
-set(LIBNPA_VERSION_PATCH "0")
+set(LIBNPA_VERSION_PATCH "1")
 set(LIBNPA_VERSION "${LIBNPA_VERSION_MAJOR}.${LIBNPA_VERSION_MINOR}.${LIBNPA_VERSION_PATCH}")
 
 # make sure all symbols are exported on Windows
