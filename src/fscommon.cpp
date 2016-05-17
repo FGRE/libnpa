@@ -37,7 +37,7 @@ void WriteFileDirectory(const string& Filename, const char* pData, uint32_t Size
 {
     // Create directories
     string Path = Filename;
-    if (char* delim = strchr((char*)Filename.c_str(), '/'))
+    if (char* delim = strchr((char*)Path.c_str(), '/'))
     {
         do
         {
