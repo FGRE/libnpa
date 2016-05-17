@@ -2,6 +2,20 @@
 
 namespace Nsb
 {
+	bool IsValidConstant(const string& String)
+	{
+		return Nsb::IsValidConstant<Nsb::PhoneMail>(String) ||
+			Nsb::IsValidConstant<Nsb::PhoneMode>(String) ||
+			Nsb::IsValidConstant<Nsb::PhID>(String) ||
+			Nsb::IsValidConstant<Nsb::Null>(String) ||
+			Nsb::IsValidConstant<Nsb::Boolean>(String) ||
+			Nsb::IsValidConstant<Nsb::Request>(String) ||
+			Nsb::IsValidConstant<Nsb::Tempo>(String) ||
+			Nsb::IsValidConstant<Nsb::Shade>(String) ||
+			Nsb::IsValidConstant<Nsb::Color>(String) ||
+			Nsb::IsValidConstant<Nsb::Tone>(String);
+	}
+
     template <> map<string, int32_t> ConstantHolder<PhoneMail>::Constants =
     {
         {"FM_From_XXX0001", 0},
