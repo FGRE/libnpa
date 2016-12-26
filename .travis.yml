@@ -41,6 +41,7 @@ before_script:
 
 script:
   - cmake . && make
+  - CTEST_OUTPUT_ON_FAILURE=1 make check
 
 after_success:
   - |

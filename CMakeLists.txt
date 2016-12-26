@@ -80,6 +80,17 @@ add_library(npa SHARED
 )
 target_link_libraries(npa ${Boost_LIBRARIES} ${ZLIB_LIBRARIES})
 
+# run tests with custom 'check' target
+enable_testing()
+add_executable(test_version EXCLUDE_FROM_ALL tests/version.cpp)
+target_link_libraries(test_version npa)
+add_test(VersionNumbers test_version)
+add_executable(test_xor EXCLUDE_FROM_ALL tests/xor.cpp)
+target_link_libraries(test_xor npa)
+add_test(EncryptDecrypt test_xor)
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
+add_dependencies(check test_version test_xor)
+
 # install headers and library
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
     DESTINATION include/libnpa
