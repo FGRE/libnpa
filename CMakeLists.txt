@@ -59,6 +59,7 @@ endif()
 
 flex_target(lexer ${CMAKE_SOURCE_DIR}/src/lexer.l ${CMAKE_SOURCE_DIR}/src/lexer.cpp)
 bison_target(parser ${CMAKE_SOURCE_DIR}/src/parser.y ${CMAKE_SOURCE_DIR}/src/parser.cpp)
+add_flex_bison_dependency(lexer parser)
 
 add_library(npa SHARED
     src/inpafile.cpp
@@ -73,8 +74,8 @@ add_library(npa SHARED
     src/npakeys.cpp
     src/buffer.cpp
     src/nsscompiler.cpp
-    src/parser.cpp
-    src/lexer.cpp
+    ${BISON_parser_OUTPUTS}
+    ${FLEX_lexer_OUTPUTS}
     src/nsbconstants.cpp
 )
 target_link_libraries(npa ${Boost_LIBRARIES} ${ZLIB_LIBRARIES})
