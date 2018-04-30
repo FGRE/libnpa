@@ -1,3 +1,6 @@
+#ifndef NSB_CONSTANTS_H
+#define NSB_CONSTANTS_H
+
 #include <string>
 #include <cstdint>
 #include <map>
@@ -15,7 +18,7 @@ namespace Nsb
         //...
     };
 
-    enum PhoneMode
+    enum ePhoneMode
     {
         PHONE_MODE_DEFAULT,
         PHONE_MODE_MAIL_MENU,
@@ -48,7 +51,9 @@ namespace Nsb
         PHONE_MODE_DIALOG_SEND_MAIL_EDIT,
         PHONE_MODE_ADDRESS_CONFIRM_MAIL,
         PHONE_MODE_ADDRESS_CONFIRM_DIAL,
-        PHONE_MODE_POWER_OFF
+        PHONE_MODE_POWER_OFF,
+
+        NUM_MODES
     };
 
     enum PhID
@@ -184,3 +189,5 @@ namespace Nsb
         return NSB_NULL;
     }
 }
+
+#endif

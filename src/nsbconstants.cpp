@@ -4,17 +4,17 @@ namespace Nsb
 {
 	bool IsValidConstant(const string& String)
 	{
-		return Nsb::IsValidConstant<Nsb::PhoneMail>(String) ||
-			Nsb::IsValidConstant<Nsb::PhoneMode>(String) ||
-			Nsb::IsValidConstant<Nsb::PhID>(String) ||
-			Nsb::IsValidConstant<Nsb::Null>(String) ||
-			Nsb::IsValidConstant<Nsb::Boolean>(String) ||
-			Nsb::IsValidConstant<Nsb::Request>(String) ||
-			Nsb::IsValidConstant<Nsb::Tempo>(String) ||
-			Nsb::IsValidConstant<Nsb::Shade>(String) ||
-			Nsb::IsValidConstant<Nsb::Color>(String) ||
-			Nsb::IsValidConstant<Nsb::Tone>(String);
-	}
+        return Nsb::IsValidConstant<Nsb::PhoneMail>(String) ||
+            Nsb::IsValidConstant<Nsb::ePhoneMode>(String) ||
+            Nsb::IsValidConstant<Nsb::PhID>(String) ||
+            Nsb::IsValidConstant<Nsb::Null>(String) ||
+            Nsb::IsValidConstant<Nsb::Boolean>(String) ||
+            Nsb::IsValidConstant<Nsb::Request>(String) ||
+            Nsb::IsValidConstant<Nsb::Tempo>(String) ||
+            Nsb::IsValidConstant<Nsb::Shade>(String) ||
+            Nsb::IsValidConstant<Nsb::Color>(String) ||
+            Nsb::IsValidConstant<Nsb::Tone>(String);
+    }
 
     template <> map<string, int32_t> ConstantHolder<PhoneMail>::Constants =
     {
@@ -657,7 +657,7 @@ namespace Nsb
         {"RM_Res_FEI05_02_B1", 636}
     };
 
-    template <> map<string, int32_t> ConstantHolder<PhoneMode>::Constants =
+    template <> map<string, int32_t> ConstantHolder<ePhoneMode>::Constants =
     {
         {"PhoneMode_Default", PHONE_MODE_DEFAULT},
         {"PhoneMode_MailMenu", PHONE_MODE_MAIL_MENU},
