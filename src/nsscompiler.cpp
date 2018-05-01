@@ -200,12 +200,11 @@ void Condition::_Compile(Argument& EndSym)
     Node::Compile(Magic, 1);
     EndSym.CompileRaw();
     ConditionBlock->Compile();
-    SymCounter++;
 }
 
 void If::Compile()
 {
-    Argument EndSym("label.if.end." + to_string(SymCounter), ARG_STRING);
+    Argument EndSym("label.if.end." + to_string(SymCounter++), ARG_STRING);
     Condition::_Compile(EndSym);
     WriteSymbol(EndSym.Data);
 }
@@ -213,7 +212,7 @@ void If::Compile()
 void While::Compile()
 {
     Argument BeginSym("label.while.begin." + to_string(SymCounter), ARG_STRING);
-    Argument EndSym("label.while.end." + to_string(SymCounter), ARG_STRING);
+    Argument EndSym("label.while.end." + to_string(SymCounter++), ARG_STRING);
     WriteSymbol(BeginSym.Data);
     Condition::_Compile(EndSym);
     Node::Compile(MAGIC_WHILE_END, 0);
@@ -233,7 +232,7 @@ static Argument SelEndSym;
 void Select::Compile()
 {
     Argument BeginSym("label.select.begin." + to_string(SymCounter), ARG_STRING);
-    Argument EndSym("label.select.end." + to_string(SymCounter), ARG_STRING);
+    Argument EndSym("label.select.end." + to_string(SymCounter++), ARG_STRING);
     Node::Compile(MAGIC_SELECT, 1);
     EndSym.CompileRaw();
     WriteSymbol(BeginSym.Data);
@@ -244,7 +243,6 @@ void Select::Compile()
     SelectBlock->Compile();
     SelEndSym = Old;
 
-    SymCounter++;
     Node::Compile(MAGIC_SELECT_END, 0);
     Node::Compile(MAGIC_JUMP, 1);
     BeginSym.CompileRaw();
@@ -256,7 +254,7 @@ void Case::Compile()
 {
     Argument Label(Name, ARG_STRING);
     Argument StartSym("label.case.start." + to_string(SymCounter), ARG_STRING);
-    Argument EndSym("label.case.end." + to_string(SymCounter), ARG_STRING);
+    Argument EndSym("label.case.end." + to_string(SymCounter++), ARG_STRING);
     Node::Compile(MAGIC_CASE, 3);
     Label.CompileRaw();
     EndSym.CompileRaw();
@@ -268,7 +266,6 @@ void Case::Compile()
     Node::Compile(MAGIC_JUMP, 1);
     SelEndSym.CompileRaw();
     WriteSymbol(EndSym.Data);
-    SymCounter++;
 }
 
 namespace Nss
