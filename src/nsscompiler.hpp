@@ -46,6 +46,7 @@ struct Expression : virtual Node
 
 struct Argument : Expression
 {
+    Argument() : Type(ARG_STRING) {}
     Argument(const string& Data, ArgumentType Type) : Data(NpaFile::FromUtf8(Data)), Type(Type) {}
     void CompileRaw();
     virtual void Compile();

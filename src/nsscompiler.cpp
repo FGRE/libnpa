@@ -9,6 +9,7 @@ using namespace Npa;
 class Program;
 extern Program* pRoot;
 
+// TODO: if/while/select have separate counters
 static uint32_t SymCounter;
 static uint32_t Counter;
 static Buffer* Output;
@@ -226,14 +227,48 @@ void Else::Compile()
     ElseBlock->Compile();
 }
 
+// ugly hack
+static Argument SelEndSym;
+
 void Select::Compile()
 {
+    Argument BeginSym("label.select.begin." + to_string(SymCounter), ARG_STRING);
+    Argument EndSym("label.select.end." + to_string(SymCounter), ARG_STRING);
+    Node::Compile(MAGIC_SELECT, 1);
+    EndSym.CompileRaw();
+    WriteSymbol(BeginSym.Data);
+
+    // pass the end symbol down the tree to case
+    Argument Old = SelEndSym;
+    SelEndSym = EndSym;
     SelectBlock->Compile();
+    SelEndSym = Old;
+
+    SymCounter++;
+    Node::Compile(MAGIC_SELECT_END, 0);
+    Node::Compile(MAGIC_JUMP, 1);
+    BeginSym.CompileRaw();
+    WriteSymbol(EndSym.Data);
+    Node::Compile(MAGIC_SELECT_BREAK_END, 0);
 }
 
 void Case::Compile()
 {
+    Argument Label(Name, ARG_STRING);
+    Argument StartSym("label.case.start." + to_string(SymCounter), ARG_STRING);
+    Argument EndSym("label.case.end." + to_string(SymCounter), ARG_STRING);
+    Node::Compile(MAGIC_CASE, 3);
+    Label.CompileRaw();
+    EndSym.CompileRaw();
+    StartSym.CompileRaw();
+    WriteSymbol(StartSym.Data);
     CaseBlock->Compile();
+    Node::Compile(MAGIC_CASE_END, 1);
+    Label.CompileRaw();
+    Node::Compile(MAGIC_JUMP, 1);
+    SelEndSym.CompileRaw();
+    WriteSymbol(EndSym.Data);
+    SymCounter++;
 }
 
 namespace Nss
