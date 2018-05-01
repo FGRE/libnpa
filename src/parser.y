@@ -2,6 +2,7 @@
     #include "nsscompiler.hpp"
     #include <cstdio>
     #include <cstdlib>
+    #include <boost/algorithm/string/replace.hpp>
 
     Call* MakeCall(string Name, uint16_t Magic);
     void WriteSymbol(const string& Symbol);
@@ -95,7 +96,7 @@ arg : TDOLLAR TIDENTIFIER { $$ = new Argument('$' + *$2, ARG_VARIABLE); delete $
       | THASH TIDENTIFIER { $$ = new Argument('#' + *$2, ARG_VARIABLE); delete $2; }
       | THEX { $$ = new Argument(*$1, ARG_STRING); delete $1; }
       | TIDENTIFIER { $$ = new Argument(*$1, ARG_STRING); delete $1; }
-      | TSTRING { $$ = new Argument($1->substr(1, $1->size() - 2), ARG_STRING); delete $1; }
+      | TSTRING { std::string str = $1->substr(1, $1->size() - 2); boost::replace_all(str, "\\n", "\n"); $$ = new Argument(str, ARG_STRING); delete $1; }
       | TINTEGER { $$ = new Argument(*$1, ARG_INT); delete $1; }
       | array { $$ = $1; }
       ;
