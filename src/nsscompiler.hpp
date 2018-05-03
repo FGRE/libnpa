@@ -35,11 +35,13 @@ struct Node
 
 struct Statement : virtual Node
 {
+    virtual ~Statement() {}
     virtual void Compile() = 0;
 };
 
 struct Expression : virtual Node
 {
+    virtual ~Expression() {}
     virtual void Compile() = 0;
     virtual void CompileRaw();
 };
@@ -48,6 +50,7 @@ struct Argument : Expression
 {
     Argument() : Type(ARG_STRING) {}
     Argument(const string& Data, ArgumentType Type) : Data(NpaFile::FromUtf8(Data)), Type(Type) {}
+    virtual ~Argument() {}
     void CompileRaw();
     virtual void Compile();
 
