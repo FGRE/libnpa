@@ -119,9 +119,13 @@ call : arg TLPAREN func_exps TRPAREN TSEMICOLON { $$ = new CallStatement($1, *$3
                $$ = new Call(Arg, Args, 0);
           }
      | TXML {
+               size_t i = $1->find("<PRE ") + 5;
+               size_t j = $1->find(">", i);
+               size_t k = $1->find("[", j + 1) + 1;
+               size_t l = $1->find("]", k + 1);
                ExpressionList Args;
-               Args.push_back(new Argument("TODO", ARG_STRING));
-               Args.push_back(new Argument("TODO", ARG_STRING));
+               Args.push_back(new Argument($1->substr(k, l - k), ARG_STRING));
+               Args.push_back(new Argument($1->substr(i, j - i), ARG_STRING));
                Args.push_back(new Argument(*$1, ARG_STRING));
                Argument* Arg = new Argument("ParseText", ARG_FUNCTION);
                $$ = new Call(Arg, Args, 0);
