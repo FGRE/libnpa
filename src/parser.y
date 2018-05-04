@@ -41,8 +41,12 @@
 %type <subr> func_decl
 %type <expr> expr
 
-%left TPLUS TMINUS
+%nonassoc TLESS TGREATER TEQUALEQUAL TNEQUAL TGEQUAL TLEQUAL
+%left TOR
+%left TAND
+%left TADD TSUB
 %left TMUL TDIV
+%left UNARY
 
 %start start
 
@@ -150,9 +154,9 @@ expr : arg { $<arg>$ = $1; }
      | expr TLEQUAL expr { $$ = new BinaryOperator($1, MAGIC_LOGICAL_LESS_EQUAL, $3); }
      | expr TAND expr { $$ = new BinaryOperator($1, MAGIC_CMP_LOGICAL_AND, $3); }
      | expr TOR expr { $$ = new BinaryOperator($1, MAGIC_CMP_LOGICAL_OR, $3); }
-     | TNOT expr { $$ = new UnaryOperator(MAGIC_LOGICAL_NOT, $2); }
-     | TSUB expr { $$ = new UnaryOperator(MAGIC_NEGA_EXPRESSION, $2); }
-     | TAT expr { $$ = new UnaryOperator(MAGIC_AT_EXPRESSION, $2); }
+     | TNOT expr %prec UNARY { $$ = new UnaryOperator(MAGIC_LOGICAL_NOT, $2); }
+     | TSUB expr %prec UNARY { $$ = new UnaryOperator(MAGIC_NEGA_EXPRESSION, $2); }
+     | TAT expr %prec UNARY { $$ = new UnaryOperator(MAGIC_AT_EXPRESSION, $2); }
      | arg TLPAREN func_exps TRPAREN { $$ = new Call($1, *$3, MAGIC_CALL_FUNCTION); delete $3; }
      ;
 
