@@ -782,8 +782,8 @@ namespace Nsb
         {"EXTRALIGHT", EXTRALIGHT},
         {"LIGHT", LIGHT},
         {"MEDIUM", MEDIUM},
-        {"HEAVY", HEAVY},
         {"SEMIHEAVY", SEMIHEAVY},
+        {"HEAVY", HEAVY},
         {"EXTRAHEAVY", EXTRAHEAVY},
         {"NOMORE", NOMORE}
     };

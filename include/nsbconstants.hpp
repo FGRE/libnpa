@@ -139,8 +139,8 @@ namespace Nsb
         EXTRALIGHT,
         LIGHT,
         MEDIUM,
-        HEAVY,
         SEMIHEAVY,
+        HEAVY,
         EXTRAHEAVY,
         NOMORE
     };
