@@ -156,12 +156,19 @@ namespace Nsb
 
     enum Tone
     {
-        PLAIN,
         NEGA_POSI,
         MONOCHROME,
         SEPIA,
-        KITANO_BLUE,
-        DROP,
+        KITANO_BLUE
+    };
+
+    // TODO: investigate Lens, Drop, Plain
+    enum Effect
+    {
+        NEGA_POSI_E,
+        MONOCHROME_E,
+        SEPIA_E,
+        KITANO_BLUE_E,
         RAIN
     };
 

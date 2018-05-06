@@ -809,12 +809,19 @@ namespace Nsb
 
     template <> map<string, int> ConstantHolder<Tone>::Constants =
     {
-        {"Plain", PLAIN},
         {"NegaPosi", NEGA_POSI},
         {"Monochrome", MONOCHROME},
         {"Sepia", SEPIA},
-        {"KitanoBlue", KITANO_BLUE},
-        {"Drop", DROP},
+        {"KitanoBlue", KITANO_BLUE}
+    };
+
+    template <> map<string, int> ConstantHolder<Effect>::Constants =
+    {
+        {"NegaPosi", NEGA_POSI_E},
+        {"Monochrome", MONOCHROME_E},
+        {"Sepia", SEPIA_E},
+        {"KitanoBlue", KITANO_BLUE_E},
         {"Rain", RAIN}
     };
+
 }
