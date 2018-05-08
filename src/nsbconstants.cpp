@@ -13,6 +13,7 @@ namespace Nsb
             Nsb::IsValidConstant<Nsb::Tempo>(String) ||
             Nsb::IsValidConstant<Nsb::Shade>(String) ||
             Nsb::IsValidConstant<Nsb::Color>(String) ||
+            Nsb::IsValidConstant<Nsb::Effect>(String) ||
             Nsb::IsValidConstant<Nsb::Tone>(String);
     }
 
