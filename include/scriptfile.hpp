@@ -18,6 +18,7 @@ struct Line
 {
     uint16_t Magic;
     vector<string> Params;
+    string Stringify() const;
 };
 
 class ScriptFile

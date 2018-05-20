@@ -2,6 +2,7 @@
 #include "npafile.hpp"
 #include "fscommon.hpp"
 #include "buffer.hpp"
+#include "nsbmagic.hpp"
 #include <cstring>
 using namespace Npa;
 
@@ -93,4 +94,15 @@ uint32_t ScriptFile::GetSymbol(const string& Symbol)
     if (iter != Symbols.end())
         return iter->second;
     return NSB_INVALIDE_LINE;
+}
+
+string Line::Stringify() const
+{
+    string String = Nsb::StringifyMagic(Magic) + string("(");
+    for (unsigned i = 0; i < Params.size(); ++i)
+    {
+        String += Params[i];
+        String += ((i == Params.size() - 1) ? "" : ", ");
+    }
+    return String + ");";
 }
