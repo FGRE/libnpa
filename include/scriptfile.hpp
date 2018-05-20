@@ -33,6 +33,7 @@ public:
     ScriptFile(const string& Name, char* NsbData, uint32_t NsbSize, char* MapData, uint32_t MapSize);
     ScriptFile(const string& Name, FileType Type);
 
+    const map<string, uint32_t> GetSymbols() { return Symbols; }
     const list<string>& GetIncludes() { return Includes; }
     uint32_t GetSymbol(const string& Symbol);
     const string& GetName() const { return Name; }
