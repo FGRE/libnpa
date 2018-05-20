@@ -50,6 +50,6 @@ void ONpaFile::WriteToDisk()
         uint32_t Size;
         char* pData = fs::ReadFile(iter->first, Size);
         File.write(Encrypt(pData, Size), Size);
-        delete pData;
+        delete[] pData;
     }
 }
