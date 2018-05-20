@@ -193,7 +193,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK178, "UNK178")
     (MAGIC_UNK179, "UNK179")
     (MAGIC_UNK180, "UNK180")
-    (MAGIC_UNK181, "UNK181")
+    (MAGIC_CREATE_BACKLOG, "CreateBacklog")
     (MAGIC_UNK182, "UNK182")
     (MAGIC_UNK183, "UNK183")
     (MAGIC_ENABLE_BACKLOG, "EnableBacklog")
