@@ -109,23 +109,19 @@ struct Condition : Statement
 
 struct If : Condition
 {
-    If(Block* ConditionBlock, Expression* Expr) : Condition(ConditionBlock, Expr, MAGIC_IF) {}
+    If(Block* ConditionBlock, Expression* Expr) : Condition(ConditionBlock, Expr, MAGIC_IF), ElseIf(nullptr), ElseBlock(nullptr) {}
+    If(Block* ConditionBlock, Expression* Expr, Statement* ElseIf) : Condition(ConditionBlock, Expr, MAGIC_IF), ElseIf(ElseIf), ElseBlock(nullptr) {}
+    If(Block* ConditionBlock, Expression* Expr, Block* ElseBlock) : Condition(ConditionBlock, Expr, MAGIC_IF), ElseIf(nullptr), ElseBlock(ElseBlock) {}
+
     virtual void Compile();
+    Statement* ElseIf;
+    Block* ElseBlock;
 };
 
 struct While : Condition
 {
     While(Block* ConditionBlock, Expression* Expr) : Condition(ConditionBlock, Expr, MAGIC_WHILE) {}
     virtual void Compile();
-};
-
-struct Else : Statement
-{
-    Else(Block* ElseBlock) : ElseBlock(ElseBlock) {}
-    virtual ~Else() { delete ElseBlock; }
-    virtual void Compile();
-
-    Block* ElseBlock;
 };
 
 struct Select : Statement
@@ -227,11 +223,10 @@ struct UnaryStatement : UnaryOperator, Statement
     virtual void Compile();
 };
 
-// TODO: Unused in SG and CH so idk how to compile it
 struct Label : Statement
 {
     Label(const string& Symbol) : Symbol(Symbol) { }
-    virtual void Compile() { }
+    virtual void Compile();
 
     string Symbol;
 };

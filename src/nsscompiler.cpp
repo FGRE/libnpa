@@ -204,8 +204,14 @@ void Condition::_Compile(Argument& EndSym)
 
 void If::Compile()
 {
+    Argument ElseSym("label.if." + to_string(SymCounter++), ARG_STRING);
     Argument EndSym("label.if.end." + to_string(SymCounter++), ARG_STRING);
-    Condition::_Compile(EndSym);
+    Condition::_Compile(ElseSym);
+    Node::Compile(MAGIC_JUMP, 1);
+    EndSym.CompileRaw();
+    WriteSymbol(ElseSym.Data);
+    if (ElseBlock) ElseBlock->Compile();
+    if (ElseIf) ElseIf->Compile();
     WriteSymbol(EndSym.Data);
 }
 
@@ -219,11 +225,6 @@ void While::Compile()
     Node::Compile(MAGIC_JUMP, 1);
     BeginSym.CompileRaw();
     WriteSymbol(EndSym.Data);
-}
-
-void Else::Compile()
-{
-    ElseBlock->Compile();
 }
 
 // ugly hack
@@ -266,6 +267,11 @@ void Case::Compile()
     Node::Compile(MAGIC_JUMP, 1);
     SelEndSym.CompileRaw();
     WriteSymbol(EndSym.Data);
+}
+
+void Label::Compile()
+{
+    // TODO
 }
 
 namespace Nss

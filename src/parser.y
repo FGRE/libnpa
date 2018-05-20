@@ -161,8 +161,8 @@ expr : arg { $<arg>$ = $1; }
      ;
 
 cond : TIF TLPAREN expr TRPAREN block { $$ = new If($5, $3); }
-     | TELSE TIF TLPAREN expr TRPAREN block { $$ = new If($6, $4); }
-     | TELSE block { $$ = new Else($2); }
+     | TIF TLPAREN expr TRPAREN block TELSE cond { $$ = new If($5, $3, $7); }
+     | TIF TLPAREN expr TRPAREN block TELSE block { $$ = new If($5, $3, $7); }
      | TSELECT block { $$ = new Select($2); }
      | TCASE TIDENTIFIER TCOLON block { $$ = new Case(*$2, $4); delete $2; }
      | TWHILE TLPAREN expr TRPAREN block { $$ = new While($5, $3); }
