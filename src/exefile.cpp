@@ -12,7 +12,10 @@ CharWidth(CharWidth)
 {
     ifstream File(Name, ios::binary);
     if (!File)
+    {
+        cerr << "Could not open " << Name << endl;
         return;
+    }
 
     // Signature
     File.seekg(0x3C);
@@ -22,7 +25,10 @@ CharWidth(CharWidth)
     char Sig[4];
     File.read(Sig, 4);
     if (memcmp(Sig, PeSig, 4) != 0)
+    {
+        cerr << "Invalid PE signature" << endl;
         return;
+    }
 
     // File header
     uint16_t NumSections;
@@ -69,7 +75,7 @@ template <> string ExeFile::Read(uint32_t Address)
         return Ret;
 
     File.seekg(PhysicalAddress);
-    uint16_t Char;
+    uint16_t Char = 0;
     do
     {
         File.read((char*)&Char, CharWidth);
