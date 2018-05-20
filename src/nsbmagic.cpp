@@ -203,7 +203,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK188, "UNK188")
     (MAGIC_ROTATE, "Rotate")
     (MAGIC_SET_TONE, "SetTone")
-    (MAGIC_UNK191, "UNK191")
+    (MAGIC_SET_PRIO, "SetPrio")
     (MAGIC_UNK192, "UNK192")
     (MAGIC_UNK193, "UNK193")
     (MAGIC_UNK194, "UNK194");
