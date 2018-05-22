@@ -4,7 +4,7 @@
 namespace Npa
 {
 
-Buffer::Buffer() : pData(nullptr), Size(0), Iter(0)
+Buffer::Buffer() : pData(nullptr), Size(0), Capacity(0), Iter(0)
 {
 }
 
@@ -31,7 +31,13 @@ void Buffer::WriteStr32(const string& String)
 
 void Buffer::Write(const void* pData, uint32_t Size)
 {
-    char* pNew = new char[this->Size + Size];
+    if (!Capacity)
+        Capacity = 1;
+
+    while (Capacity < this->Size + Size)
+        Capacity <<= 1;
+
+    char* pNew = new char[Capacity];
     memcpy(pNew, this->pData, this->Size);
     delete[] this->pData;
     this->pData = pNew;

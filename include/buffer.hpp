@@ -42,7 +42,7 @@ public:
     uint32_t GetIter();
     bool EndOfBuffer();
 private:
-    uint32_t Size, Iter;
+    uint32_t Size, Capacity, Iter;
     char* pData;
 };
 
