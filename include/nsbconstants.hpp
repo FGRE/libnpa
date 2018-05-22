@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdint>
 #include <map>
+#include <boost/bimap.hpp>
 using namespace std;
 
 namespace Nsb
@@ -75,7 +76,7 @@ namespace Nsb
 
     enum Null
     {
-        NSB_NULL = -1
+        NSB_NULL = 0
     };
 
     enum Boolean
@@ -175,13 +176,13 @@ namespace Nsb
     template <class T>
     struct ConstantHolder
     {
-        static map<string, int32_t> Constants;
+        static boost::bimap<string, int32_t> Constants;
     };
 
     template <class T>
     bool IsValidConstant(const string& String)
     {
-        return ConstantHolder<T>::Constants.find(String) != ConstantHolder<T>::Constants.end();
+        return ConstantHolder<T>::Constants.left.find(String) != ConstantHolder<T>::Constants.left.end();
     }
 
 	// non template version
@@ -190,10 +191,19 @@ namespace Nsb
     template <class T>
     int32_t ConstantToValue(const string& String)
     {
-        auto iter = ConstantHolder<T>::Constants.find(String);
-        if (iter != ConstantHolder<T>::Constants.end())
+        auto iter = ConstantHolder<T>::Constants.left.find(String);
+        if (iter != ConstantHolder<T>::Constants.left.end())
             return iter->second;
-        return NSB_NULL;
+        return -1;
+    }
+
+    template <class T>
+    string ValueToConstant(int32_t Value)
+    {
+        auto iter = ConstantHolder<T>::Constants.right.find(Value);
+        if (iter != ConstantHolder<T>::Constants.right.end())
+            return iter->second;
+        return "";
     }
 }
 
