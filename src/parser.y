@@ -29,7 +29,7 @@
 
 %token <string> TIDENTIFIER TFLOAT TINTEGER TXML TSTRING THEX
 %token <token> TLPAREN TRPAREN TLBRACE TRBRACE TFUNCTION TSEMICOLON TEQUAL TCOMMA TQUOTE TCHAPTER TSCENE TINCLUDE
-%token <token> TADD TSUB TMUL TDIV TIF TWHILE TLESS TGREATER TEQUALEQUAL TNEQUAL TGEQUAL TLEQUAL TAND TOR TNOT
+%token <token> TADD TSUB TMUL TDIV TMOD TIF TWHILE TLESS TGREATER TEQUALEQUAL TNEQUAL TGEQUAL TLEQUAL TAND TOR TNOT
 %token <token> TRETURN TCALLCHAPTER TCALLSCENE TELSE TSELECT TCASE TCOLON TAT TDOLLAR THASH TBREAK TLABRACE TRABRACE
 
 %type <program> start
@@ -45,7 +45,7 @@
 %left TOR
 %left TAND
 %left TADD TSUB
-%left TMUL TDIV
+%left TMUL TDIV TMOD
 %left UNARY
 
 %start start
@@ -145,6 +145,7 @@ call : arg TLPAREN func_exps TRPAREN TSEMICOLON { $$ = new CallStatement($1, *$3
 expr : arg { $<arg>$ = $1; }
      | expr TMUL expr { $$ = new BinaryOperator($1, MAGIC_MUL_EXPRESSION, $3); }
      | expr TDIV expr { $$ = new BinaryOperator($1, MAGIC_DIV_EXPRESSION, $3); }
+     | expr TMOD expr { $$ = new BinaryOperator($1, MAGIC_MOD_EXPRESSION, $3); }
      | expr TADD expr { $$ = new BinaryOperator($1, MAGIC_ADD_EXPRESSION, $3); }
      | expr TSUB expr { $$ = new BinaryOperator($1, MAGIC_SUB_EXPRESSION, $3); }
      | expr TLESS expr { $$ = new BinaryOperator($1, MAGIC_CMP_LESS, $3); }

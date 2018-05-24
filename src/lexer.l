@@ -46,6 +46,7 @@
 "+"                     return TOKEN(TADD);
 "-"                     return TOKEN(TSUB);
 "/"                     return TOKEN(TDIV);
+"%"                     return TOKEN(TMOD);
 "*"                     return TOKEN(TMUL);
 "<"                     return TOKEN(TLESS);
 ">"                     return TOKEN(TGREATER);
