@@ -106,7 +106,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_CURSOR_POSITION, "CursorPosition")
     (MAGIC_MOVE_CURSOR, "MoveCursor")
     (MAGIC_SCROLLBAR_VALUE, "ScrollbarValue")
-    (MAGIC_UNK94, "UNK94")
+    (MAGIC_SET_ACHIEVEMENT, "SetAchievement")
     (MAGIC_CREATE_PROCESS, "CreateProcess")
     (MAGIC_ZOOM, "Zoom")
     (MAGIC_TIME, "Time")
