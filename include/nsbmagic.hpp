@@ -172,7 +172,7 @@ enum /* Magic */ : uint16_t
     MAGIC_UNK150 = SWAP_UINT16(0xAB00), // some kind of binary operation?
     MAGIC_CREATE_CLIP_TEXTURE = SWAP_UINT16(0x0E00), // SG
     MAGIC_CREATE_STENCIL = SWAP_UINT16(0x0600), // FMDM, SG
-    MAGIC_UNK153 = SWAP_UINT16(0x0F00), // void CreateMask(Handle, Priority, X, Y, Filename, Inheritance)
+    MAGIC_CREATE_MASK = SWAP_UINT16(0x0F00), // CH, SG
     MAGIC_UNK154 = SWAP_UINT16(0x3100), // void SetBlur(Handle, unk, unk, unk, unk, unk)
     MAGIC_CREATE_SOUND = SWAP_UINT16(0x1100), // CH
     MAGIC_SET_LOOP_POINT = SWAP_UINT16(0x4700), // CH

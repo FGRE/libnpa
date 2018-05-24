@@ -165,7 +165,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_UNK150, "UNK150")
     (MAGIC_CREATE_CLIP_TEXTURE, "CreateClipTexture")
     (MAGIC_CREATE_STENCIL, "CreateStencil")
-    (MAGIC_UNK153, "UNK153")
+    (MAGIC_CREATE_MASK, "CreateMask")
     (MAGIC_UNK154, "UNK154")
     (MAGIC_CREATE_SOUND, "CreateSound")
     (MAGIC_SET_LOOP_POINT, "SetLoopPoint")
