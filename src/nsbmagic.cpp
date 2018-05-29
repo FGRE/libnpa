@@ -20,7 +20,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_MODULE_FILE_NAME, "ModuleFileName")
     (MAGIC_CLEAR_PARAMS, "ClearParams")
     (MAGIC_RESET, "Reset")
-    (MAGIC_LOGICAL_NOT_EQUAL, "LogicalNotEqual")
+    (MAGIC_CMP_NE, "CmpNE")
     (MAGIC_ADD_EXPRESSION, "AddExpression")
     (MAGIC_ASSIGN, "Assign")
     (MAGIC_VARIABLE, "Variable")
@@ -57,11 +57,11 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_IMAGE_HORIZON, "ImageHorizon")
     (MAGIC_DIV_EXPRESSION, "DivExpression")
     (MAGIC_MUL_EXPRESSION, "MulExpression")
-    (MAGIC_LOGICAL_NOT, "LogicalNot")
+    (MAGIC_NOT_EXPRESSION, "NotExpression")
     (MAGIC_WHILE, "While")
     (MAGIC_REMAIN_TIME, "RemainTime")
     (MAGIC_BREAK, "Break")
-    (MAGIC_LOGICAL_LESS_EQUAL, "LogicalLessEqual")
+    (MAGIC_CMP_LE, "CmpLE")
     (MAGIC_CREATE_EFFECT, "CreateEffect")
     (MAGIC_CREATE_SURFACE, "CreateSurface")
     (MAGIC_SET_SURFACE, "SetSurface")
@@ -69,7 +69,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_INCREMENT, "Increment")
     (MAGIC_CMP_GREATER, "CmpGreater")
     (MAGIC_DRAW_TRANSITION, "DrawTransition")
-    (MAGIC_LOGICAL_GREATER_EQUAL, "LogicalGreaterEqual")
+    (MAGIC_CMP_GE, "CmpGE")
     (MAGIC_SUB_EXPRESSION, "SubExpression")
     (MAGIC_UNK59, "UNK59")
     (MAGIC_UNK60, "UNK60")
@@ -174,7 +174,7 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_SET_LOOP, "SetLoop")
     (MAGIC_UNK160, "UNK160")
     (MAGIC_CONQUEST, "Conquest")
-    (MAGIC_STR_STR, "StrStr")
+    (MAGIC_STR_STR, "Strstr")
     (MAGIC_SET_TEXTBOX_ATTRIBUTES, "SetTextboxAttributes")
     (MAGIC_LOAD_TEXT, "LoadText")
     (MAGIC_WAIT_TEXT, "WaitText")
@@ -206,7 +206,9 @@ static const LookupTable MagicStrings = boost::assign::list_of<LookupTable::valu
     (MAGIC_SET_PRIO, "SetPrio")
     (MAGIC_UNK192, "UNK192")
     (MAGIC_UNK193, "UNK193")
-    (MAGIC_UNK194, "UNK194");
+    (MAGIC_UNK194, "UNK194")
+    (MAGIC_MOD_ASSIGN, "ModAssign");
+
 
 namespace Nsb
 {
