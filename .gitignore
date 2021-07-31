@@ -16,3 +16,7 @@ include/npaversion.hpp
 *.dylib
 *.lib
 *.so
+
+src/parser.cpp
+src/parser.hpp
+src/lexer.cpp
