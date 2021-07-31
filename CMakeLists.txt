@@ -62,6 +62,7 @@ bison_target(parser ${CMAKE_SOURCE_DIR}/src/parser.y ${CMAKE_SOURCE_DIR}/src/par
 add_flex_bison_dependency(lexer parser)
 
 add_library(npa SHARED
+    src/impkfile.cpp
     src/inpafile.cpp
     src/npafile.cpp
     src/nsbmagic.cpp
